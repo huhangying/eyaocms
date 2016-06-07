@@ -1,27 +1,57 @@
-<div class="widgets">
+<div ba-panel ba-panel-title="医院科室功能描述" ba-panel-class="with-scroll">
 
-    <div class="row">
-        <div class="col-md-12">
-            <div ba-panel ba-panel-title="Editable Rows" ba-panel-class="with-scroll">
-                <div include-with-scope="app/pages/tables/widgets/editableRowTable.html"></div>
-            </div>
-        </div>
+    <div class="add-row-editable-table">
+        <button class="btn btn-primary" ng-click="addDepartment()">增加</button>
     </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div ba-panel ba-panel-title="Editable Cells" ba-panel-class="with-scroll">
-                <div include-with-scope="app/pages/tables/widgets/editableTable.html"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div ba-panel ba-panel-title="Smart Table With Filtering, Sorting And Pagination" ba-panel-class="with-scroll">
-                <div include-with-scope="app/pages/tables/widgets/smartTable.html"></div>
-            </div>
-        </div>
-    </div>
-
+    <table class="table table-bordered table-hover table-condensed">
+        <tr>
+            <td>#</td>
+            <td>名字</td>
+            <td>描述</td>
+            <td>顺序</td>
+            <td>开关</td>
+            <td>操作</td>
+        </tr>
+        <tr ng-repeat="item in departments" class="editable-row">
+            <td>
+                {{$index}}
+            </td>
+            <td>
+        <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
+          {{ item.name || '' }}
+        </span>
+            </td>
+            <td class="select-td">
+        <span editable-text="item.desc" e-name="desc" e-form="rowform" e-required>
+          {{ item.desc || '' }}
+        </span>
+            </td>
+            <td class="select-td">
+        <span editable-text="item.desc" e-name="desc" e-form="rowform" e-required>
+          {{ item.desc || '' }}
+        </span>
+            </td>
+            <td class="select-td">
+        <span editable-text="item.desc" e-name="desc" e-form="rowform" e-required>
+          {{ item.desc || '' }}
+        </span>
+                </span>
+            </td>
+            <td>
+                <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline"
+                      shown="inserted == item">
+                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary editable-table-button btn-xs">
+                        保存
+                    </button>
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default editable-table-button btn-xs">
+                        取消
+                    </button>
+                </form>
+                <div class="buttons" ng-show="!rowform.$visible">
+                    <button class="btn btn-primary editable-table-button btn-xs" ng-click="rowform.$show()">编辑</button>
+                    <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeDepartment($index)">删除</button>
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
