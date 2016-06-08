@@ -20,6 +20,7 @@
   ])
       .config(routeConfig);
 
+
   /** @ngInject */
   function routeConfig($urlRouterProvider, baSidebarServiceProvider) {
     $urlRouterProvider.otherwise('/dashboard');
@@ -44,20 +45,7 @@
         blank: true
       }]
     });
-    // baSidebarServiceProvider.addStaticItem({
-    //   title: 'Menu Level 1',
-    //   icon: 'ion-ios-more',
-    //   subMenu: [{
-    //     title: 'Menu Level 1.1',
-    //     disabled: true
-    //   }, {
-    //     title: 'Menu Level 1.2',
-    //     subMenu: [{
-    //       title: 'Menu Level 1.2.1',
-    //       disabled: true
-    //     }]
-    //   }]
-    // });
+
   }
 
 })();

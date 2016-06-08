@@ -52,9 +52,8 @@
     "angular-bootstrap": "~0.14.3",
     "angular-animate": "~1.4.8",
     "textAngular": "~1.4.6",
-    "angular-xeditable": "~0.1.9",
-    "ng-js-tree": "~0.0.7",
-    "request": "^2.72.1"
+    "angular-xeditable": "^0.1.12",
+    "ng-js-tree": "~0.0.7"
   },
   "overrides": {
     "amcharts": {

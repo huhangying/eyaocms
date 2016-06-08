@@ -4,41 +4,42 @@
         <button class="btn btn-primary" ng-click="addDepartment()">增加</button>
     </div>
     <table class="table table-bordered table-hover table-condensed">
-        <tr>
-            <td>#</td>
-            <td>名字</td>
-            <td>描述</td>
-            <td>顺序</td>
-            <td>开关</td>
-            <td>操作</td>
+        <tr style="font-weight: bold">
+            <td style="width:30%">名字</td>
+            <td style="width:30%">描述</td>
+            <td style="width:10%">顺序</td>
+            <td style="width:5%">开关</td>
+            <td style="width:25%">操作</td>
         </tr>
         <tr ng-repeat="item in departments" class="editable-row">
-            <td>
-                {{$index}}
+            <td style="display:none;">
+                <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
+                    {{item._id}}
+                </span>
             </td>
             <td>
         <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
-          {{ item.name || '' }}
+          {{ item.name || 'empty' }}
         </span>
             </td>
             <td class="select-td">
-        <span editable-text="item.desc" e-name="desc" e-form="rowform" e-required>
-          {{ item.desc || '' }}
+        <span editable-text="item.desc" e-name="desc" e-form="rowform">
+          {{ item.desc || 'empty' }}
+        </span>
+            </td>
+            <td class="select-td" >
+        <span editable-number="item.order" e-name="order" e-form="rowform" >
+          {{ item.order || '' }}
         </span>
             </td>
             <td class="select-td">
-        <span editable-text="item.desc" e-name="desc" e-form="rowform" e-required>
-          {{ item.desc || '' }}
-        </span>
-            </td>
-            <td class="select-td">
-        <span editable-text="item.desc" e-name="desc" e-form="rowform" e-required>
-          {{ item.desc || '' }}
+        <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
+          {{ item.apply || true }}
         </span>
                 </span>
             </td>
             <td>
-                <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline"
+                <form editable-form name="rowform" onaftersave="saveDepartment($data, item._id)" ng-show="rowform.$visible" class="form-buttons form-inline"
                       shown="inserted == item">
                     <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary editable-table-button btn-xs">
                         保存
@@ -49,7 +50,7 @@
                 </form>
                 <div class="buttons" ng-show="!rowform.$visible">
                     <button class="btn btn-primary editable-table-button btn-xs" ng-click="rowform.$show()">编辑</button>
-                    <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeDepartment($index)">删除</button>
+                    <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeDepartment(item._id, $index)">删除</button>
                 </div>
             </td>
         </tr>
