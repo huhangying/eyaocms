@@ -1,7 +1,7 @@
 <div ba-panel ba-panel-title="医院科室功能描述" ba-panel-class="with-scroll">
 
     <div class="add-row-editable-table">
-        <button class="btn btn-primary" ng-click="addDepartment()">增加</button>
+        <button class="btn btn-primary" ng-click="addDepartment()">创建</button>
     </div>
     <table class="table table-bordered table-hover table-condensed">
         <tr style="font-weight: bold">
@@ -19,12 +19,12 @@
             </td>
             <td>
         <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
-          {{ item.name || 'empty' }}
+          {{ item.name || '空' }}
         </span>
             </td>
             <td class="select-td">
         <span editable-text="item.desc" e-name="desc" e-form="rowform">
-          {{ item.desc || 'empty' }}
+          {{ item.desc || '空' }}
         </span>
             </td>
             <td class="select-td" >
@@ -34,7 +34,7 @@
             </td>
             <td class="select-td">
         <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
-          {{ item.apply || true }}
+          {{ item.apply || false }}
         </span>
                 </span>
             </td>

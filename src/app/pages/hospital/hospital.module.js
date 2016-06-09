@@ -6,7 +6,7 @@
 
     angular.module('BlurAdmin.pages.hospital', [
         'BlurAdmin.pages.hospital.department',
-        //'BlurAdmin.pages.hospital.disease',
+        'BlurAdmin.pages.hospital.disease',
         // 'BlurAdmin.pages.hospital.symptom',
     ])
         .config(routeConfig);

@@ -7,7 +7,7 @@
     .controller('departmentCtrl', departmentCtrl);
 
   /** @ngInject */
-  function departmentCtrl($scope, $filter, $http, util) {
+  function departmentCtrl($scope, $filter, $http, util, toastr) {
 
 
     $scope.departments = [];
@@ -19,11 +19,6 @@
     $scope.getDepartments = function() {
       $http.get(util.baseApiUrl + 'departments', {})
           .success(function (response) {
-            //console.log(JSON.stringify(response.data))
-            if (!response) {
-              alert(error.message);
-              return;
-            }
               // check if return null
               if (response.return && response.return == 'null'){
                   $scope.departments = [];
@@ -32,6 +27,9 @@
                   $scope.departments = response;
               }
 
+          })
+          .error(function(error){
+              toastr.error(error.messageFormatted);
           });
     }
 
@@ -60,13 +58,13 @@
             .success(function(response) {
                 var diseases = util.getResponse(response);
                 if (diseases && diseases.length > 0) {
-
-                    alert('connected. could not be deleted!')
+                    toastr.error('不能被删除,请先删除与之关联的疾病类型。');
                 }
                 else {
                     $http.delete(util.baseApiUrl + 'department/' + id)
                         .success(function (response) {
                             $scope.departments.splice(index, 1);
+                            toastr.success('成功删除');
                         })
 
                 }
@@ -75,7 +73,8 @@
     }
       
       $scope.validate = function(item) {
-          if (_.isEmpty(item.name)){
+          if (!item || !item.name){
+              toastr.error('名字不能为空!');
               return false;
           }
           return true;
@@ -83,7 +82,6 @@
     
     $scope.saveDepartment = function(data, id) {
 
-        //todo:
         //validate
         if (!$scope.validate(data)){
             return;
@@ -94,8 +92,12 @@
                 .success(function (response) {
                     $scope.inserted = response;
 
-                    // remove
                     $scope.departments.push($scope.inserted);
+                    toastr.success('成功创建');
+
+                    // remove
+                    //$scope.inserted = null;
+
                 });
         }
         else{ // update
@@ -104,13 +106,15 @@
                 .success(function (response) {
                     //console.log(JSON.stringify(response))
                     if (!response) {
-                        alert(error.message);
-
+                        toastr.error(error.messageFormatted);
+                    }
+                    else{
+                        toastr.success('成功更新');
                     }
                 });
         }
 
-        $scope.inserted = null;
+        //
 
     }
 

@@ -12,6 +12,7 @@ global.app = angular.module('BlurAdmin', [
   'ui.slimscroll',
   'ngJsTree',
   'angular-progress-button-styles',
+    // 'lodash',
 
   'BlurAdmin.theme',
   'BlurAdmin.pages',

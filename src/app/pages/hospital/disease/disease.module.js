@@ -14,6 +14,7 @@
           url: '/disease',
           templateUrl: 'app/pages/hospital/disease/disease.html',
           title: '疾病类型',
+          controller: 'diseaseCtrl',
           sidebarMeta: {
             order: 300,
           },
