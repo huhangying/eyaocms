@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  angular.module('BlurAdmin.pages.profile')
+  angular.module('BlurAdmin.cms.profile')
     .controller('ProfilePageCtrl', ProfilePageCtrl);
 
   /** @ngInject */
@@ -70,7 +70,7 @@
       $uibModal.open({
         animation: false,
         controller: 'ProfileModalCtrl',
-        templateUrl: 'app/pages/profile/profileModal.html'
+        templateUrl: 'app/cms/profile/profileModal.html'
       }).result.then(function (link) {
           item.href = link;
         });

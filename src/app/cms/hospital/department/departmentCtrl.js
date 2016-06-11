@@ -3,7 +3,7 @@
 (function () {
   'use strict';
 
-  angular.module('BlurAdmin.pages.hospital.department')
+  angular.module('BlurAdmin.cms.hospital.department')
     .controller('departmentCtrl', departmentCtrl);
 
   /** @ngInject */

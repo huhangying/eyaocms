@@ -8,14 +8,18 @@
     angular.module('BlurAdmin.cms', [
             'ui.router',
 
-            'BlurAdmin.cms.user',
+         //   'BlurAdmin.cms.user',
+        'BlurAdmin.cms.profile',
+        'BlurAdmin.cms.doctor',
+        'BlurAdmin.cms.crm',
+        'BlurAdmin.cms.hospital',
 
         ])
         .config(routeConfig);
 
     /** @ngInject */
     function routeConfig($urlRouterProvider, baSidebarServiceProvider) {
-        $urlRouterProvider.otherwise('/dashboard');
+        $urlRouterProvider.otherwise('/profile');
 
         baSidebarServiceProvider.addStaticItem({
             title: 'Pages',

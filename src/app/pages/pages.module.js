@@ -15,37 +15,11 @@
     'BlurAdmin.pages.tables',
     'BlurAdmin.pages.charts',
     // 'BlurAdmin.pages.maps',
-    'BlurAdmin.pages.profile',
-    'BlurAdmin.pages.hospital',
+    //'BlurAdmin.pages.profile',
+
   ])
       .config(routeConfig);
 
 
-  /** @ngInject */
-  function routeConfig($urlRouterProvider, baSidebarServiceProvider) {
-    $urlRouterProvider.otherwise('/dashboard');
-
-    baSidebarServiceProvider.addStaticItem({
-      title: 'Pages',
-      icon: 'ion-document',
-      subMenu: [{
-        title: 'Sign In',
-        fixedHref: 'auth.html',
-        blank: true
-      }, {
-        title: 'Sign Up',
-        fixedHref: 'reg.html',
-        blank: true
-      }, {
-        title: 'User Profile',
-        stateRef: 'profile'
-      }, {
-        title: '404 Page',
-        fixedHref: '404.html',
-        blank: true
-      }]
-    });
-
-  }
 
 })();

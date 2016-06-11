@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  angular.module('BlurAdmin.pages.hospital.disease')
+  angular.module('BlurAdmin.cms.hospital.disease')
     .controller('diseaseCtrl', diseaseCtrl);
 
   /** @ngInject */
@@ -26,7 +26,7 @@
           });
     }
     $scope.loadDepartments();
-    
+
 
     $scope.diseases = [];
     $scope.getDiseases = function() {
@@ -52,9 +52,9 @@
     $scope.showDepartment = function(item) {
       if(item.department && $scope.departments.length) {
         var selected = $filter('filter')($scope.departments, {_id: item.department});
-        return selected.length ? selected[0].name : 'Not set';
+        return selected.length ? selected[0].name : '未设置';
       } else {
-        return 'Not set';
+        return '未设置';
       }
     };
 
@@ -99,6 +99,10 @@
     $scope.validate = function(item) {
       if (!item || !item.name){
         toastr.error('名字不能为空!');
+        return false;
+      }
+      if (!item.department){
+        toastr.error('医院科室不能为空!');
         return false;
       }
       return true;

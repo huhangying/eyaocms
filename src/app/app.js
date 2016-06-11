@@ -16,5 +16,8 @@ global.app = angular.module('BlurAdmin', [
 
   'BlurAdmin.theme',
   'BlurAdmin.pages',
-  //'BlurAdmin.cms',
-]);
+  'BlurAdmin.cms',
+, function(){
+    //alert('ddd')
+  }]);
+

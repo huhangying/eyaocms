@@ -4,10 +4,10 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.hospital', [
-        'BlurAdmin.pages.hospital.department',
-        'BlurAdmin.pages.hospital.disease',
-        // 'BlurAdmin.pages.hospital.symptom',
+    angular.module('BlurAdmin.cms.hospital', [
+        'BlurAdmin.cms.hospital.department',
+        'BlurAdmin.cms.hospital.disease',
+        'BlurAdmin.cms.hospital.symptom',
     ])
         .config(routeConfig);
 
@@ -21,7 +21,7 @@
                 title: '医院配置信息',
                 sidebarMeta: {
                     icon: 'ion-gear-a',
-                    order: 10,
+                    order: 300,
                 },
             });
     }

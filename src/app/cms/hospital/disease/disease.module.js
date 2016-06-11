@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  angular.module('BlurAdmin.pages.hospital.disease', [])
+  angular.module('BlurAdmin.cms.hospital.disease', [])
     .config(routeConfig)
     .config(function(){
     });
@@ -12,7 +12,7 @@
     $stateProvider
         .state('hospital.disease', {
           url: '/disease',
-          templateUrl: 'app/pages/hospital/disease/disease.html',
+          templateUrl: 'app/cms/hospital/disease/disease.html',
           title: '疾病类型',
           controller: 'diseaseCtrl',
           sidebarMeta: {
