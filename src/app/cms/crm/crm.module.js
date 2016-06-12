@@ -20,7 +20,7 @@
                 abstract: true,
                 title: '用户关系管理',
                 sidebarMeta: {
-                    icon: 'ion-gear-a',
+                    icon: 'ion-ios-people',
                     order: 200,
                 },
             });

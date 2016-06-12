@@ -14,10 +14,13 @@ global.app = angular.module('BlurAdmin', [
   'angular-progress-button-styles',
     // 'lodash',
 
+    // 'BlurAdmin.login',
   'BlurAdmin.theme',
   'BlurAdmin.pages',
   'BlurAdmin.cms',
-, function(){
-    //alert('ddd')
-  }]);
+  ]);
+
+// app.control('mainCtrl', ['$scope', '$window', 'lodash', function($scope, $window, _){
+//     toastr.info(JSON.stringify($window.sessionStorage.user));
+// }]);
 

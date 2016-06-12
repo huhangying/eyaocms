@@ -18,7 +18,7 @@
     //'BlurAdmin.pages.profile',
 
   ])
-      .config(routeConfig);
+      //.config(routeConfig);
 
 
 

@@ -16,7 +16,7 @@
                 controller: 'DoctorCtrl',
                 title: '医生资料',
                 sidebarMeta: {
-                    icon: 'ion-gear-a',
+                    icon: 'ion-ios-person',
                     order: 50,
                 },
             });

@@ -21,26 +21,26 @@
     function routeConfig($urlRouterProvider, baSidebarServiceProvider) {
         $urlRouterProvider.otherwise('/profile');
 
-        baSidebarServiceProvider.addStaticItem({
-            title: 'Pages',
-            icon: 'ion-document',
-            subMenu: [{
-                title: '登陆',
-                fixedHref: 'auth.html',
-                blank: true
-            }, {
-                title: '注册',
-                fixedHref: 'reg.html',
-                blank: true
-            }, {
-                title: '用户 Profile',
-                stateRef: 'profile'
-            }, {
-                title: '404 页面',
-                fixedHref: '404.html',
-                blank: true
-            }]
-        });
+        // baSidebarServiceProvider.addStaticItem({
+        //     title: 'Pages',
+        //     icon: 'ion-document',
+        //     subMenu: [{
+        //         title: '登陆',
+        //         fixedHref: 'auth.html',
+        //         blank: true
+        //     }, {
+        //         title: '注册',
+        //         fixedHref: 'reg.html',
+        //         blank: true
+        //     }, {
+        //         title: '用户 Profile',
+        //         stateRef: 'profile'
+        //     }, {
+        //         title: '404 页面',
+        //         fixedHref: '404.html',
+        //         blank: true
+        //     }]
+        // });
 
     }
 

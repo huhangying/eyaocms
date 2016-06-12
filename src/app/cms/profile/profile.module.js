@@ -13,7 +13,7 @@
                 controller: 'ProfilePageCtrl',
                 title: '个人资料',
                 sidebarMeta: {
-                    icon: 'ion-gear-a',
+                    icon: 'ion-ios-paper',
                     order: 0,
                 },
             });
