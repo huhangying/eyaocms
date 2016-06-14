@@ -9,7 +9,43 @@
     .controller('ProfilePageCtrl', ProfilePageCtrl);
 
   /** @ngInject */
-  function ProfilePageCtrl($scope, fileReader, $filter, $uibModal) {
+  function ProfilePageCtrl($scope, fileReader, $http, $window, $filter, $uibModal, toastr, util) {
+
+    $scope.login = $window.sessionStorage.user;
+    // $scope.login = JSON.parse($window.sessionStorage.user);
+    toastr.info(JSON.stringify($scope.login));
+
+    $scope.departments = [];
+    $scope.loadDepartments = function() {
+      $http.get(util.baseApiUrl + 'departments', {})
+          .success(function (response) {
+            // check if return null
+            if (response.return && response.return == 'null'){
+              $scope.departments = [];
+            }
+            else {
+              $scope.departments = response;
+            }
+
+          })
+          .error(function(error){
+            toastr.error(error.messageFormatted);
+          });
+    }
+    $scope.loadDepartments();
+    
+    // get user info
+    $http.get(util.baseApiUrl + 'doctor/' + $scope.login._id)
+        .success(function(response){
+          $scope.user = JSON.parse(response);
+
+
+        })
+        .error(function(err){
+          toastr.error(err.messageFormatted);
+          return;
+        });
+
     $scope.picture = $filter('profilePicture')('Nasta');
 
     $scope.removePicture = function () {

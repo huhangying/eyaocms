@@ -1,4 +1,4 @@
-<div ba-panel ba-panel-title="疾病类型功能描述" ba-panel-class="with-scroll">
+<div ba-panel  ba-panel-class="with-scroll">
 
     <div class="row add-row-editable-table">
         <div class="col-sm-3 text-right"><span>选择医院科室:</span></div>
@@ -15,22 +15,23 @@
         </div>
 
     </div>
-    <table class="table table-bordered table-hover table-condensed">
+    <table class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
         <tr style="font-weight: bold">
-            <td style="width:20%">医院科室</td>
-            <td style="width:20%">名称</td>
-            <td style="width:25%">描述</td>
-            <td style="width:10%">顺序</td>
-            <td style="width:5%">开关</td>
+            <td style="width:15%">医院科室</td>
+            <td style="width:15%">名称</td>
+            <td style="width:15%">User ID</td>
+            <td style="width:15%">用户权限</td>
+            <td style="width:15%">职称</td>
+            <td style="width:5%">性别</td>
             <td style="width:20%">操作</td>
         </tr>
-        <tr ng-repeat="item in diseases | filter: search" class="editable-row">
+        <tr ng-repeat="item in doctors | filter: search" class="editable-row">
             <td style="display:none;">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
                 </span>
             </td>
-            <td>
+            <td class="select-td">
                 <span editable-select="item.department" e-name="department" e-form="rowform" e-required
                       e-ng-options="d._id as d.name for d in departments">
                   {{ showDepartment(item)}}
@@ -42,18 +43,24 @@
                 </span>
             </td>
             <td class="select-td">
-        <span editable-text="item.desc" e-name="desc" e-form="rowform">
-          {{ item.desc || '空' }}
-        </span>
+                <span editable-text="item.user_id" e-name="user_id" e-form="rowform">
+                  {{ item.user_id || '空' }}
+                </span>
             </td>
-            <td class="select-td" >
-        <span editable-number="item.order" e-name="order" e-form="rowform" >
-          {{ item.order || '' }}
-        </span>
+            <td>
+                <span editable-select="item.role" e-name="role" e-form="rowform" e-required
+                      e-ng-options="r.value as r.name for r in roles">
+                  {{ showRole(item)}}
+                </span>
+            </td>
+            <td>
+                <span editable-text="item.title" e-name="title" e-form="rowform" e-required>
+                  {{ item.title || '空' }}
+                </span>
             </td>
             <td class="select-td">
-                <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
-                  {{ item.apply || false }}
+                <span editable-text="item.gender" e-name="gender" e-form="rowform" e-required>
+                  {{ item.gender || '空' }}
                 </span>
             </td>
             <td>
@@ -69,6 +76,9 @@
                 <div class="buttons" ng-show="!rowform.$visible">
                     <button class="btn btn-primary editable-table-button btn-xs" ng-click="rowform.$show()">编辑</button>
                     <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeDisease(item._id, $index)">删除</button>
+                    <button class="btn btn-primary  btn-xs" data-toggle="modal" ng-click="open('app/cms/doctor/template/doctorEdit.html?id=1', 'lg', item   )">
+                        其他资料
+                    </button>
                 </div>
             </td>
         </tr>
