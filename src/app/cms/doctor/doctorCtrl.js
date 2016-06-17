@@ -138,7 +138,7 @@
             return true;
         }
 
-        $scope.saveDoctor = function(data, id) {
+        $scope.saveDoctor = function(data, index) {
 
             //validate
             if (!$scope.validate(data)){

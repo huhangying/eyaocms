@@ -108,7 +108,7 @@
       return true;
     }
 
-    $scope.saveDisease = function(data, id) {
+    $scope.saveDisease = function(data, id, index) {
 
       //validate
       if (!$scope.validate(data)){

@@ -80,7 +80,7 @@
           return true;
       }
     
-    $scope.saveDepartment = function(data, id) {
+    $scope.saveDepartment = function(data, id, index) {
 
         //validate
         if (!$scope.validate(data)){
@@ -96,7 +96,7 @@
                     toastr.success('成功创建');
 
                     // remove
-                    //$scope.inserted = null;
+                    $scope.departments.splice(index + 1, 1);
 
                 });
         }
