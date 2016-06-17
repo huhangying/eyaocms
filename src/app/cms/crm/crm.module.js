@@ -5,7 +5,7 @@
     'use strict';
 
     angular.module('BlurAdmin.cms.crm', [
-        // 'BlurAdmin.cms.crm.user',
+        'BlurAdmin.cms.crm.user',
         // 'BlurAdmin.cms.crm.group',
         // 'BlurAdmin.cms.crm.relationship',
     ])

@@ -4,37 +4,33 @@
         <div class="col-sm-3 text-right"><span>选择医院科室:</span></div>
         <div class="col-sm-3">
             <span>
-                <select class="form-control" ng-model="search.department"
-                        ng-options="department._id as department.name for department in departments">
-                    <!--<option ng-repeat="department in departments" value="{{department._id}}">{{department.name}}</option>-->
-                </select>
+                <input ng-model="search.name" placeholder="Search name" class="input-sm form-control search-input" type="search"/>
             </span>
         </div>
         <div class="col-sm-6">
-            <button class="btn btn-primary pull-right" ng-click="addDoctor()">创建</button>
+            <button class="btn btn-primary pull-right" ng-click="addUser()">创建</button>
         </div>
 
     </div>
     <table class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
         <tr style="font-weight: bold">
-            <td style="width:15%">医院科室</td>
-            <td style="width:15%">名称</td>
-            <td style="width:15%">User ID</td>
-            <td style="width:15%">用户权限</td>
-            <td style="width:15%">职称</td>
+            <td style="width:15%">关联ID</td>
+            <td style="width:15%">姓名</td>
+            <td style="width:15%">手机</td>
+            <td style="width:15%">创建时间</td>
+            <td style="width:15%">更新时间</td>
             <td style="width:5%">有效</td>
             <td style="width:20%">操作</td>
         </tr>
-        <tr ng-repeat="item in doctors | filter: search" class="editable-row">
+        <tr ng-repeat="item in users | filter: search" class="editable-row">
             <td style="display:none;">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
                 </span>
             </td>
             <td class="select-td">
-                <span editable-select="item.department" e-name="department" e-form="rowform" e-required
-                      e-ng-options="d._id as d.name for d in departments">
-                  {{ showDepartment(item)}}
+                <span editable-text="item.link_id" e-name="link_id" e-form="rowform" e-required>
+                {{ item.link_id || '空' }}
                 </span>
             </td>
             <td>
@@ -43,19 +39,18 @@
                 </span>
             </td>
             <td class="select-td">
-                <span editable-text="item.user_id" e-name="user_id" e-form="rowform">
-                  {{ item.user_id || '空' }}
+                <span editable-text="item.cell" e-name="cell" e-form="rowform" e-required>
+                  {{ item.cell || '空' }}
                 </span>
             </td>
             <td>
-                <span editable-select="item.role" e-name="role" e-form="rowform" e-required
-                      e-ng-options="r.value as r.name for r in roles">
-                  {{ showRole(item)}}
+                <span editable-text="item.created" e-name="created" e-form="rowform">
+                  {{ item.created || '空' }}
                 </span>
             </td>
             <td>
-                <span editable-text="item.title" e-name="title" e-form="rowform" e-required>
-                  {{ item.title || '空' }}
+                <span editable-text="item.updated" e-name="updated" e-form="rowform">
+                  {{ item.updated || '空' }}
                 </span>
             </td>
             <td class="select-td">
@@ -64,7 +59,7 @@
                 </span>
             </td>
             <td>
-                <form editable-form name="rowform" onaftersave="saveDoctor($data, item._id)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                <form editable-form name="rowform" onaftersave="saveUser($data, $index)" ng-show="rowform.$visible" class="form-buttons form-inline"
                       shown="inserted == item">
                     <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary editable-table-button btn-xs">
                         保存
@@ -75,8 +70,8 @@
                 </form>
                 <div class="buttons" ng-show="!rowform.$visible">
                     <button class="btn btn-primary editable-table-button btn-xs" ng-click="rowform.$show()">编辑</button>
-                    <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeDoctor(item._id, item.user_id, $index)">删除</button>
-                    <button class="btn btn-primary  btn-xs" data-toggle="modal" ng-click="open('app/cms/doctor/template/doctorEdit.html?id=1', 'lg', item   )">
+                    <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeUser(item._id, item.user_id, $index)">删除</button>
+                    <button class="btn btn-primary  btn-xs" data-toggle="modal" ng-click="open('app/cms/crm/user/userEdit.html?id=1', 'lg', item)">
                         其他资料
                     </button>
                 </div>
