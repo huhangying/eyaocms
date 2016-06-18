@@ -1,0 +1,76 @@
+<div ba-panel  ba-panel-class="with-scroll">
+
+    <div class="row add-row-editable-table">
+        <div class="col-sm-3 text-right"><span>选择医院科室:</span></div>
+        <div class="col-sm-3">
+            <span>
+                <input ng-model="search.name" placeholder="Search name" class="input-sm form-control search-input" type="search"/>
+            </span>
+        </div>
+        <div class="col-sm-6">
+            <button class="btn btn-primary pull-right" ng-click="addUser()">创建</button>
+        </div>
+
+    </div>
+    <table class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
+        <tr style="font-weight: bold">
+            <td style="width:15%">关联ID</td>
+            <td style="width:15%">姓名</td>
+            <td style="width:15%">手机</td>
+            <td style="width:15%">创建时间</td>
+            <td style="width:15%">更新时间</td>
+            <td style="width:5%">有效</td>
+            <td style="width:20%">操作</td>
+        </tr>
+        <tr ng-repeat="item in users | filter: search" class="editable-row">
+            <td style="display:none;">
+                <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
+                    {{item._id}}
+                </span>
+            </td>
+            <td>
+                <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
+                  {{ item.name || '空' }}
+                </span>
+            </td>
+            <td class="select-td">
+                <span editable-text="item.cell" e-name="cell" e-form="rowform" e-required>
+                  {{ item.cell || '空' }}
+                </span>
+            </td>
+            <td>
+                <span editable-text="item.created" e-name="created" e-form="rowform">
+                  {{ item.created || '空' }}
+                </span>
+            </td>
+            <td>
+                <span editable-text="item.updated" e-name="updated" e-form="rowform">
+                  {{ item.updated || '空' }}
+                </span>
+            </td>
+            <td class="select-td">
+                <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
+                  {{ item.apply || false }}
+                </span>
+            </td>
+            <td>
+                <form editable-form name="rowform" onaftersave="saveUser($data, $index)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                      shown="inserted == item">
+                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary editable-table-button btn-xs">
+                        保存
+                    </button>
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default editable-table-button btn-xs">
+                        取消
+                    </button>
+                </form>
+                <div class="buttons" ng-show="!rowform.$visible">
+                    <button class="btn btn-primary editable-table-button btn-xs" ng-click="rowform.$show()">编辑</button>
+                    <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeUser(item._id, item.user_id, $index)">删除</button>
+                    <button class="btn btn-primary  btn-xs" data-toggle="modal" ng-click="open('app/cms/crm/user/userEdit.html?id=1', 'lg', item)">
+                        其他资料
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

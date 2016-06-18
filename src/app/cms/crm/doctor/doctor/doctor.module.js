@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.cms.doctor', [
+    angular.module('BlurAdmin.cms.crm.doctor.doctor', [
         // 'BlurAdmin.cms.doctorEdit'
     ])
         .config(routeConfig);
@@ -12,14 +12,14 @@
     /** @ngInject */
     function routeConfig($stateProvider) {
         $stateProvider
-            .state('doctor', {
+            .state('doctor.doctor', {
                 url: '/doctor',
-                templateUrl: 'app/cms/doctor/doctor.html',
+                templateUrl: 'app/cms/crm/doctor/doctor/doctor.html',
                 controller: 'doctorCtrl',
                 title: '医生资料',
                 sidebarMeta: {
                     icon: 'ion-ios-person',
-                    order: 50,
+                    order: 10,
                 },
             });
     }

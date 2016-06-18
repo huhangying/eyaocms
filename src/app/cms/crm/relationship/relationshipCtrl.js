@@ -1,15 +1,15 @@
 /**
- * Created by harry on 16/6/13.
+ * Created by harry on 16/6/16.
  */
 
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.cms.doctor')
-        .controller('doctorCtrl', doctorCtrl);
+    angular.module('BlurAdmin.cms.crm.relationship')
+        .controller('relationshipCtrl', relationshipCtrl);
 
     /** @ngInject */
-    function doctorCtrl($scope, $rootScope, $filter, $http, util, toastr, $uibModal) {
+    function relationshipCtrl($scope, $rootScope, $filter, $http, util, toastr, $uibModal) {
 
         $scope.departments = [];
         $scope.loadDepartments = function() {
@@ -29,7 +29,7 @@
                 });
         }
         $scope.loadDepartments();
-        
+
         $scope.showDepartment = function(item) {
             if(item.department && $scope.departments.length) {
                 var selected = $filter('filter')($scope.departments, {_id: item.department});
@@ -38,32 +38,20 @@
                 return '未设置';
             }
         };
-        
-        $scope.roles = [
-            {name: "药师", value: 0},
-            {name: "管理员", value: 1},
-            {name: "系统管理员", value: 2}
-        ];
 
-        $scope.showRole = function(item) {
-            if(item.role && $scope.roles.length) {
-                var selected = $filter('filter')($scope.roles, {value: item.role});
-                return selected.length ? selected[0].name : '未设置';
-            } else {
-                return '未设置';
-            }
-        };
 
-        $scope.doctors = [];
-        $scope.getDoctors = function() {
-            $http.get(util.baseApiUrl + 'doctors/100', {})
+
+
+        $scope.users = [];
+        $scope.getUsers = function() {
+            $http.get(util.baseApiUrl + 'users/100', {})
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){
-                        $scope.doctors = [];
+                        $scope.users = [];
                     }
                     else {
-                        $scope.doctors = response;
+                        $scope.users = response;
                     }
 
                 })
@@ -72,47 +60,37 @@
                 });
         }
 
-        $scope.getDoctors();
+        $scope.getUsers();
 
 
-        $scope.addDoctor = function() {
+        $scope.addUser = function() {
             $scope.inserted = {
-                department: null,
-                user_id: '',
+                link_id: '',
                 name: '',
-                role: 0,
-                title: '',
+                cell: '',
+                created: null,
+                updated: null,
                 apply: true
             };
 
 
-            $scope.doctors.push($scope.inserted);
+            $scope.users.push($scope.inserted);
         }
 
-        $scope.removeDoctor = function(id, user_id, index) {
+        $scope.removeUser = function(id, index) {
             // check if any disease connect to it
             if (!id){
-                $scope.doctors.splice(index, 1);
+                $scope.users.splice(index, 1);
                 return;
             }
 
-            $http.get(util.baseApiUrl + 'relationships/doctor/' + id)
-                .success(function(response) {
 
-                    toastr.info(JSON.stringify(response));
-                    var item = util.getResponse(response);
-                    if (item && item.length > 0) {
-                        toastr.error('不能被删除,请先删除与之关联的病患。');
-                    }
-                    else {
-                        $http.delete(util.baseApiUrl + 'doctor/' + user_id)
-                            .success(function (response) {
-                                $scope.doctors.splice(index, 1);
-                                toastr.success('成功删除');
-                            })
-
-                    }
+            $http.delete(util.baseApiUrl + 'user/' + id)
+                .success(function (response) {
+                    $scope.users.splice(index, 1);
+                    toastr.success('成功删除');
                 })
+
                 .error(function(err){
                     toastr.error(err.messageFormatted)
                 });
@@ -123,22 +101,22 @@
             if (!item){
                 return false;
             }
-            if (!item.user_id){
-                toastr.error('USER ID 不能为空!');
+            if (!item.link_id){
+                toastr.error('Link ID 不能为空!');
                 return false;
             }
             if (!item.name){
                 toastr.error('名字不能为空!');
                 return false;
             }
-            if (!item.department){
-                toastr.error('医院科室不能为空!');
+            if (!item.cell){
+                toastr.error('手机不能为空!');
                 return false;
             }
             return true;
         }
 
-        $scope.saveDoctor = function(data, index) {
+        $scope.saveUser = function(data, index) {
 
             //validate
             if (!$scope.validate(data)){
@@ -146,23 +124,22 @@
             }
 
             if (!data._id) { // create
-                data.cell = '0000';
-                data.password = data.user_id;
-                $http.post(util.baseApiUrl + 'doctor/' + data.user_id, data)
+                data.password = data.cell;
+                $http.post(util.baseApiUrl + 'user/wechat/' + data.link_id, data)
                     .success(function (response) {
                         $scope.inserted = response;
 
-                        $scope.doctors.push($scope.inserted);
+                        $scope.users.push($scope.inserted);
                         toastr.success('成功创建');
 
                         // remove
-                        $scope.doctors.splice(index + 1, 1);
+                        $scope.users.splice(index + 1, 1);
 
                     });
             }
             else{ // update
                 //angular.extend(data, {_id: id});
-                $http.patch(util.baseApiUrl + 'doctor/' + data.user_id, data)
+                $http.patch(util.baseApiUrl + 'user/wechat/' + data.link_id, data)
                     .success(function (response) {
                         console.log(JSON.stringify(response))
                         if (!response) {
@@ -179,11 +156,11 @@
         }
 
         $scope.open = function (page, size, item) {
-            $rootScope.myDoctor = item;
+            $rootScope.myUser = item;
             $uibModal.open({
                 animation: true,
                 templateUrl: page,
-                controller: 'doctorEditCtrl',
+                controller: 'userEditCtrl',
                 size: size,
                 resolve: {
                     item: function () {

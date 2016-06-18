@@ -4,23 +4,23 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.cms.crm', [
-        'BlurAdmin.cms.crm.user',
-        'BlurAdmin.cms.crm.relationship',
+    angular.module('BlurAdmin.cms.crm.doctor', [
+        'BlurAdmin.cms.crm.doctor.doctor',
+        'BlurAdmin.cms.crm.doctor.group',
     ])
         .config(routeConfig);
 
     /** @ngInject */
     function routeConfig($stateProvider) {
         $stateProvider
-            .state('crm', {
-                url: '/crm',
+            .state('doctor', {
+                url: '/doctor',
                 template : '<ui-view></ui-view>',
                 abstract: true,
-                title: '用户关系管理',
+                title: '医生管理',
                 sidebarMeta: {
                     icon: 'ion-ios-people',
-                    order: 200,
+                    order: 150,
                 },
             });
     }

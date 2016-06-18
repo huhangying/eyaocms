@@ -10,7 +10,7 @@
 
          //   'BlurAdmin.cms.user',
         'BlurAdmin.cms.profile',
-        'BlurAdmin.cms.doctor',
+        'BlurAdmin.cms.crm.doctor',
         'BlurAdmin.cms.crm',
         'BlurAdmin.cms.hospital',
 
