@@ -11,16 +11,16 @@
     /** @ngInject */
     function groupCtrl($scope, $rootScope, $filter, $http, util, toastr, $uibModal) {
 
-        $scope.departments = [];
-        $scope.loadDepartments = function() {
-            $http.get(util.baseApiUrl + 'departments', {})
+        $scope.doctors = [];
+        $scope.getDoctors = function() {
+            $http.get(util.baseApiUrl + 'doctors/1000', {})
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){
-                        $scope.departments = [];
+                        $scope.doctors = [];
                     }
                     else {
-                        $scope.departments = response;
+                        $scope.doctors = response;
                     }
 
                 })
@@ -28,11 +28,12 @@
                     toastr.error(error.messageFormatted);
                 });
         }
-        $scope.loadDepartments();
 
-        $scope.showDepartment = function(item) {
-            if(item.department && $scope.departments.length) {
-                var selected = $filter('filter')($scope.departments, {_id: item.department});
+        $scope.getDoctors();
+
+        $scope.showDoctor = function(item) {
+            if(item.doctor && $scope.doctors.length) {
+                var selected = $filter('filter')($scope.doctors, {_id: item.doctor});
                 return selected.length ? selected[0].name : '未设置';
             } else {
                 return '未设置';
@@ -40,18 +41,16 @@
         };
 
 
-
-
-        $scope.users = [];
-        $scope.getUsers = function() {
-            $http.get(util.baseApiUrl + 'users/100', {})
+        $scope.groups = [];
+        $scope.getGroups = function() {
+            $http.get(util.baseApiUrl + 'groups', {})
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){
-                        $scope.users = [];
+                        $scope.groups = [];
                     }
                     else {
-                        $scope.users = response;
+                        $scope.groups = response;
                     }
 
                 })
@@ -60,34 +59,31 @@
                 });
         }
 
-        $scope.getUsers();
+        $scope.getGroups();
 
 
-        $scope.addUser = function() {
+        $scope.addGroup = function() {
             $scope.inserted = {
-                link_id: '',
+                doctor: null,
                 name: '',
-                cell: '',
-                created: null,
-                updated: null,
                 apply: true
             };
 
 
-            $scope.users.push($scope.inserted);
+            $scope.groups.push($scope.inserted);
         }
 
-        $scope.removeUser = function(id, index) {
+        $scope.removeGroup = function(id, index) {
             // check if any disease connect to it
             if (!id){
-                $scope.users.splice(index, 1);
+                $scope.groups.splice(index, 1);
                 return;
             }
 
 
-            $http.delete(util.baseApiUrl + 'user/' + id)
+            $http.delete(util.baseApiUrl + 'group/' + id)
                 .success(function (response) {
-                    $scope.users.splice(index, 1);
+                    $scope.groups.splice(index, 1);
                     toastr.success('成功删除');
                 })
 
@@ -101,22 +97,19 @@
             if (!item){
                 return false;
             }
-            if (!item.link_id){
-                toastr.error('Link ID 不能为空!');
+            if (!item.doctor){
+                toastr.error('doctor 不能为空!');
                 return false;
             }
             if (!item.name){
                 toastr.error('名字不能为空!');
                 return false;
             }
-            if (!item.cell){
-                toastr.error('手机不能为空!');
-                return false;
-            }
+
             return true;
         }
 
-        $scope.saveUser = function(data, index) {
+        $scope.saveGroup = function(data, index) {
 
             //validate
             if (!$scope.validate(data)){
@@ -124,24 +117,23 @@
             }
 
             if (!data._id) { // create
-                data.password = data.cell;
-                $http.post(util.baseApiUrl + 'user/wechat/' + data.link_id, data)
+                $http.post(util.baseApiUrl + 'group', data)
                     .success(function (response) {
                         $scope.inserted = response;
 
-                        $scope.users.push($scope.inserted);
+                        $scope.groups.push($scope.inserted);
                         toastr.success('成功创建');
 
                         // remove
-                        $scope.users.splice(index + 1, 1);
+                        $scope.groups.splice(index + 1, 1);
 
                     });
             }
             else{ // update
                 //angular.extend(data, {_id: id});
-                $http.patch(util.baseApiUrl + 'user/wechat/' + data.link_id, data)
+                $http.patch(util.baseApiUrl + 'group/' + data._id, data)
                     .success(function (response) {
-                        console.log(JSON.stringify(response))
+                        toastr.info(JSON.stringify(response))
                         if (!response) {
                             toastr.error(error.messageFormatted);
                         }
@@ -154,20 +146,6 @@
             //$scope.inserted = null;
 
         }
-
-        $scope.open = function (page, size, item) {
-            $rootScope.myUser = item;
-            $uibModal.open({
-                animation: true,
-                templateUrl: page,
-                controller: 'userEditCtrl',
-                size: size,
-                resolve: {
-                    item: function () {
-                        return item;
-                    }
-                }
-            });
-        };
+        
     }
 })();
