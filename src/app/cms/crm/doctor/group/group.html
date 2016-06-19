@@ -56,8 +56,8 @@
                 <div class="buttons" ng-show="!rowform.$visible">
                     <button class="btn btn-primary editable-table-button btn-xs" ng-click="rowform.$show()">编辑</button>
                     <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeGroup(item._id, $index)">删除</button>
-                    <button class="btn btn-primary  btn-xs" data-toggle="modal" ng-click="open('app/cms/crm/user/userEdit.html?id=1', 'lg', item)">
-                        其他资料
+                    <button class="btn btn-primary  btn-xs" data-toggle="modal" ng-click="goGroupRelationship(item._id)">
+                        查看医生组用户
                     </button>
                 </div>
             </td>

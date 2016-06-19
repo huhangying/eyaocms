@@ -9,7 +9,7 @@
         .controller('relationshipCtrl', relationshipCtrl);
 
     /** @ngInject */
-    function relationshipCtrl($scope, $rootScope, $filter, $http, util, toastr, $uibModal) {
+    function relationshipCtrl($scope, $rootScope, $state, $filter, $http, util, toastr, $uibModal) {
 
         $scope.groups = [];
         $scope.loadGroups = function() {
@@ -29,6 +29,7 @@
                 });
         }
         $scope.loadGroups();
+
 
         $scope.showGroup = function(item) {
             if(item.group && $scope.groups.length) {
@@ -79,6 +80,7 @@
                     }
                     else {
                         $scope.relationships = response;
+                        //
                     }
 
                 })
@@ -90,6 +92,19 @@
         $scope.getRelationships();
 
 
+        $scope.$on('$viewContentLoaded', function(){
+            //Here your view content is fully loaded !!
+            if ($state.params.group) {
+                toastr.info($state.params.group);
+
+                $scope.search.group = $state.params.group;
+            }
+        });
+
+
+
+
+
         $scope.addRelationship = function() {
             $scope.inserted = {
                 group: null,
@@ -97,7 +112,6 @@
                 user: null,
                 apply: true
             };
-
 
             $scope.relationships.push($scope.inserted);
         }
@@ -112,7 +126,7 @@
 
             $http.delete(util.baseApiUrl + 'relationship/' + id)
                 .success(function (response) {
-                    $scope.relationshiops.splice(index, 1);
+                    $scope.relationships.splice(index, 1);
                     toastr.success('成功删除');
                 })
 
@@ -159,15 +173,19 @@
             }
             else{ // update
                 //angular.extend(data, {_id: id});
+                toastr.info(JSON.stringify(data));
                 $http.patch(util.baseApiUrl + 'relationship/' + data._id, data)
                     .success(function (response) {
                         //console.log(JSON.stringify(response))
                         if (!response) {
-                            toastr.error(error.messageFormatted);
+                            toastr.error('response is null');
                         }
                         else{
                             toastr.success('成功更新');
                         }
+                    })
+                    .error(function(err){
+                        toastr.error(err.messageFormatted)
                     });
             }
 

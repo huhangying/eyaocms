@@ -9,7 +9,7 @@
         .controller('groupCtrl', groupCtrl);
 
     /** @ngInject */
-    function groupCtrl($scope, $rootScope, $filter, $http, util, toastr, $uibModal) {
+    function groupCtrl($scope, $state, $filter, $http, util, toastr, $uibModal) {
 
         $scope.doctors = [];
         $scope.getDoctors = function() {
@@ -146,6 +146,11 @@
             //$scope.inserted = null;
 
         }
-        
+
+
+        // goto 组内用户
+        $scope.goGroupRelationship = function(group_id) { // group id
+            $state.go('crm.relationship', {group: group_id});
+        }
     }
 })();
