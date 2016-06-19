@@ -1,0 +1,99 @@
+<div ba-panel  ba-panel-class="with-scroll">
+
+    <div class="row add-row-editable-table">
+        <div class="col-sm-2 text-right"><span>选择医院科室:</span></div>
+        <div class="col-sm-2">
+            <span>
+                <select class="form-control" ng-model="pre.department"
+                        ng-options="department._id as department.name for department in departments">
+                    <!--<option ng-repeat="department in departments" value="{{department._id}}">{{department.name}}</option>-->
+                </select>
+            </span>
+        </div>
+        <div class="col-sm-1 text-right"><span>药师:</span></div>
+        <div class="col-sm-2">
+            <span>
+                <select class="form-control" ng-model="search.doctor"
+                        ng-options="d._id as d.name for d in doctors | filter: {department: pre.department}">
+                    <!--<option ng-repeat="department in departments" value="{{department._id}}">{{department.name}}</option>-->
+                </select>
+            </span>
+        </div>
+        <div class="col-sm-1 text-right"><span>预约:</span></div>
+        <div class="col-sm-2">
+            <span>
+                <select class="form-control" ng-model="search.schedule"
+                        ng-options="s._id as s.name for s in schedules | filter: {doctor: search.doctor}">
+                    <!--<option ng-repeat="department in departments" value="{{department._id}}">{{department.name}}</option>-->
+                </select>
+            </span>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-primary pull-right" ng-click="addBooking()">创建</button>
+        </div>
+
+    </div>
+    <table class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
+        <tr style="font-weight: bold">
+            <td style="width:20%">药师</td>
+            <td style="width:15%">预约</td>
+            <td style="width:15%">用户</td>
+            <td style="width:15%">状态</td>
+            <td style="width:10%">评分</td>
+            <td style="width:25%">操作</td>
+        </tr>
+        <tr ng-repeat="item in bookings | filter: search" class="editable-row">
+            <td style="display:none;">
+                <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
+                    {{item._id}}
+                </span>
+            </td>
+            <td class="select-td">
+                <span editable-select="item.doctor" e-name="doctor" e-form="rowform" e-required
+                      e-ng-options="d._id as d.name for d in doctors">
+                  {{ showDoctor(item)}}
+                </span>
+            </td>
+            <<td class="select-td">
+                <span editable-select="item.schedule" e-name="schedule" e-form="rowform" e-required
+                      e-ng-options="s._id as s.name for s in schedules">
+                  {{ showSchedule(item)}}
+                </span>
+            </td>
+            <<td class="select-td">
+                <span editable-select="item.user" e-name="user" e-form="rowform" e-required
+                      e-ng-options="u._id as u.name for u in users">
+                  {{ showDoctor(item)}}
+                </span>
+            </td>
+            <td class="select-td">
+                <span editable-text="status" e-name="status" e-form="rowform">
+                  {{ item.status || '空' }}
+                </span>
+            </td>
+            <td>
+                <span editable-number="item.score" e-name="score" e-form="rowform" e-required>
+                  {{ item.score || '空' }}
+                </span>
+            </td>
+            <td>
+                <form editable-form name="rowform" onaftersave="saveBooking($data, $index)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                      shown="inserted == item">
+                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary editable-table-button btn-xs">
+                        保存
+                    </button>
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default editable-table-button btn-xs">
+                        取消
+                    </button>
+                </form>
+                <div class="buttons" ng-show="!rowform.$visible">
+                    <button class="btn btn-primary editable-table-button btn-xs" ng-click="rowform.$show()">编辑</button>
+                    <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeBooking(item._id, $index)">删除</button>
+                    <button class="btn btn-primary  btn-xs" data-toggle="modal">
+                        其他资料
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -6,7 +6,7 @@
 
     angular.module('BlurAdmin.cms.reservation', [
         'BlurAdmin.cms.reservation.schedule',
-        // 'BlurAdmin.cms.im.disease',
+        'BlurAdmin.cms.reservation.booking',
     ])
         .config(routeConfig);
 

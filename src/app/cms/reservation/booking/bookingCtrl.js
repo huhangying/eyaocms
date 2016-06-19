@@ -5,11 +5,11 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.cms.reservation.schedule')
-        .controller('scheduleCtrl', scheduleCtrl);
+    angular.module('BlurAdmin.cms.reservation.booking')
+        .controller('bookingCtrl', bookingCtrl);
 
     /** @ngInject */
-    function scheduleCtrl($scope, $rootScope, $filter, $http, util, toastr, $uibModal) {
+    function bookingCtrl($scope, $filter, $http, util, toastr) {
 
         $scope.departments = [];
         $scope.loadDepartments = function() {
@@ -57,24 +57,9 @@
                 return '未设置';
             }
         };
-        
-        $scope.names = [
-            {name: "上午", value: "上午"},
-            {name: "下午", value: "下午"}
-        ];
 
-        $scope.showName = function(item) {
-            if(item.role && $scope.roles.length) {
-                var selected = $filter('filter')($scope.names, {value: item.name});
-                return selected.length ? selected[0].name : '未设置';
-            } else {
-                return '未设置';
-            }
-        };
-
-        // data
         $scope.schedules = [];
-        $scope.getSchedules = function() {
+        $scope.loadSchedules = function() {
             $http.get(util.baseApiUrl + 'schedules', {})
                 .success(function (response) {
                     // check if return null
@@ -90,52 +75,99 @@
                     toastr.error(error.messageFormatted);
                 });
         }
+        $scope.loadSchedules();
 
-        $scope.getSchedules();
+        $scope.showSchedule = function(item) {
+            if(item.schedule && $scope.schedules.length) {
+                var selected = $filter('filter')($scope.schedules, {_id: item.schedule});
+                return selected.length ? selected[0].name : '未设置';
+            } else {
+                return '未设置';
+            }
+        };
+
+        $scope.users = [];
+        $scope.loadUsers = function() {
+            $http.get(util.baseApiUrl + 'users/1000', {})
+                .success(function (response) {
+                    // check if return null
+                    if (response.return && response.return == 'null'){
+                        $scope.users = [];
+                    }
+                    else {
+                        $scope.users = response;
+                    }
+
+                })
+                .error(function(error){
+                    toastr.error(error.messageFormatted);
+                });
+        }
+        $scope.loadUsers();
+
+        $scope.showUser = function(item) {
+            if(item.user && $scope.users.length) {
+                var selected = $filter('filter')($scope.users, {_id: item.user});
+                return selected.length ? selected[0].name : '未设置';
+            } else {
+                return '未设置';
+            }
+        };
+
+
+        // data
+        $scope.bookings = [];
+        $scope.getBookings = function() {
+            $http.get(util.baseApiUrl + 'bookings', {})
+                .success(function (response) {
+                    // check if return null
+                    if (response.return && response.return == 'null'){
+                        $scope.bookings = [];
+                    }
+                    else {
+                        $scope.bookings = response;
+                    }
+
+                })
+                .error(function(error){
+                    toastr.error(error.messageFormatted);
+                });
+        }
+
+        $scope.getBookings();
 
         //===========================================================
 
-        $scope.addSchedule = function() {
+        $scope.addBooking = function() {
             //todo:
             // $scope.search.doctor = null; // reset
             // $scope.$apply();
 
             $scope.inserted = {
                 doctor: null,
-                name: '',
-                from: '',
-                to: '',
-                limit: 0,
-                apply: true
+                schedule: null,
+                user: null,
+                status: '',
+                score: 0,
+                created: ''
             };
 
 
-            $scope.schedules.push($scope.inserted);
+            $scope.bookings.push($scope.inserted);
         }
 
-        $scope.removeSchedule = function(id, index) {
+        $scope.removeBooking = function(id, index) {
             // check if any disease connect to it
             if (!id){
-                $scope.doctors.splice(index, 1);
+                $scope.bookings.splice(index, 1);
                 return;
             }
 
-            $http.get(util.baseApiUrl + 'bookings/schedule/' + id)
-                .success(function(response) {
 
-                    //toastr.info(JSON.stringify(response));
-                    var item = util.getResponse(response);
-                    if (item && item.length > 0) {
-                        toastr.error('不能被删除,请先删除与之关联的预约booking。');
-                    }
-                    else {
-                        $http.delete(util.baseApiUrl + 'schedule/' + id)
-                            .success(function (response) {
-                                $scope.doctors.splice(index, 1);
-                                toastr.success('成功删除');
-                            })
-
-                    }
+            $http.delete(util.baseApiUrl + 'booking/' + id)
+                .success(function (response) {
+                    $scope.bookings.splice(index, 1);
+                    toastr.success('成功删除');
                 })
                 .error(function(err){
                     toastr.error(err.messageFormatted)
@@ -151,18 +183,22 @@
                 toastr.error('药师 不能为空!');
                 return false;
             }
-            if (!item.name){
-                toastr.error('名字不能为空!');
+            if (!item.schedule){
+                toastr.error('预约不能为空!');
                 return false;
             }
-            if (!item.from){
-                toastr.error('开始日期时间不能为空!');
+            if (!item.user){
+                toastr.error('用户不能为空!');
+                return false;
+            }
+            if (!item.status){
+                toastr.error('状态不能为空!');
                 return false;
             }
             return true;
         }
 
-        $scope.saveSchedule = function(data, index) {
+        $scope.saveBooking = function(data, index) {
 
             //validate
             if (!$scope.validate(data)){
@@ -170,21 +206,21 @@
             }
 
             if (!data._id) { // create
-                $http.post(util.baseApiUrl + 'schedule', data)
+                $http.post(util.baseApiUrl + 'booking', data)
                     .success(function (response) {
                         $scope.inserted = response;
 
-                        $scope.schedules.push($scope.inserted);
+                        $scope.bookings.push($scope.inserted);
                         toastr.success('成功创建');
 
                         // remove
-                        $scope.schedules.splice(index + 1, 1);
+                        $scope.bookings.splice(index + 1, 1);
 
                     });
             }
             else{ // update
                 //angular.extend(data, {_id: id});
-                $http.patch(util.baseApiUrl + 'schedule/' + data._id, data)
+                $http.patch(util.baseApiUrl + 'booking/' + data._id, data)
                     .success(function (response) {
                         //console.log(JSON.stringify(response))
                         if (!response) {
@@ -197,6 +233,7 @@
             }
 
             //$scope.inserted = null;
+
         }
 
 
