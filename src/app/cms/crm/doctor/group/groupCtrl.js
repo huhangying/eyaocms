@@ -135,7 +135,7 @@
                     .success(function (response) {
                         toastr.info(JSON.stringify(response))
                         if (!response) {
-                            toastr.error(error.messageFormatted);
+                            toastr.error('no data');
                         }
                         else{
                             toastr.success('成功更新');

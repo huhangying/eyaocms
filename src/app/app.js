@@ -16,7 +16,7 @@ global.app = angular.module('BlurAdmin', [
 
     // 'BlurAdmin.login',
   'BlurAdmin.theme',
-  'BlurAdmin.pages',
+  // 'BlurAdmin.pages',
   'BlurAdmin.cms',
   ]);
 
