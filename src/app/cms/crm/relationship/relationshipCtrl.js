@@ -10,6 +10,7 @@
 
     /** @ngInject */
     function relationshipCtrl($scope, $rootScope, $state, $filter, $http, util, toastr, $uibModal) {
+        $scope.search = {};
 
         $scope.groups = [];
         $scope.loadGroups = function() {
@@ -107,11 +108,13 @@
 
         $scope.addRelationship = function() {
             $scope.inserted = {
-                group: null,
+                group: $scope.search.group || null,
                 doctor: null,
                 user: null,
                 apply: true
             };
+
+            //toastr.info(JSON.stringify($scope.inserted));
 
             $scope.relationships.push($scope.inserted);
         }
