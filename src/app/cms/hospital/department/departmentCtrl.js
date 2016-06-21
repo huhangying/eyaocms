@@ -7,7 +7,7 @@
     .controller('departmentCtrl', departmentCtrl);
 
   /** @ngInject */
-  function departmentCtrl($scope, $filter, $http, util, toastr) {
+  function departmentCtrl($scope, $state, $http, util, toastr) {
 
 
     $scope.departments = [];
@@ -118,5 +118,8 @@
 
     }
 
+      $scope.getDiseasesByDepartmentId = function(id){
+          $state.go('hospital.disease', {department: id});
+      }
   }
 })();

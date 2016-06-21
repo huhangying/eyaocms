@@ -11,7 +11,7 @@
   function routeConfig($stateProvider) {
     $stateProvider
         .state('hospital.disease', {
-          url: '/disease',
+          url: '/disease/:department',
           templateUrl: 'app/cms/hospital/disease/disease.html',
           title: '疾病类型',
           controller: 'diseaseCtrl',

@@ -6,7 +6,8 @@
     .controller('diseaseCtrl', diseaseCtrl);
 
   /** @ngInject */
-  function diseaseCtrl($scope, $filter, $http, util, toastr) {
+  function diseaseCtrl($scope, $state, $filter, $http, util, toastr) {
+      $scope.search = {};
 
     $scope.departments = [];
     $scope.loadDepartments = function() {
@@ -57,6 +58,16 @@
         return '未设置';
       }
     };
+
+      $scope.$on('$viewContentLoaded', function(){
+          //Here your view content is fully loaded !!
+          if ($state.params.department) {
+              toastr.info($state.params.department);
+
+              $scope.search.department = $state.params.department;
+          }
+      });
+
 
     $scope.addDisease = function() {
       $scope.inserted = {
