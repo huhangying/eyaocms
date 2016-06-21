@@ -16,10 +16,10 @@
                 url: '/booking',
                 templateUrl: 'app/cms/reservation/booking/booking.html',
                 controller: 'bookingCtrl',
-                title: '预定预约',
+                title: '预约门诊',
                 sidebarMeta: {
                     icon: 'ion-ios-person',
-                    order: 10,
+                    order: 50,
                 },
             });
     }

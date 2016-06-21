@@ -1,0 +1,81 @@
+<div ba-panel ba-panel-title="疾病类型功能描述" ba-panel-class="with-scroll">
+
+    <div class="row add-row-editable-table">
+        <div class="col-sm-3 text-right"><span>选择聊天室:</span></div>
+        <div class="col-sm-3">
+            <span>
+                <select class="form-control" ng-model="search.chatroom"
+                        ng-options="chatroom._id as chatroom.name for chatroom in chatrooms">
+                    <!--<option ng-repeat="department in departments" value="{{department._id}}">{{department.name}}</option>-->
+                </select>
+            </span>
+        </div>
+        <div class="col-sm-6">
+            <button class="btn btn-primary pull-right" ng-click="addChat()">创建</button>
+        </div>
+
+    </div>
+    <table class="table table-bordered table-hover table-condensed">
+        <tr style="font-weight: bold">
+            <td style="width:20%">聊天室名</td>
+            <td style="width:20%">发言人</td>
+            <td style="width:25%">内容</td>
+            <td style="width:10%">时间</td>
+            <td style="width:5%">read</td>
+            <td style="width:20%">操作</td>
+        </tr>
+        <tr ng-repeat="item in chats | filter: search" class="editable-row">
+            <td style="display:none;">
+                <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
+                    {{item._id}}
+                </span>
+            </td>
+            <td>
+                <span editable-select="item.chatroom" e-name="chatroom" e-form="rowform" e-required
+                      e-ng-options="c._id as c.name for c in chatrooms">
+                  {{ showChatroom(item)}}
+                </span>
+            </td>
+            <td>
+                <span editable-text="item.direction" e-name="direction" e-form="rowform" e-required>
+                  {{ item.direction == 1 ? '药师' : '患者' }}
+                </span>
+            </td>
+            <td class="select-td">
+                <span editable-text="item.data" e-name="data" e-form="rowform">
+                  {{ item.data || '空' }}
+                </span>
+            </td>
+            <td class="select-td" >
+                <span editable-text="item.created" e-name="created" e-form="rowform" >
+                  {{ item.created | date }}
+                </span>
+            </td>
+            <td class="select-td" >
+                <span editable-number="item.read" e-name="read" e-form="rowform" >
+                  {{ item.read || '' }}
+                </span>
+            </td>
+            <td class="select-td">
+                <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
+                  {{ item.apply || false }}
+                </span>
+            </td>
+            <td>
+                <form editable-form name="rowform" onaftersave="saveChat($data, item._id, $index)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                      shown="inserted == item">
+                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary editable-table-button btn-xs">
+                        保存
+                    </button>
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default editable-table-button btn-xs">
+                        取消
+                    </button>
+                </form>
+                <div class="buttons" ng-show="!rowform.$visible">
+                    <button class="btn btn-primary editable-table-button btn-xs" ng-click="rowform.$show()">编辑</button>
+                    <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeChat(item._id, $index)">删除</button>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

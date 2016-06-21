@@ -5,8 +5,8 @@
     'use strict';
 
     angular.module('BlurAdmin.cms.im', [
-        // 'BlurAdmin.cms.im.department',
-        // 'BlurAdmin.cms.im.disease',
+        'BlurAdmin.cms.im.chatroom',
+        'BlurAdmin.cms.im.chat',
     ])
         .config(routeConfig);
 
