@@ -18,7 +18,16 @@
             $window.location.href = '/auth.html';
             return;
         }
-        //toastr.success(JSON.stringify($window.sessionStorage.user));
+
+
+        var user = JSON.parse($window.sessionStorage.user);
+        //toastr.success(JSON.stringify(user));
+        $scope.userName = user.name;
+        $scope.icon = 'Ninja';
+        if (user.role == 1)
+            $scope.icon = 'Burglar';
+        else if (user.role == 2)
+            $scope.icon = 'Alien';
 
         $scope.logout = function () {
             $window.sessionStorage.clear();
