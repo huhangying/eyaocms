@@ -9,7 +9,7 @@
         .controller('scheduleCtrl', scheduleCtrl);
 
     /** @ngInject */
-    function scheduleCtrl($scope, $rootScope, $filter, $http, util, toastr, $uibModal) {
+    function scheduleCtrl($scope, $state, $filter, $http, util, toastr, $uibModal) {
 
         $scope.departments = [];
         $scope.loadDepartments = function() {
@@ -199,6 +199,8 @@
             //$scope.inserted = null;
         }
 
-
+        $scope.getScheduleDetails = function(id) {
+            $state.go('reservation.booking', {schedule: id});
+        }
     }
 })();

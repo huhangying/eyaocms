@@ -9,7 +9,9 @@
         .controller('bookingCtrl', bookingCtrl);
 
     /** @ngInject */
-    function bookingCtrl($scope, $filter, $http, util, toastr) {
+    function bookingCtrl($scope, $state, $filter, $http, util, toastr) {
+
+        $scope.search = {};
 
         $scope.departments = [];
         $scope.loadDepartments = function() {
@@ -136,6 +138,15 @@
 
         $scope.getBookings();
 
+        $scope.$on('$viewContentLoaded', function(){
+            //Here your view content is fully loaded !!
+            if ($state.params.schedule) {
+                toastr.info($state.params.schedule);
+
+                $scope.search.schedule = $state.params.schedule;
+            }
+        });
+
         //===========================================================
 
         $scope.addBooking = function() {
@@ -233,7 +244,6 @@
             }
 
             //$scope.inserted = null;
-
         }
 
 

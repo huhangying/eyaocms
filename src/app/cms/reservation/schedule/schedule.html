@@ -78,8 +78,8 @@
                 <div class="buttons" ng-show="!rowform.$visible">
                     <button class="btn btn-primary editable-table-button btn-xs" ng-click="rowform.$show()">编辑</button>
                     <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeSchedule(item._id, $index)">删除</button>
-                    <button class="btn btn-primary  btn-xs" data-toggle="modal">
-                        其他资料
+                    <button class="btn btn-primary  btn-xs" data-toggle="modal" ng-click="getScheduleDetails(item._id)">
+                        查看药师门诊详情
                     </button>
                 </div>
             </td>

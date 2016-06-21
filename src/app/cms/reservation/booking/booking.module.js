@@ -13,7 +13,7 @@
     function routeConfig($stateProvider) {
         $stateProvider
             .state('reservation.booking', {
-                url: '/booking',
+                url: '/booking/:schedule',
                 templateUrl: 'app/cms/reservation/booking/booking.html',
                 controller: 'bookingCtrl',
                 title: '预约门诊',
