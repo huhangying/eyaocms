@@ -1,18 +1,12 @@
 <div ba-panel ba-panel-class="profile-page">
   <div class="panel-content">
-    <div class="progress-info">Your profile is 70% Complete</div>
-    <div class="progress">
-      <div class="progress-bar progress-bar-primary progress-bar-striped active" role="progressbar"
-           aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
-      </div>
-    </div>
 
     <h3 class="with-line">一般信息</h3>
 
     <div class="row">
       <div class="col-md-6">
         <div class="form-group row clearfix">
-          <label for="inputFirstName" class="col-sm-3 control-label">Picture</label>
+          <label for="inputFirstName" class="col-sm-3 control-label">头像</label>
 
           <div class="col-sm-9">
             <div class="userpic">
@@ -20,7 +14,7 @@
                 <img ng-src="{{ picture }}" ng-click="uploadPicture()">
               </div>
               <i class="ion-ios-close-outline" ng-click="removePicture()" ng-if="!noPicture"></i>
-              <a href class="change-userpic" ng-click="uploadPicture()">Change Profile Picture</a>
+              <a href class="change-userpic" ng-click="uploadPicture()">更改头像</a>
               <input type="file" ng-show="false" id="uploadFile" ng-file-select="onFileSelect($files)">
             </div>
           </div>
@@ -32,17 +26,24 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group row clearfix">
-          <label for="inputFirstName" class="col-sm-3 control-label">姓名</label>
+          <label for="inputUserId" class="col-sm-3 control-label">用户名</label>
 
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="inputFirstName" placeholder="" value="Anastasiya">
+            <input type="text" class="form-control" id="inputUserId" placeholder="" ng-model="doctor.user_id">
           </div>
         </div>
         <div class="form-group row clearfix">
-          <label for="inputLastName" class="col-sm-3 control-label">Last Name</label>
+          <label for="inputName" class="col-sm-3 control-label">姓名</label>
 
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="inputLastName" placeholder="" value="">
+            <input type="text" class="form-control" id="inputName" placeholder="" ng-model="doctor.name">
+          </div>
+        </div>
+        <div class="form-group row clearfix">
+          <label for="inputGender" class="col-sm-3 control-label">性别</label>
+
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="inputGender" placeholder="" ng-model="doctor.gender">
           </div>
         </div>
       </div>
@@ -51,20 +52,18 @@
           <label class="col-sm-3 control-label">医院科室</label>
 
           <div class="col-sm-9">
-            <select class="form-control" selectpicker>
-              <option>Web Development</option>
-              <option>System Development</option>
-              <option>Sales</option>
-              <option>Human Resources</option>
+            <select class="form-control" ng-model="doctor.department"
+                    ng-options="department._id as department.name for department in departments">
+              <!--<option ng-repeat="department in departments" value="{{department._id}}">{{department.name}}</option>-->
             </select>
           </div>
         </div>
 
         <div class="form-group row clearfix">
-          <label for="inputOccupation" class="col-sm-3 control-label">Occupation</label>
+          <label for="inputTitle" class="col-sm-3 control-label">职称</label>
 
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="inputOccupation" placeholder="" value="Front End Web Developer">
+            <input type="text" class="form-control" id="inputTitle" placeholder="" ng-model="doctor.title">
           </div>
         </div>
       </div>
@@ -97,6 +96,15 @@
 
     <div class="row">
       <div class="col-md-6">
+
+        <div class="form-group row clearfix">
+          <label for="inputPhone" class="col-sm-3 control-label">联系电话</label>
+
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="inputPhone" placeholder="" value="+1 (23) 456 7890">
+          </div>
+        </div>
+
         <div class="form-group row clearfix">
           <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
 
@@ -104,29 +112,17 @@
             <input type="email" class="form-control" id="inputEmail3" placeholder="" value="contact@akveo.com">
           </div>
         </div>
-        <div class="form-group row clearfix">
-          <label for="inputPhone" class="col-sm-3 control-label">Phone</label>
-
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="inputPhone" placeholder="" value="+1 (23) 456 7890">
-          </div>
-        </div>
       </div>
       <div class="col-md-6">
         <div class="form-group row clearfix">
-          <label class="col-sm-3 control-label">Office Location</label>
+          <label for="inputAddress" class="col-sm-3 control-label">医院地址</label>
 
           <div class="col-sm-9">
-            <select class="form-control" title="Standard Select" selectpicker>
-              <option>San Francisco</option>
-              <option>London</option>
-              <option>Minsk</option>
-              <option>Tokio</option>
-            </select>
+            <input type="text" class="form-control" id="inputAddress" placeholder="" value="303">
           </div>
         </div>
         <div class="form-group row clearfix">
-          <label for="inputRoom" class="col-sm-3 control-label">Room</label>
+          <label for="inputRoom" class="col-sm-3 control-label">院内地址</label>
 
           <div class="col-sm-9">
             <input type="text" class="form-control" id="inputRoom" placeholder="" value="303">
@@ -135,77 +131,40 @@
       </div>
     </div>
 
-    <h3 class="with-line">Social Profiles</h3>
+    <h3 class="with-line">工作时间</h3>
 
-    <div class="social-profiles row clearfix">
-      <div class="col-md-3 col-sm-4" ng-repeat="item in socialProfiles">
-
-        <a class="sn-link" href ng-click="showModal(item)" ng-if="!item.href">
-          <i class="socicon {{ item.icon }}"></i>
-          <span>{{ item.name }}</span>
-        </a>
-
-        <a class="sn-link connected" href="{{ item.href }}" target="_blank" ng-if="item.href">
-          <i class="socicon {{ item.icon }}"></i>
-          <span>{{ item.name }}</span>
-          <em class="ion-ios-close-empty sn-link-close" ng-mousedown="unconnect(item)"></em>
-        </a>
-      </div>
+    <div class="row clearfix">
+      <blockquote>
+        <textarea placeholder="工作时间" class="form-control" ng-model="doctor.hours"></textarea>
+      </blockquote>
     </div>
 
-    <h3 class="with-line">Send Email Notifications</h3>
+    <h3 class="with-line">擅长领域</h3>
 
-    <div class="notification row clearfix">
-      <div class="col-sm-6">
-        <div class="form-group row clearfix">
-          <label class="col-xs-8">When I receive a message</label>
-
-          <div class="col-xs-4">
-            <switch color="primary" ng-model="switches[0]"></switch>
-          </div>
-        </div>
-        <div class="form-group row clearfix">
-          <label class="col-xs-8">When Someone sends me an invitation</label>
-
-          <div class="col-xs-4">
-            <switch color="primary" ng-model="switches[1]"></switch>
-          </div>
-        </div>
-        <div class="form-group row clearfix">
-          <label class="col-xs-8">When profile information changes</label>
-
-          <div class="col-xs-4">
-            <switch color="primary" ng-model="switches[2]"></switch>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="form-group row clearfix">
-          <label class="col-xs-8">When anyone logs into your account from a new device or browser</label>
-
-          <div class="col-xs-4">
-            <switch color="primary" ng-model="switches[3]"></switch>
-          </div>
-        </div>
-        <div class="form-group row clearfix">
-          <label class="col-xs-8">Weekly Reports</label>
-
-          <div class="col-xs-4">
-            <switch color="primary" ng-model="switches[4]"></switch>
-          </div>
-        </div>
-
-        <div class="form-group row clearfix">
-          <label class="col-xs-8">Daily Reports</label>
-
-          <div class="col-xs-4">
-            <switch color="primary" ng-model="switches[5]"></switch>
-          </div>
-        </div>
-      </div>
+    <div class="row clearfix">
+      <blockquote>
+        <textarea placeholder="擅长领域" class="form-control" ng-model="doctor.expertise"></textarea>
+      </blockquote>
     </div>
-    <button type="button" class="btn btn-primary btn-with-icon save-profile">
-      <i class="ion-android-checkmark-circle"></i>Update Profile
+
+    <h3 class="with-line">工作范围</h3>
+
+    <div class="row clearfix">
+      <blockquote>
+        <textarea placeholder="工作范围" class="form-control" ng-model="doctor.bulletin"></textarea>
+      </blockquote>
+    </div>
+
+    <h3 class="with-line">获奖情况</h3>
+
+    <div class="row clearfix">
+      <blockquote>
+        <textarea placeholder="获奖情况" class="form-control" ng-model="doctor.honor"></textarea>
+      </blockquote>
+    </div>
+
+    <button type="button" class="btn btn-primary btn-with-icon save-profile" ng-click="update()">
+      <i class="ion-android-checkmark-circle"></i>更新个人信息
     </button>
   </div>
 </div>

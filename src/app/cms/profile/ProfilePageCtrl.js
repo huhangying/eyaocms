@@ -11,7 +11,7 @@
   /** @ngInject */
   function ProfilePageCtrl($scope, fileReader, $http, $window, $filter, $uibModal, toastr, util) {
 
-    $scope.login = $window.sessionStorage.user;
+    $scope.login = JSON.parse($window.sessionStorage.user);
     // $scope.login = JSON.parse($window.sessionStorage.user);
     toastr.info(JSON.stringify($scope.login));
 
@@ -37,8 +37,8 @@
     // get user info
     $http.get(util.baseApiUrl + 'doctor/' + $scope.login._id)
         .success(function(response){
-          $scope.user = JSON.parse(response);
-
+          $scope.doctor = response;
+          //toastr.info(JSON.stringify($scope.doctor));
 
         })
         .error(function(err){
@@ -59,44 +59,7 @@
 
     };
 
-    $scope.socialProfiles = [
-      {
-        name: 'Facebook',
-        href: 'https://www.facebook.com/akveo/',
-        icon: 'socicon-facebook'
-      },
-      {
-        name: 'Twitter',
-        href: 'https://twitter.com/akveo_inc',
-        icon: 'socicon-twitter'
-      },
-      {
-        name: 'Google',
-        icon: 'socicon-google'
-      },
-      {
-        name: 'LinkedIn',
-        href: 'https://www.linkedin.com/company/akveo',
-        icon: 'socicon-linkedin'
-      },
-      {
-        name: 'GitHub',
-        href: 'https://github.com/akveo',
-        icon: 'socicon-github'
-      },
-      {
-        name: 'StackOverflow',
-        icon: 'socicon-stackoverflow'
-      },
-      {
-        name: 'Dribbble',
-        icon: 'socicon-dribble'
-      },
-      {
-        name: 'Behance',
-        icon: 'socicon-behace'
-      }
-    ];
+
 
     $scope.unconnect = function (item) {
       item.href = undefined;
@@ -119,7 +82,22 @@
           });
     };
 
-    $scope.switches = [true, true, false, true, true, false];
+
+    $scope.update = function() {
+      toastr.info(JSON.stringify($scope.doctor));
+
+      $http.patch(util.baseApiUrl + 'doctor/' + $scope.doctor.user_id, $scope.doctor)
+          .success(function (response) {
+            //console.log(JSON.stringify(response))
+            if (!response) {
+              toastr.error(error.messageFormatted);
+            }
+            else{
+              toastr.success('成功更新');
+            }
+          });
+    };
+
   }
 
 })();
