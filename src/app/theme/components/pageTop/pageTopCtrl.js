@@ -22,6 +22,7 @@
 
         var user = JSON.parse($window.sessionStorage.user);
         //toastr.success(JSON.stringify(user));
+        $scope.user_id = user._id;
         $scope.userName = user.name;
         $scope.icon = 'Ninja';
         if (user.role == 1)

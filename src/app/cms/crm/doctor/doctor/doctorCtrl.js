@@ -9,7 +9,7 @@
         .controller('doctorCtrl', doctorCtrl);
 
     /** @ngInject */
-    function doctorCtrl($scope, $rootScope, $filter, $http, util, toastr, $uibModal) {
+    function doctorCtrl($scope, $state, $filter, $http, util, toastr, $uibModal) {
 
         $scope.departments = [];
         $scope.loadDepartments = function() {
@@ -178,19 +178,9 @@
 
         }
 
-        $scope.open = function (page, size, item) {
-            $rootScope.myDoctor = item;
-            $uibModal.open({
-                animation: true,
-                templateUrl: page,
-                controller: 'doctorEditCtrl',
-                size: size,
-                resolve: {
-                    item: function () {
-                        return item;
-                    }
-                }
-            });
+        $scope.goDoctorProfile = function (id) {
+            $state.go('profile', {doctor: id});
         };
+
     }
 })();

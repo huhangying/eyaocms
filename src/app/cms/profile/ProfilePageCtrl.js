@@ -9,11 +9,10 @@
     .controller('ProfilePageCtrl', ProfilePageCtrl);
 
   /** @ngInject */
-  function ProfilePageCtrl($scope, fileReader, $http, $window, $filter, $uibModal, toastr, util) {
+  function ProfilePageCtrl($scope, fileReader, $http, $state, $window, $filter, $uibModal, toastr, util) {
 
     $scope.login = JSON.parse($window.sessionStorage.user);
-    // $scope.login = JSON.parse($window.sessionStorage.user);
-    toastr.info(JSON.stringify($scope.login));
+    //toastr.info(JSON.stringify($scope.login));
 
     $scope.departments = [];
     $scope.loadDepartments = function() {
@@ -35,7 +34,11 @@
     $scope.loadDepartments();
     
     // get user info
-    $http.get(util.baseApiUrl + 'doctor/' + $scope.login._id)
+    var doctor_id = $scope.login._id;
+    if ($state.params && $state.params.doctor){
+      doctor_id = $state.params.doctor;
+    }
+    $http.get(util.baseApiUrl + 'doctor/' + doctor_id)
         .success(function(response){
           $scope.doctor = response;
           //toastr.info(JSON.stringify($scope.doctor));
@@ -45,6 +48,8 @@
           toastr.error(err.messageFormatted);
           return;
         });
+
+
 
     $scope.picture = $filter('profilePicture')('Nasta');
 

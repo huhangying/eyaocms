@@ -8,7 +8,7 @@
     function routeConfig($stateProvider) {
         $stateProvider
             .state('profile', {
-                url: '/profile',
+                url: '/profile/:doctor',
                 templateUrl: 'app/cms/profile/profile.html',
                 controller: 'ProfilePageCtrl',
                 title: '个人资料',
