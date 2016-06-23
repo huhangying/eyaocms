@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group row clearfix">
-          <label for="inputFirstName" class="col-sm-3 control-label">头像</label>
+          <label class="col-sm-3 control-label">头像</label>
 
           <div class="col-sm-9">
             <div class="userpic">
@@ -40,10 +40,19 @@
           </div>
         </div>
         <div class="form-group row clearfix">
-          <label for="inputGender" class="col-sm-3 control-label">性别</label>
+          <label class="col-sm-3 control-label">性别</label>
 
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="inputGender" placeholder="" ng-model="doctor.gender">
+            <!--<input type="text" class="form-control" id="inputGender" placeholder="" ng-model="doctor.gender">-->
+            <label class="radio-inline custom-radio nowrap">
+              <input type="radio" ng-model="doctor.gender" value="M">
+              <span>男</span>
+            </label>
+            <label class="radio-inline custom-radio nowrap">
+              <input type="radio" ng-model="doctor.gender" value="F">
+              <span>女</span>
+            </label>
+
           </div>
         </div>
       </div>
@@ -109,7 +118,7 @@
           <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
 
           <div class="col-sm-9">
-            <input type="email" class="form-control" id="inputEmail3" placeholder="" value="contact@akveo.com">
+            <input type="email" class="form-control" id="inputEmail3" placeholder="" value="暂不支持@test.com">
           </div>
         </div>
       </div>
@@ -118,14 +127,14 @@
           <label for="inputAddress" class="col-sm-3 control-label">医院地址</label>
 
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="inputAddress" placeholder="" value="303">
+            <input type="text" class="form-control" id="inputAddress" placeholder="" value="暂不支持 ">
           </div>
         </div>
         <div class="form-group row clearfix">
           <label for="inputRoom" class="col-sm-3 control-label">院内地址</label>
 
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="inputRoom" placeholder="" value="303">
+            <input type="text" class="form-control" id="inputRoom" placeholder="" value="暂不支持">
           </div>
         </div>
       </div>

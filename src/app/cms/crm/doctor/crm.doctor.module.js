@@ -17,7 +17,7 @@
                 url: '/doctor',
                 template : '<ui-view></ui-view>',
                 abstract: true,
-                title: '医生管理',
+                title: '药师管理',
                 sidebarMeta: {
                     icon: 'ion-ios-people',
                     order: 150,

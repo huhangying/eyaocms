@@ -182,5 +182,9 @@
             $state.go('profile', {doctor: id});
         };
 
+        $scope.goDoctorGroup = function (id) {
+            $state.go('doctor.group', {doctor: id});
+        };
+
     }
 })();

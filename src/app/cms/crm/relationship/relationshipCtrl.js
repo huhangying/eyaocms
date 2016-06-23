@@ -9,7 +9,7 @@
         .controller('relationshipCtrl', relationshipCtrl);
 
     /** @ngInject */
-    function relationshipCtrl($scope, $rootScope, $state, $filter, $http, util, toastr, $uibModal) {
+    function relationshipCtrl($scope, $state, $filter, $http, util, toastr) {
         $scope.search = {};
 
         $scope.groups = [];
@@ -41,6 +41,34 @@
             }
         };
 
+
+        $scope.doctors = [];
+        $scope.loadDoctors = function() {
+            $http.get(util.baseApiUrl + 'doctors/1000', {})
+                .success(function (response) {
+                    // check if return null
+                    if (response.return && response.return == 'null'){
+                        $scope.doctors = [];
+                    }
+                    else {
+                        $scope.doctors = response;
+                    }
+
+                })
+                .error(function(error){
+                    toastr.error(error.messageFormatted);
+                });
+        }
+        $scope.loadDoctors();
+
+        $scope.showDoctor = function(item) {
+            if(item.doctor && $scope.doctors.length) {
+                var selected = $filter('filter')($scope.doctors, {_id: item.doctor});
+                return selected.length ? selected[0].name : '未设置';
+            } else {
+                return '未设置';
+            }
+        };
 
         $scope.users = [];
         $scope.loadUsers = function() {
@@ -176,7 +204,7 @@
             }
             else{ // update
                 //angular.extend(data, {_id: id});
-                toastr.info(JSON.stringify(data));
+                //toastr.info(JSON.stringify(data));
                 $http.patch(util.baseApiUrl + 'relationship/' + data._id, data)
                     .success(function (response) {
                         //console.log(JSON.stringify(response))
@@ -196,19 +224,8 @@
 
         }
 
-        $scope.open = function (page, size, item) {
-            $rootScope.myUser = item;
-            $uibModal.open({
-                animation: true,
-                templateUrl: page,
-                controller: 'userEditCtrl',
-                size: size,
-                resolve: {
-                    item: function () {
-                        return item;
-                    }
-                }
-            });
+        $scope.goDoctorGroup = function (id) {
+            $state.go('doctor.group', {doctor: id});
         };
     }
 })();

@@ -1,7 +1,7 @@
 <div ba-panel  ba-panel-class="with-scroll">
 
     <div class="row add-row-editable-table">
-        <div class="col-sm-3 text-right"><span>选择医生组:</span></div>
+        <div class="col-sm-3 text-right"><span>选择药师用户组:</span></div>
         <div class="col-sm-3">
             <span>
                 <select
@@ -18,8 +18,8 @@
     </div>
     <table class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
         <tr style="font-weight: bold">
-            <td style="width:15%">医生组</td>
-            <td style="width:15%">医生</td>
+            <td style="width:15%">药师</td>
+            <td style="width:15%">药师组</td>
             <td style="width:15%">用户</td>
 
             <td style="width:5%">有效</td>
@@ -32,16 +32,18 @@
                 </span>
             </td>
             <td class="select-td">
+                <span editable-select="item.doctor" e-name="doctor" e-form="rowform" e-required
+                      e-ng-options="d._id as d.name for d in doctors">
+                  {{ showDoctor(item) }}
+                </span>
+            </td>
+            <td class="select-td">
                 <span editable-select="item.group" e-name="group" e-form="rowform" e-required
                       e-ng-options="g._id as g.name for g in groups">
                   {{ showGroup(item)}}
                 </span>
             </td>
             <td class="select-td">
-                <span editable-text="item.doctor" e-name="doctor" e-form="rowform" e-required>
-                  {{ item.doctor || '空' }}
-                </span>
-            </td><td class="select-td">
                 <span editable-select="item.user" e-name="user" e-form="rowform" e-required
                       e-ng-options="u._id as u.name for u in users">
                   {{ showUser(item)}}
@@ -63,10 +65,10 @@
                     </button>
                 </form>
                 <div class="buttons" ng-show="!rowform.$visible">
-                    <button class="btn btn-primary editable-table-button btn-xs" ng-click="rowform.$show()">编辑</button>
-                    <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeRelationship(item._id, $index)">删除</button>
-                    <button class="btn btn-primary  btn-xs" data-toggle="modal" ng-click="open('app/cms/crm/user/userEdit.html?id=1', 'lg', item)">
-                        其他资料
+                    <button class="btn btn-primary btn-xs" ng-click="rowform.$show()"><i class="ion-compose"></i></button>
+                    <button class="btn btn-danger btn-xs" ng-click="removeRelationship(item._id, $index)"><i class="ion-ios-trash"></i></button>
+                    <button class="btn btn-primary  btn-xs" data-toggle="modal" ng-click="goDoctorGroup(item.doctor)">
+                        返回药师用户组
                     </button>
                 </div>
             </td>

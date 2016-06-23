@@ -16,7 +16,7 @@
                 url: '/doctor',
                 templateUrl: 'app/cms/crm/doctor/doctor/doctor.html',
                 controller: 'doctorCtrl',
-                title: '医生资料',
+                title: '药师资料',
                 sidebarMeta: {
                     icon: 'ion-ios-person',
                     order: 10,

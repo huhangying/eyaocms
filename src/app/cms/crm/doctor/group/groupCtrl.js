@@ -10,6 +10,7 @@
 
     /** @ngInject */
     function groupCtrl($scope, $state, $filter, $http, util, toastr, $uibModal) {
+        $scope.search = {};
 
         $scope.doctors = [];
         $scope.getDoctors = function() {
@@ -61,10 +62,19 @@
 
         $scope.getGroups();
 
+        $scope.$on('$viewContentLoaded', function(){
+            //Here your view content is fully loaded !!
+            if ($state.params.doctor) {
+                // toastr.info($state.params.doctor);
+
+                $scope.search.doctor = $state.params.doctor;
+            }
+        });
+
 
         $scope.addGroup = function() {
             $scope.inserted = {
-                doctor: null,
+                doctor: $scope.search.doctor || null,
                 name: '',
                 apply: true
             };

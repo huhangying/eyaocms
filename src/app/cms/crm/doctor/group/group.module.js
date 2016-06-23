@@ -14,7 +14,7 @@
     function routeConfig($stateProvider) {
         $stateProvider
             .state('doctor.group', {
-                url: '/group',
+                url: '/group/:doctor',
                 templateUrl: 'app/cms/crm/doctor/group/group.html',
                 controller: 'groupCtrl',
                 title: '用户组',
