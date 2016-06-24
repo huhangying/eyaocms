@@ -14,7 +14,7 @@
     function routeConfig($stateProvider) {
         $stateProvider
             .state('crm.relationship', {
-                url: '/relationship/:group',
+                url: '/relationship/:doctor/:group',
                 templateUrl: 'app/cms/crm/relationship/relationship.html',
                 controller: 'relationshipCtrl',
                 title: '医患关系',

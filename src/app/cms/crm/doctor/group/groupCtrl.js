@@ -154,8 +154,8 @@
 
 
         // goto 组内用户
-        $scope.goGroupRelationship = function(group_id) { // group id
-            $state.go('crm.relationship', {group: group_id});
+        $scope.goGroupRelationship = function(group) { // group id
+            $state.go('crm.relationship', {group: group._id, doctor: group.doctor});
         }
     }
 })();

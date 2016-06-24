@@ -1,17 +1,27 @@
 <div ba-panel  ba-panel-class="with-scroll">
 
     <div class="row add-row-editable-table">
-        <div class="col-sm-3 text-right"><span>选择药师用户组:</span></div>
+        <div class="col-sm-2 text-right"><span>选择药师:</span></div>
+        <div class="col-sm-3">
+            <span>
+                <select
+                        class="form-control" ng-model="search.doctor"
+                        ng-options="d._id as d.name for d in doctors">
+
+                </select>
+            </span>
+        </div>
+        <div class="col-sm-2 text-right"><span>药师用户组:</span></div>
         <div class="col-sm-3">
             <span>
                 <select
                         class="form-control" ng-model="search.group"
-                        ng-options="g._id as g.name for g in groups">
-                    <!--<option value=''>&#45;&#45; Select an option&#45;&#45;</option>-->
+                        ng-options="g._id as g.name for g in groups | filter: search.doctor">
+
                 </select>
             </span>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-2">
             <button class="btn btn-primary pull-right" ng-click="addRelationship()">创建</button>
         </div>
 
