@@ -10,6 +10,7 @@
 
     /** @ngInject */
     function scheduleCtrl($scope, $state, $filter, $http, util, toastr, $uibModal) {
+        $scope.search = {};
 
         $scope.departments = [];
         $scope.loadDepartments = function() {
@@ -101,7 +102,7 @@
             // $scope.$apply();
 
             $scope.inserted = {
-                doctor: null,
+                doctor: $scope.search.doctor || null,
                 name: '',
                 from: '',
                 to: '',

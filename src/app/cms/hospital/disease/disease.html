@@ -27,7 +27,7 @@
         </tr>
         <tr ng-repeat="item in diseases | filter: search" class="editable-row">
             <td style="display:none;">
-                <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
+                <span e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
                 </span>
             </td>
@@ -43,14 +43,14 @@
                 </span>
             </td>
             <td class="select-td">
-        <span editable-text="item.desc" e-name="desc" e-form="rowform">
-          {{ item.desc || '空' }}
-        </span>
+                <span editable-text="item.desc" e-name="desc" e-form="rowform">
+                  {{ item.desc || '空' }}
+                </span>
             </td>
             <td class="select-td" >
-        <span editable-number="item.order" e-name="order" e-form="rowform" >
-          {{ item.order || '' }}
-        </span>
+                <span editable-number="item.order" e-name="order" e-form="rowform" >
+                  {{ item.order || '' }}
+                </span>
             </td>
             <td class="select-td">
                 <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
