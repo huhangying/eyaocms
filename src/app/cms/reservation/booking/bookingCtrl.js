@@ -167,17 +167,12 @@
             $scope.bookings.push($scope.inserted);
         }
 
-        $scope.removeBooking = function(id, index) {
-            // check if any disease connect to it
-            if (!id){
-                $scope.bookings.splice(index, 1);
-                return;
-            }
-
+        $scope.removeBooking = function(id) {
 
             $http.delete(util.baseApiUrl + 'booking/' + id)
                 .success(function (response) {
-                    $scope.bookings.splice(index, 1);
+                    $scope.bookings = $filter('filter')($scope.bookings, {_id: '!'+id});
+
                     toastr.success('成功删除');
                 })
                 .error(function(err){

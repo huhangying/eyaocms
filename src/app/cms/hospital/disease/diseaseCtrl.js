@@ -82,13 +82,8 @@
       $scope.diseases.push($scope.inserted);
     }
 
-    $scope.removeDisease = function(id, index) {
+    $scope.removeDisease = function(id) {
 
-      // check if any disease connect to it
-      if (!id){
-        $scope.diseases.splice(index, 1);
-        return;
-      }
       $http.get(util.baseApiUrl + 'diseases/' + id)
           .success(function(response) {
             var diseases = util.getResponse(response);
@@ -98,8 +93,9 @@
             else {
               $http.delete(util.baseApiUrl + 'disease/' + id)
                   .success(function (response) {
-                    $scope.diseases.splice(index, 1);
-                    toastr.success('成功删除');
+                      $scope.diseases = $filter('filter')($scope.diseases, {_id: '!'+id});
+
+                      toastr.success('成功删除');
                   })
 
             }

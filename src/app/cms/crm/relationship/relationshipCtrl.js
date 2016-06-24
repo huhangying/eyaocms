@@ -147,17 +147,12 @@
             $scope.relationships.push($scope.inserted);
         }
 
-        $scope.removeRelationship = function(id, index) {
-            // check if any disease connect to it
-            if (!id){
-                $scope.relationships.splice(index, 1);
-                return;
-            }
-
+        $scope.removeRelationship = function(id) {
 
             $http.delete(util.baseApiUrl + 'relationship/' + id)
                 .success(function (response) {
-                    $scope.relationships.splice(index, 1);
+                    $scope.relationships = $filter('filter')($scope.relationships, {_id: '!'+id});
+
                     toastr.success('成功删除');
                 })
 

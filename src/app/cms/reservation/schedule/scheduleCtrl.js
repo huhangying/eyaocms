@@ -113,12 +113,7 @@
             $scope.schedules.push($scope.inserted);
         }
 
-        $scope.removeSchedule = function(id, index) {
-            // check if any disease connect to it
-            if (!id){
-                $scope.doctors.splice(index, 1);
-                return;
-            }
+        $scope.removeSchedule = function(id) {
 
             $http.get(util.baseApiUrl + 'bookings/schedule/' + id)
                 .success(function(response) {
@@ -131,7 +126,8 @@
                     else {
                         $http.delete(util.baseApiUrl + 'schedule/' + id)
                             .success(function (response) {
-                                $scope.doctors.splice(index, 1);
+                                $scope.schedules = $filter('filter')($scope.schedules, {_id: '!'+id});
+
                                 toastr.success('成功删除');
                             })
 

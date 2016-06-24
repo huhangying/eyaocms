@@ -89,17 +89,12 @@
             $scope.doctors.push($scope.inserted);
         }
 
-        $scope.removeDoctor = function(id, user_id, index) {
-            // check if any disease connect to it
-            if (!id){
-                $scope.doctors.splice(index, 1);
-                return;
-            }
+        $scope.removeDoctor = function(id, user_id) {
 
             $http.get(util.baseApiUrl + 'relationships/doctor/' + id)
                 .success(function(response) {
 
-                    toastr.info(JSON.stringify(response));
+                    //toastr.info(JSON.stringify(response));
                     var item = util.getResponse(response);
                     if (item && item.length > 0) {
                         toastr.error('不能被删除,请先删除与之关联的病患。');
@@ -107,7 +102,8 @@
                     else {
                         $http.delete(util.baseApiUrl + 'doctor/' + user_id)
                             .success(function (response) {
-                                $scope.doctors.splice(index, 1);
+                                $scope.doctors = $filter('filter')($scope.doctors, {_id: '!'+id});
+
                                 toastr.success('成功删除');
                             })
 

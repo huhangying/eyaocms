@@ -77,17 +77,12 @@
             $scope.users.push($scope.inserted);
         }
 
-        $scope.removeUser = function(id, index) {
-            // check if any disease connect to it
-            if (!id){
-                $scope.users.splice(index, 1);
-                return;
-            }
-
+        $scope.removeUser = function(id) {
 
             $http.delete(util.baseApiUrl + 'user/' + id)
                 .success(function (response) {
-                    $scope.users.splice(index, 1);
+                    $scope.users = $filter('filter')($scope.users, {_id: '!'+id});
+
                     toastr.success('成功删除');
                 })
 

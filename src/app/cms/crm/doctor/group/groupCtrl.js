@@ -83,17 +83,12 @@
             $scope.groups.push($scope.inserted);
         }
 
-        $scope.removeGroup = function(id, index) {
-            // check if any disease connect to it
-            if (!id){
-                $scope.groups.splice(index, 1);
-                return;
-            }
-
-
+        $scope.removeGroup = function(id) {
+            
             $http.delete(util.baseApiUrl + 'group/' + id)
                 .success(function (response) {
-                    $scope.groups.splice(index, 1);
+                    $scope.groups = $filter('filter')($scope.groups, {_id: '!'+id});
+
                     toastr.success('成功删除');
                 })
 
@@ -136,7 +131,6 @@
 
                         // remove
                         $scope.groups.splice($scope.groups.length - 1, 1);
-                        //$scope.groups = $filter('filter')($scope.groups, {_id: ""});
 
                     });
             }

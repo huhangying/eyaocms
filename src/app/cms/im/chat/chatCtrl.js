@@ -74,17 +74,12 @@
       $scope.chats.push($scope.inserted);
     }
 
-    $scope.removeChat = function(id, index) {
-
-      // check if any disease connect to it
-      if (!id){
-        $scope.chats.splice(index, 1);
-        return;
-      }
+    $scope.removeChat = function(id) {
 
         $http.delete(util.baseApiUrl + 'chat/' + id)
             .success(function (response) {
-                $scope.chats.splice(index, 1);
+                $scope.chats = $filter('filter')($scope.chats, {_id: '!'+id});
+
                 toastr.success('成功删除');
             });
     }
