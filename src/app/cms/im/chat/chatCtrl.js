@@ -102,7 +102,7 @@
       return true;
     }
 
-    $scope.saveChat = function(data, id, index) {
+    $scope.saveChat = function(data, id) {
 
       //validate
       if (!$scope.validate(data)){
@@ -118,7 +118,7 @@
               toastr.success('成功创建');
 
               // remove
-              $scope.chats.splice(index + 1, 1);
+              $scope.chats.splice($scope.chats.length - 1, 1);
 
             });
       }

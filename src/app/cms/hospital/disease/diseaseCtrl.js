@@ -119,7 +119,7 @@
       return true;
     }
 
-    $scope.saveDisease = function(data, id, index) {
+    $scope.saveDisease = function(data, id) {
 
       //validate
       if (!$scope.validate(data)){
@@ -135,7 +135,7 @@
               toastr.success('成功创建');
 
               // remove
-              $scope.diseases.splice(index + 1, 1);
+              $scope.diseases.splice($scope.diseases.length - 1, 1);
 
             });
       }

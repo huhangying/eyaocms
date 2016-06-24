@@ -119,7 +119,7 @@
             return true;
         }
 
-        $scope.saveGroup = function(data, index) {
+        $scope.saveGroup = function(data) {
 
             //validate
             if (!$scope.validate(data)){
@@ -135,7 +135,8 @@
                         toastr.success('成功创建');
 
                         // remove
-                        $scope.groups.splice(index + 1, 1);
+                        $scope.groups.splice($scope.groups.length - 1, 1);
+                        //$scope.groups = $filter('filter')($scope.groups, {_id: ""});
 
                     });
             }

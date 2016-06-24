@@ -116,7 +116,7 @@
             return true;
         }
 
-        $scope.saveUser = function(data, index) {
+        $scope.saveUser = function(data) {
 
             //validate
             if (!$scope.validate(data)){
@@ -133,7 +133,7 @@
                         toastr.success('成功创建');
 
                         // remove
-                        $scope.users.splice(index + 1, 1);
+                        $scope.users.splice($scope.users.length - 1, 1);
 
                     });
             }

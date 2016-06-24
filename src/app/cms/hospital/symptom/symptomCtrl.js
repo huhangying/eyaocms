@@ -124,7 +124,7 @@
               toastr.success('成功创建');
 
               // remove
-              $scope.diseases.splice(index + 1, 1);
+              $scope.diseases.splice($scope.diseases.length - 1, 1);
 
             });
       }

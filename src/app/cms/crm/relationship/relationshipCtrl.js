@@ -182,7 +182,7 @@
             return true;
         }
 
-        $scope.saveRelationship = function(data, index) {
+        $scope.saveRelationship = function(data) {
 
             //validate
             if (!$scope.validate(data)){
@@ -198,7 +198,7 @@
                         toastr.success('成功创建');
 
                         // remove
-                        $scope.relationships.splice(index + 1, 1);
+                        $scope.relationships.splice($scope.relationships.length - 1, 1);
 
                     });
             }

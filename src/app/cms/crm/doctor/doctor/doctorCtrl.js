@@ -138,7 +138,7 @@
             return true;
         }
 
-        $scope.saveDoctor = function(data, index) {
+        $scope.saveDoctor = function(data) {
 
             //validate
             if (!$scope.validate(data)){
@@ -156,7 +156,7 @@
                         toastr.success('成功创建');
 
                         // remove
-                        $scope.doctors.splice(index + 1, 1);
+                        $scope.doctors.splice($scope.doctors.length - 1, 1);
 
                     });
             }

@@ -96,7 +96,7 @@
                     toastr.success('成功创建');
 
                     // remove
-                    $scope.departments.splice(index + 1, 1);
+                    $scope.departments.splice($scope.departments.length - 1, 1);
 
                 });
         }

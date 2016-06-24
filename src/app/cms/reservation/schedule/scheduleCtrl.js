@@ -178,7 +178,7 @@
                         toastr.success('成功创建');
 
                         // remove
-                        $scope.schedules.splice(index + 1, 1);
+                        $scope.schedules.splice($scope.schedules.length - 1, 1);
 
                     });
             }

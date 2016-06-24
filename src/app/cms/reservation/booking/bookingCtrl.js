@@ -209,7 +209,7 @@
             return true;
         }
 
-        $scope.saveBooking = function(data, index) {
+        $scope.saveBooking = function(data) {
 
             //validate
             if (!$scope.validate(data)){
@@ -225,7 +225,7 @@
                         toastr.success('成功创建');
 
                         // remove
-                        $scope.bookings.splice(index + 1, 1);
+                        $scope.bookings.splice($scope.bookings.length - 1, 1);
 
                     });
             }
