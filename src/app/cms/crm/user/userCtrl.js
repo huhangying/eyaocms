@@ -151,7 +151,7 @@
         }
 
         $scope.open = function (page, size, item) {
-            $rootScope.myUser = item;
+            $rootScope.myUser = item; // pass item into the edit page
             $uibModal.open({
                 animation: true,
                 templateUrl: page,
