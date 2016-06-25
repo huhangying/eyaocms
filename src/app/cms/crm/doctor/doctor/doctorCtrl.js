@@ -10,6 +10,7 @@
 
     /** @ngInject */
     function doctorCtrl($scope, $state, $filter, $http, util, toastr, $uibModal) {
+        $scope.search = {};
 
         $scope.departments = [];
         $scope.loadDepartments = function() {
@@ -74,11 +75,15 @@
 
         $scope.getDoctors();
 
+        //=====================================
+
 
         $scope.addDoctor = function() {
+            $scope.search.user_id = undefined;
+
             $scope.inserted = {
-                department: null,
-                user_id: '',
+                department: $scope.search.department || null,
+                user_id: $scope.search.user_id || '',
                 name: '',
                 role: 0,
                 title: '',

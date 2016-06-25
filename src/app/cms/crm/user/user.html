@@ -75,8 +75,8 @@
                     </button>
                 </form>
                 <div class="buttons" ng-show="!rowform.$visible">
-                    <button class="btn btn-primary editable-table-button btn-xs" ng-click="rowform.$show()">编辑</button>
-                    <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeUser(item._id, item.user_id)">删除</button>
+                    <button class="btn btn-primary btn-xs" ng-click="rowform.$show()"><i class="ion-compose"></i></button>
+                    <button class="btn btn-danger btn-xs" ng-click="removeUser(item._id, item.user_id)"><i class="ion-ios-trash"></i></button>
                     <button class="btn btn-primary  btn-xs" data-toggle="modal" ng-click="open('app/cms/crm/user/userEdit.html?id=1', 'lg', item)">
                         其他资料
                     </button>

@@ -1,7 +1,7 @@
 <div ba-panel  ba-panel-class="with-scroll">
 
     <div class="row add-row-editable-table">
-        <div class="col-sm-3 text-right"><span>选择医院科室:</span></div>
+        <div class="col-sm-2 text-right"><span>选择医院科室:</span></div>
         <div class="col-sm-3">
             <span>
                 <select class="form-control" ng-model="search.department"
@@ -10,7 +10,15 @@
                 </select>
             </span>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-2 text-right"><span>药师User ID:</span></div>
+        <div class="col-sm-3">
+            <span>
+                <span>
+                <input ng-model="search.user_id" placeholder="药师名" class="input-sm form-control search-input" type="search"/>
+            </span>
+            </span>
+        </div>
+        <div class="col-sm-2">
             <button class="btn btn-primary pull-right" ng-click="addDoctor()">创建</button>
         </div>
 
