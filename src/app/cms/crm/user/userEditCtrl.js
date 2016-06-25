@@ -9,15 +9,17 @@
 
     /** @ngInject */
     function userEditCtrl($scope, $rootScope, $filter, $http, util, toastr) {
-        $scope.data = $rootScope.myUser;;
+        $scope.data = $rootScope.myUser;
+
+        // toastr.info(JSON.stringify($scope.data));
 
 
-        $scope.saveMe = function() {
+        $scope.saveMe = function(item) {
 
             //validate
 
             // update
-            $http.patch(util.baseApiUrl + 'user/wechat/' + $scope.data.link_id, $scope.data)
+            $http.patch(util.baseApiUrl + 'user/wechat/' + item.link_id, item)
                 .success(function (response) {
                     console.log(JSON.stringify(response))
                     if (!response) {
@@ -29,7 +31,7 @@
                 });
 
 
-
+            $scope.closeMe();
 
         }
 

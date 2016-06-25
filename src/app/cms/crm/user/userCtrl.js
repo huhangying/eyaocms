@@ -157,11 +157,11 @@
                 templateUrl: page,
                 controller: 'userEditCtrl',
                 size: size,
-                resolve: {
-                    item: function () {
-                        return item;
-                    }
-                }
+                // resolve: {
+                //     item: function () {
+                //         return item;
+                //     }
+                // }
             });
         };
     }

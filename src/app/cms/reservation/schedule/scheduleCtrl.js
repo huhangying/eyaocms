@@ -96,7 +96,7 @@
 
         //===========================================================
 
-        $scope.addSchedule = function() {
+        $scope.addSchedules = function() {
             //todo:
             // $scope.search.doctor = null; // reset
             // $scope.$apply();

@@ -7,6 +7,14 @@ h3.with-line {
   line-height: 39px;
   width: 100%;
 }
+h3.with-line-no-padding {
+  border-bottom: 1px solid $border;
+  color: $default-text;
+  font-weight: $font-normal;
+  margin-bottom: 14px;
+  line-height: 39px;
+  width: 100%;
+}
 
 .panel .panel-body h3 {
   &.with-line {

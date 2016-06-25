@@ -7,10 +7,12 @@
 
 .modal-header {
   color: $label-text;
+  background-color: $primary;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  text-align: center;
   .modal-title {
-    color: $dropdown-text;
+    //color: $dropdown-text;
   }
 }
 

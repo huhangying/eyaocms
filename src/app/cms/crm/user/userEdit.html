@@ -6,7 +6,7 @@
         <h4 class="modal-title">编辑患者用户信息</h4>
     </div>
     <div class="modal-body">
-        <h4 class="with-line">详细用户信息</h4>
+        <h3 class="with-line-no-padding">用户信息 (用户ID: {{data.link_id}})</h3>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group row clearfix">
@@ -28,13 +28,6 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group row clearfix">
-                    <label for="inputUserId" class="col-sm-3 control-label">用户名</label>
-
-                    <div class="col-sm-9">
-                        <label class="form-control" id="inputUserId" ng-model="data.link_id">
-                    </div>
-                </div>
                 <div class="form-group row clearfix">
                     <label for="inputName" class="col-sm-3 control-label">姓名</label>
 
@@ -61,28 +54,41 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group row clearfix">
-                    <label class="col-sm-3 control-label">医院科室</label>
+                    <label for="inputCell" class="col-sm-3 control-label">手机</label>
 
                     <div class="col-sm-9">
-                        <select class="form-control" ng-model="doctor.department"
-                                ng-options="department._id as department.name for department in departments">
-                            <!--<option ng-repeat="department in departments" value="{{department._id}}">{{department.name}}</option>-->
-                        </select>
+                        <input type="text" class="form-control" id="inputCell" placeholder="" ng-model="data.cell">
                     </div>
                 </div>
 
                 <div class="form-group row clearfix">
-                    <label for="inputTitle" class="col-sm-3 control-label">职称</label>
+                    <label class="col-sm-3 control-label">出生日期</label>
 
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="inputTitle" placeholder="" ng-model="doctor.title">
+                        <input type="date" class="form-control" ng-model="data.birthdate">
+                        </input>
                     </div>
                 </div>
             </div>
         </div>
+
+        <h3 class="with-line-no-padding">用户关联信息</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row clearfix">
+                    <label for="inputsin" class="col-sm-3 control-label">社保号码</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputSin" placeholder="" ng-model="data.sin">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6"></div>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="closeMe()">取消</button>
-        <button type="button" class="btn btn-primary" ng-click="saveMe()"><i class="ion-android-checkmark-circle"></i>更新用户信息</button>
+        <button type="button" class="btn btn-primary" ng-click="saveMe(data)"><i class="ion-android-checkmark-circle"></i>更新用户信息</button>
     </div>
 </div>
