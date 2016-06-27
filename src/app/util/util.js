@@ -4,7 +4,7 @@
 app.provider('util', function() {
     this.$get = function() {
         return {
-            baseApiUrl: 'http://localhost:3000/',
+            baseApiUrl: 'http://139.224.68.92:3000/',
 
             getResponse: function(response) {
                 if (response.return && response.return == 'null'){
