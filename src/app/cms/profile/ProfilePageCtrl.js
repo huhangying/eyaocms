@@ -38,6 +38,7 @@
         if ($state.params && $state.params.doctor){
             doctor_id = $state.params.doctor;
         }
+        
         $http.get(util.baseApiUrl + 'doctor/' + doctor_id)
             .success(function(response){
                 $scope.doctor = response;
