@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="modal-content" ng-controller="userEditCtrl">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+            <em class="ion-ios-close-empty sn-link-close"></em>
+        </button>
+        <h4 class="modal-title">批量创建医生门诊</h4>
+    </div>
+    <div class="modal-body">
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="closeMe()">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="saveMe(data)"><i class="ion-android-checkmark-circle"></i>更新用户信息</button>
+    </div>
+</div>

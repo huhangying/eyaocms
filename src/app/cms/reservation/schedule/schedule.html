@@ -20,7 +20,7 @@
             </span>
         </div>
         <div class="col-sm-2">
-            <button class="btn btn-primary pull-right" ng-click="addSchedules()">创建</button>
+            <button class="btn btn-primary pull-right" ng-click="open('app/cms/reservation/schedule/scheduleCreate.html', 'lg', search.doctor)">创建</button>
         </div>
 
     </div>
@@ -46,7 +46,7 @@
                 </span>
             </td>
             <td>
-                <span>{{ item.from | date: "yyyy-mm-dd" }}</span>
+                <span>{{ item.from | date: "yyyy-MM-dd" }}</span>
                 <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
                   {{ item.name || '空' }}
                 </span>

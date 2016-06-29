@@ -9,7 +9,7 @@
         .controller('scheduleCtrl', scheduleCtrl);
 
     /** @ngInject */
-    function scheduleCtrl($scope, $state, $filter, $http, util, toastr, $uibModal) {
+    function scheduleCtrl($scope, $state, $rootScope, $filter, $http, util, toastr, $uibModal) {
         $scope.search = {};
 
         $scope.departments = [];
@@ -199,5 +199,20 @@
         $scope.getScheduleDetails = function(id) {
             $state.go('reservation.booking', {schedule: id});
         }
+
+        $scope.open = function (page, size, doctor) {
+            $rootScope.myDoctor = doctor; // pass item into the edit page
+            $uibModal.open({
+                animation: true,
+                templateUrl: page,
+                controller: 'userEditCtrl',
+                size: size,
+                // resolve: {
+                //     item: function () {
+                //         return item;
+                //     }
+                // }
+            });
+        };
     }
 })();

@@ -36,11 +36,11 @@
     <table class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
         <tr style="font-weight: bold">
             <td style="width:20%">药师</td>
-            <td style="width:15%">预约</td>
+            <td style="width:25%">预约</td>
             <td style="width:15%">用户</td>
             <td style="width:15%">状态</td>
             <td style="width:10%">评分</td>
-            <td style="width:25%">操作</td>
+            <td style="width:15%">操作</td>
         </tr>
         <tr ng-repeat="item in bookings | filter: search" class="editable-row">
             <td style="display:none;">
@@ -63,7 +63,7 @@
             <td class="select-td">
                 <span editable-select="item.user" e-name="user" e-form="rowform" e-required
                       e-ng-options="u._id as u.name for u in users">
-                  {{ showDoctor(item)}}
+                  {{ showUser(item)}}
                 </span>
             </td>
             <td class="select-td">
