@@ -58,15 +58,29 @@
                 return '未设置';
             }
         };
-        
-        $scope.names = [
-            {name: "上午", value: "上午"},
-            {name: "下午", value: "下午"}
-        ];
 
-        $scope.showName = function(item) {
-            if(item.role && $scope.roles.length) {
-                var selected = $filter('filter')($scope.names, {value: item.name});
+        $scope.periods = [];
+        $scope.loadPeriods = function() {
+            $http.get(util.baseApiUrl + 'periods')
+                .success(function (response) {
+                    // check if return null
+                    if (response.return && response.return == 'null'){
+                        $scope.periods = [];
+                    }
+                    else {
+                        $scope.periods = response;
+                    }
+
+                })
+                .error(function(error){
+                    toastr.error(error.messageFormatted);
+                });
+        }
+        $scope.loadPeriods();
+
+        $scope.showPeriod = function(item) {
+            if(item.period && $scope.periods.length) {
+                var selected = $filter('filter')($scope.periods, {_id: item.period});
                 return selected.length ? selected[0].name : '未设置';
             } else {
                 return '未设置';
@@ -94,6 +108,15 @@
 
         $scope.getSchedules();
 
+        $scope.opened = {};
+
+        // $scope.open = function($event, elementOpened) {
+        //     $event.preventDefault();
+        //     $event.stopPropagation();
+        //
+        //     $scope.opened[elementOpened] = !$scope.opened[elementOpened];
+        // };
+
         //===========================================================
 
         $scope.addSchedules = function() {
@@ -103,9 +126,8 @@
 
             $scope.inserted = {
                 doctor: $scope.search.doctor || null,
-                name: '',
-                from: '',
-                to: '',
+                period: null,
+                date: '',
                 limit: 0,
                 apply: true
             };
@@ -148,12 +170,12 @@
                 toastr.error('药师 不能为空!');
                 return false;
             }
-            if (!item.name){
+            if (!item.period){
                 toastr.error('名字不能为空!');
                 return false;
             }
-            if (!item.from){
-                toastr.error('开始日期时间不能为空!');
+            if (!item.date){
+                toastr.error('日期不能为空!');
                 return false;
             }
             return true;

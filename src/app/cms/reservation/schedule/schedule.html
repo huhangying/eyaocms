@@ -26,11 +26,10 @@
     </div>
     <table class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
         <tr style="font-weight: bold">
-            <td style="width:15%">药师</td>
+            <td style="width:20%">药师</td>
+            <td style="width:20%">日期</td>
             <td style="width:20%">名称</td>
-            <td style="width:15%">开始时间</td>
-            <td style="width:15%">结束时间</td>
-            <td style="width:10%">个数限制</td>
+            <td style="width:15%">个数限制</td>
             <td style="width:25%">操作</td>
         </tr>
         <tr ng-repeat="item in schedules | filter: search" class="editable-row">
@@ -45,24 +44,21 @@
                   {{ showDoctor(item)}}
                 </span>
             </td>
-            <td>
-                <span>{{ item.from | date: "yyyy-MM-dd" }}</span>
-                <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
-                  {{ item.name || '空' }}
+            <td class="select-td">
+                <span editable-date="item.date" e-name="date" e-form="rowform" e-required>
+                <!--<span editable-bsdate="item.date" e-name="date" e-form="rowform" e-required-->
+                      <!--e-datepicker-popup="yyyy-MM-dd" e-is-open="opened.$data" e-ng-click="open($event,'$data')">-->
+                  {{ item.date | date:"yyyy-MM-dd" }}
                 </span>
             </td>
             <td class="select-td">
-                <span editable-text="item.from" e-name="from" e-form="rowform">
-                  {{ item.from | date: "HH:mm" }}
+                <span editable-select="item.period" e-name="period" e-form="rowform" e-required
+                      e-ng-options="p._id as p.name for p in periods">
+                  {{ showPeriod(item)}}
                 </span>
             </td>
-            <td class="select-td">
-                <span editable-text="item.to" e-name="to" e-form="rowform">
-                  {{ item.to | date: "HH:mm"}}
-                </span>
-            </td>
-            <td>
-                <span editable-number="item.limit" e-name="limit" e-form="rowform" e-required>
+            <td  class="select-td">
+                <span editable-text="item.limit" e-name="limit" e-form="rowform" e-required>
                   {{ item.limit || '空' }}
                 </span>
             </td>
