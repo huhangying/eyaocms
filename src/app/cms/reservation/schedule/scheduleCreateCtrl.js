@@ -9,10 +9,10 @@
         .controller('scheduleCreateCtrl', scheduleCreateCtrl);
 
     /** @ngInject */
-    function scheduleCreateCtrl($scope, $rootScope, $filter, $http, util, toastr) {
+    function scheduleCreateCtrl($scope, $filter, $http, util, toastr) {
         $scope.doctor = null;
 
-        $http.get(util.baseApiUrl + 'doctor/' + $rootScope.myDoctor)
+        $http.get(util.baseApiUrl + 'doctor/' + $scope.search.doctor)
             .success(function (response) {
                 // check if return null
                 if (response.return && response.return == 'null'){
@@ -23,10 +23,9 @@
                     toastr.info(JSON.stringify($scope.doctor));
                 }
 
-            })
+            });
 
-
-        // toastr.info(JSON.stringify($scope.data));
+        toastr.error(JSON.stringify($scope.periods));
 
 
         $scope.saveMe = function(item) {
@@ -34,7 +33,7 @@
             //validate
 
             // update
-            $http.patch(util.baseApiUrl + 'user/wechat/' + item.link_id, item)
+            $http.patch(util.baseApiUrl + 'schedule/' + item.link_id, item)
                 .success(function (response) {
                     console.log(JSON.stringify(response))
                     if (!response) {
@@ -52,7 +51,6 @@
 
         $scope.closeMe = function(){
             //toastr.info(item._id);
-            $rootScope.myDoctor = null;
             $scope.$dismiss();
             // $uibModalInstance.$dismiss('cancel');
         }

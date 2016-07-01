@@ -13,6 +13,13 @@ app.provider('util', function() {
                 else {
                     return response;
                 }
+            },
+
+            getErrorMessage: function(response) {
+                if (response.return) {
+                    return "错误: " + response.return;
+                }
+                return null;
             }
         };
     };

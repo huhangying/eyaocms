@@ -71,6 +71,7 @@
             }
         });
 
+        //==========================================================
 
         $scope.addGroup = function() {
             $scope.inserted = {
@@ -124,6 +125,11 @@
             if (!data._id) { // create
                 $http.post(util.baseApiUrl + 'group', data)
                     .success(function (response) {
+                        if (util.getErrorMessage(response)) {
+                            $scope.groups.pop();
+                            return toastr.error(util.getErrorMessage(response));
+                        };
+
                         $scope.inserted = response;
 
                         $scope.groups.push($scope.inserted);
@@ -138,7 +144,10 @@
                 //angular.extend(data, {_id: id});
                 $http.patch(util.baseApiUrl + 'group/' + data._id, data)
                     .success(function (response) {
-                        toastr.info(JSON.stringify(response))
+                        if (util.getErrorMessage(response)) {
+                            return toastr.error(util.getErrorMessage(response));
+                        };
+
                         if (!response) {
                             toastr.error('no data');
                         }

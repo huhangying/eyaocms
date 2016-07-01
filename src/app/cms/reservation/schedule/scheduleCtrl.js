@@ -223,15 +223,20 @@
         }
 
         $scope.open = function (page, size, doctor) {
-            $rootScope.myDoctor = doctor; // pass item into the edit page
+            if (!doctor) {
+                return toastr.warning('请先选择一个药师');
+            }
+
+            $scope.selectedDoctorId = doctor; // pass item into the edit page
             $uibModal.open({
                 animation: true,
                 templateUrl: page,
-                controller: 'userEditCtrl',
+                controller: 'scheduleCreateCtrl',
+                scope: $scope,
                 size: size,
                 // resolve: {
                 //     item: function () {
-                //         return item;
+                //         return doctor;
                 //     }
                 // }
             });
