@@ -6,43 +6,87 @@
         <h4 class="modal-title">批量创建医生门诊</h4>
     </div>
     <div class="modal-body">
-        <h3 class="with-line-no-padding">医生姓名: {{doctor.name}} (ID: {{doctor._id}})</h3>
+        <h3 class="with-line-no-padding">医生姓名: {{doctor.name}}</h3>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group row clearfix">
-                    <label for="inputName" class="col-sm-3 control-label">doctor</label>
-
+                    <label class="col-sm-3 control-label">门诊时间片</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="inputName" placeholder="" ng-model="schedule.doctor">
-                    </div>
-                </div>
-                <div class="form-group row clearfix">
-                    <label class="col-sm-3 control-label">姓名</label>
-
-                    <div class="col-sm-9">
-                        <select name="mySelect" id="mySelect"
-                                ng-options="p.name for p in periods track by p._id"
-                                ng-model="schedule.period">
-                        </select>
+                        <div class="form-group">
+                            <select class="form-control" title="支持多选" multiple selectpicker
+                                    ng-model="schedule.periods"
+                                    ng-options="p.name for p in periods track by p._id">
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group row clearfix">
-                    <label for="inputCell" class="col-sm-3 control-label">x</label>
-
+                    <label class="col-sm-3 control-label">个数限制</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="inputCell" placeholder="" ng-model="schedule.x">
+                        <input type="number" class="form-control" min="1" max="100" placeholder="" ng-model="schedule.limit">
                     </div>
                 </div>
+            </div>
+        </div>
 
+        <h3 class="with-line-no-padding">日期范围选择: </h3>
+        <div class="row">
+            <div class="col-md-6">
                 <div class="form-group row clearfix">
-                    <label class="col-sm-3 control-label">limit</label>
-
-                    <div class="col-sm-9">
-                        <input type="number" class="form-control"  placeholder="" ng-model="schedule.limit">
+                    <label class="col-sm-3 control-label">开始日期</label>
+                    <div class="input-group date">
+                        <input type="text" data-ng-datepicker
+                               data-ng-options="datepickerOptions" data-ng-model="schedule.startDate">
                     </div>
                 </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row clearfix">
+                    <label class="col-sm-3 control-label">结束日期</label>
+                    <div class="col-sm-9">
+                        <div class="input-group date">
+                            <input type="text" data-ng-datepicker
+                                   data-ng-options="datepickerOptions" data-ng-model="schedule.startDate">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-10">
+                <label class="checkbox-inline custom-checkbox nowrap">
+                    <input type="checkbox" ng-model="schedule.days.monday">
+                    <span>星期一</span>
+                </label>
+                <label class="checkbox-inline custom-checkbox nowrap">
+                    <input type="checkbox" ng-model="schedule.days.tuesday">
+                    <span>星期二</span>
+                </label>
+                <label class="checkbox-inline custom-checkbox nowrap">
+                    <input type="checkbox" ng-model="schedule.days.wednesday">
+                    <span>星期三</span>
+                </label>
+                <label class="checkbox-inline custom-checkbox nowrap">
+                    <input type="checkbox" ng-model="schedule.days.thursday">
+                    <span>星期四</span>
+                </label>
+                <label class="checkbox-inline custom-checkbox nowrap">
+                    <input type="checkbox" ng-model="schedule.days.friday">
+                    <span>星期五</span>
+                </label>
+                <label class="checkbox-inline custom-checkbox nowrap">
+                    <input type="checkbox" ng-model="schedule.days.saturday">
+                    <span>星期六</span>
+                </label>
+                <label class="checkbox-inline custom-checkbox nowrap">
+                    <input type="checkbox" ng-model="schedule.days.sunday">
+                    <span>星期天</span>
+                </label>
             </div>
         </div>
     </div>
