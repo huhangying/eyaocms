@@ -12,11 +12,12 @@ global.app = angular.module('BlurAdmin', [
   'ui.slimscroll',
   'ngJsTree',
   'angular-progress-button-styles',
+  'ui.bootstrap.datetimepicker',
     // 'lodash',
 
     // 'BlurAdmin.login',
   'BlurAdmin.theme',
-  'BlurAdmin.pages',
+  // 'BlurAdmin.pages',
   'BlurAdmin.cms',
   ]);
 
