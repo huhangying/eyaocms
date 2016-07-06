@@ -37,7 +37,7 @@
         };
 
         // set date for max picker, 10 days in future
-        $scope.schedule.endDate.date.setDate($scope.schedule.endDate.date.getDate() + 100);
+        $scope.schedule.endDate.date.setDate($scope.schedule.endDate.date.getDate() + 1);
 
 
         $scope.openCalendar = function(e, picker) {
@@ -68,11 +68,13 @@
 
         $scope.doctor = null;
         $scope.schedule.days = {
+            sunday: false,
             monday: true,
             tuesday: true,
             wednesday: true,
             thursday: true,
-            friday: true
+            friday: true,
+            saturday: false
         };
 
 
@@ -90,36 +92,84 @@
 
             });
 
+        $scope.getAvailableDates = function(){
+            var dates = [];
+
+            for(var i=0; i < $scope.schedule.dayRange; i++){
+                dates.push(new Date(new Date($scope.schedule.startDate.date).getTime() + i*24*60*60*1000));
+            }
+
+            return dates.filter(function(date){
+                switch(date.getDay()) {
+                    case 0:
+                        return $scope.schedule.days.sunday;
+                    case 1:
+                        return $scope.schedule.days.monday;
+                    case 2:
+                        return $scope.schedule.days.tuesday;
+                    case 3:
+                        return $scope.schedule.days.wednesday;
+                    case 4:
+                        return $scope.schedule.days.monday;
+                    case 5:
+                        return $scope.schedule.days.friday;
+                    case 6:
+                        return $scope.schedule.days.saturday;
+                    default:
+                        return false;
+                }
+            });
+
+        }
+
+        $scope.createSchedule = function(date, period){
+            var data = {
+                doctor: $scope.doctor._id,
+                period: period._id,
+                date: date,
+                limit: $scope.schedule.limit
+
+            };
+            $http.post(util.baseApiUrl + 'schedule', data)
+                .success(function (response) {
+                    toastr.info(JSON.stringify(response));
+                    // check if return null
+                    // if (response.return && response.return == 'null'){
+                    //     $scope.doctor = null;
+                    // }
+                    // else {
+                    //     $scope.doctor = response;
+                    //
+                    // }
+
+                })
+                .error(function(err){
+                    toastr.error(JSON.stringify(err));
+                });
+        }
 
         $scope.saveMe = function(item) {
 
+            // validation first
+            if (!$scope.schedule.periods || $scope.schedule.periods.length < 1){
+                toastr.error('请选择有效门诊时间片');
+                return;
+            }
             if ($scope.schedule.dayRange == 'n/a'){
                 toastr.error('请选择有效日期范围');
                 return;
             }
 
-            var dates = [];
-            var startDate = new Date($scope.schedule.startDate.date);
-            toastr.info(startDate.getDay())
-            for(var i=0; i < $scope.schedule.dayRange; i++){
 
-                startDate.setDate(startDate.getDate() + 1);
-                var date = startDate;
-                switch(startDate.getDay()) {
-                    case 1:
-                        if ($scope.schedule.days.monday){
-                            dates.push(date);
-                        }
-                        break;
-                    case 2:
-                        if ($scope.schedule.days.tuesday){
-                            dates.push(date);
-                        }
-                        break;
-                }
-            }
+            var dates = $scope.getAvailableDates();
+            //toastr.info(JSON.stringify(dates));
+            dates.map(function(date){
+                $scope.schedule.periods.map(function(period){
+                    $scope.createSchedule(date, period);
+                })
+            });
 
-            toastr.info(JSON.stringify(dates));
+
 
 
 
