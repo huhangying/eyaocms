@@ -12,7 +12,40 @@
         $scope.data = $rootScope.myUser;
 
         // toastr.info(JSON.stringify($scope.data));
-
+        $scope.data.birthdate = new Date($scope.data.birthdate);
+        $scope.data.birthdate.buttonBar = {
+            show: false,
+            now: {
+                show: true,
+                text: 'Now'
+            },
+            today: {
+                show: true,
+                text: 'Today'
+            },
+            clear: {
+                show: true,
+                text: 'Clear'
+            },
+            date: {
+                show: true,
+                text: 'Date'
+            },
+            time: {
+                show: true,
+                text: 'Time'
+            },
+            close: {
+                show: true,
+                text: 'Close'
+            }
+        };
+        
+        $scope.openCalendar = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $scope.isOpen = true;
+        };
 
         $scope.saveMe = function(item) {
 

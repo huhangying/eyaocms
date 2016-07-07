@@ -124,7 +124,7 @@
         $scope.$on('$viewContentLoaded', function(){
             //Here your view content is fully loaded !!
             if ($state.params.group && $state.params.doctor) {
-                toastr.info('group: ' + $state.params.group + '\ndoctor: ' + $state.params.doctor);
+                //toastr.info('group: ' + $state.params.group + '\ndoctor: ' + $state.params.doctor);
 
                 $scope.search.group = $state.params.group;
                 $scope.search.doctor = $state.params.doctor;
