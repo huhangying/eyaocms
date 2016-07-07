@@ -1,9 +1,14 @@
 (function () {
   'use strict';
 
-  angular.module('BlurAdmin.cms.profile', [])
-      .config(routeConfig);
-
+  angular.module('BlurAdmin.cms.profile', ['flow'])
+      .config(routeConfig)
+      .config(['flowFactoryProvider', function (flowFactoryProvider) {
+          flowFactoryProvider.defaults = {
+              target: '/public/images/doctor',
+              permanentErrors:[404, 500, 501]
+          };
+      }]);
   /** @ngInject */
     function routeConfig($stateProvider) {
         $stateProvider

@@ -54,7 +54,8 @@
     "textAngular": "~1.4.6",
     "angular-xeditable": "^0.1.12",
     "ng-js-tree": "~0.0.7",
-    "bootstrap-ui-datetime-picker": "^2.4.0"
+    "bootstrap-ui-datetime-picker": "^2.4.0",
+    "ng-flow": "~2"
   },
   "overrides": {
     "amcharts": {

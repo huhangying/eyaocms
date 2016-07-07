@@ -108,7 +108,7 @@ h3.with-line-no-padding {
       color: $danger;
     }
   }
-  a.change-userpic {
+  a.change-userpic, span.change-userpic {
     display: none;
     width: 202px;
     background: rgba(0, 0, 0, 0.7);
