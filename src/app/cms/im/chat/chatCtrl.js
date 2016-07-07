@@ -107,6 +107,10 @@
       if (!data._id) { // create
         $http.post(util.baseApiUrl + 'chat', data)
             .success(function (response) {
+                if (util.getErrorMessage(response)) {
+                    $scope.chats.pop();
+                    return toastr.error(util.getErrorMessage(response));
+                };
               $scope.inserted = response;
 
               $scope.chats.push($scope.inserted);

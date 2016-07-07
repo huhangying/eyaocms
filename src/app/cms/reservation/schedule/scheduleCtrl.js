@@ -191,6 +191,10 @@
             if (!data._id) { // create
                 $http.post(util.baseApiUrl + 'schedule', data)
                     .success(function (response) {
+                        if (util.getErrorMessage(response)) {
+                            $scope.schedules.pop();
+                            return toastr.error(util.getErrorMessage(response));
+                        };
                         $scope.inserted = response;
 
                         $scope.schedules.push($scope.inserted);

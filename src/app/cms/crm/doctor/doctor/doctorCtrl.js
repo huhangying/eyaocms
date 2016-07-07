@@ -151,6 +151,11 @@
                 data.password = data.user_id;
                 $http.post(util.baseApiUrl + 'doctor/' + data.user_id, data)
                     .success(function (response) {
+                        if (util.getErrorMessage(response)) {
+                            $scope.doctors.pop();
+                            return toastr.error(util.getErrorMessage(response));
+                        };
+
                         $scope.inserted = response;
 
                         $scope.doctors.push($scope.inserted);

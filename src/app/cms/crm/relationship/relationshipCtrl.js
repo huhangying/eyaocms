@@ -138,7 +138,7 @@
         $scope.addRelationship = function() {
             $scope.inserted = {
                 group: $scope.search.group || null,
-                doctor: null,
+                doctor: $scope.search.doctor || null,
                 user: null,
                 apply: true
             };
@@ -188,6 +188,11 @@
             if (!data._id) { // create
                 $http.post(util.baseApiUrl + 'relationship', data)
                     .success(function (response) {
+                        if (util.getErrorMessage(response)) {
+                            $scope.relationships.pop();
+                            return toastr.error(util.getErrorMessage(response));
+                        };
+
                         $scope.inserted = response;
 
                         $scope.relationships.push($scope.inserted);

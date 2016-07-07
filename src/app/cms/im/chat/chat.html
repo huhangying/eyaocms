@@ -25,12 +25,8 @@
             <td style="width:10%">操作</td>
         </tr>
         <tr ng-repeat="item in chats | filter: search" class="editable-row">
-            <td style="display:none;">
-                <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
-                    {{item._id}}
-                </span>
-            </td>
             <td>
+                <span style="display:none">{item._id}}</span>
                 <span editable-select="item.chatroom" e-name="chatroom" e-form="rowform" e-required
                       e-ng-options="c._id as c.name for c in chatrooms">
                   {{ showChatroom(item)}}

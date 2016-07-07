@@ -122,6 +122,10 @@
                 data.password = data.cell;
                 $http.post(util.baseApiUrl + 'user/wechat/' + data.link_id, data)
                     .success(function (response) {
+                        if (util.getErrorMessage(response)) {
+                            $scope.users.pop();
+                            return toastr.error(util.getErrorMessage(response));
+                        };
                         $scope.inserted = response;
 
                         $scope.users.push($scope.inserted);

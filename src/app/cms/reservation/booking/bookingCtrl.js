@@ -214,6 +214,10 @@
             if (!data._id) { // create
                 $http.post(util.baseApiUrl + 'booking', data)
                     .success(function (response) {
+                        if (util.getErrorMessage(response)) {
+                            $scope.bookings.pop();
+                            return toastr.error(util.getErrorMessage(response));
+                        };
                         $scope.inserted = response;
 
                         $scope.bookings.push($scope.inserted);

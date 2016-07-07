@@ -114,6 +114,11 @@
       if (!data._id) { // create
         $http.post(util.baseApiUrl + 'disease', data)
             .success(function (response) {
+                if (util.getErrorMessage(response)) {
+                    $scope.diseases.pop();
+                    return toastr.error(util.getErrorMessage(response));
+                };
+
               $scope.inserted = response;
 
               $scope.diseases.push($scope.inserted);
