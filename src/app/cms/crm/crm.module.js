@@ -22,6 +22,7 @@
                     icon: 'ion-ios-people',
                     order: 200,
                 },
+                minRole: 1,
             });
     }
 

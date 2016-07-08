@@ -77,6 +77,7 @@
                   order: meta.order,
                   icon: meta.icon,
                   stateRef: s.name,
+                  minRole: s.minRole,
                 };
               })
               .sort(function(a, b) {

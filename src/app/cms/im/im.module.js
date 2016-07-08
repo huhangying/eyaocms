@@ -19,9 +19,10 @@
                 abstract: true,
                 title: '聊天管理',
                 sidebarMeta: {
-                    icon: 'ion-gear-a',
+                    icon: 'ion-chatboxes',
                     order: 800,
                 },
+                minRole: 2,
             });
     }
 

@@ -19,9 +19,10 @@
                 abstract: true,
                 title: '预约管理',
                 sidebarMeta: {
-                    icon: 'ion-gear-a',
+                    icon: 'ion-calendar',
                     order: 600,
                 },
+                minRole: 1,
             });
     }
 

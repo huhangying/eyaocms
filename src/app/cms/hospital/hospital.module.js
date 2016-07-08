@@ -23,6 +23,7 @@
                     icon: 'ion-gear-a',
                     order: 300,
                 },
+                minRole: 2,
             });
     }
 

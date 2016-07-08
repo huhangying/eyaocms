@@ -10,6 +10,8 @@
 
   /** @ngInject */
   function BaSidebarCtrl($scope, baSidebarService) {
+    //$scope.user = JSON.parse($window.sessionStorage.user);
+    //toastr.info($scope.user.role)
 
     $scope.menuItems = baSidebarService.getMenuItems();
     $scope.defaultSidebarState = $scope.menuItems[0].stateRef;

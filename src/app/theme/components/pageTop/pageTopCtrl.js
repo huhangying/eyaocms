@@ -25,6 +25,7 @@
         $scope.user_id = user._id;
         $scope.userName = user.name;
         $scope.icon = 'Ninja';
+        $scope.role = user.role;
         if (user.role == 1)
             $scope.icon = 'Burglar';
         else if (user.role == 2)

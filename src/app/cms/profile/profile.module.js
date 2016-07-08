@@ -21,6 +21,7 @@
                     icon: 'ion-ios-paper',
                     order: 0,
                 },
+                minRole: 0,
             });
     }
 
