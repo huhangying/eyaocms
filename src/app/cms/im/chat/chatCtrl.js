@@ -41,7 +41,7 @@
 
     $scope.chats = [];
     $scope.getChats = function() {
-      $http.get(util.baseApiUrl + 'chats', {})
+        $scope.myPromise = $http.get(util.baseApiUrl + 'chats', {})
           .success(function (response) {
             // check if return null
             if (response.return && response.return == 'null'){
@@ -105,7 +105,7 @@
       }
 
       if (!data._id) { // create
-        $http.post(util.baseApiUrl + 'chat', data)
+          $http.post(util.baseApiUrl + 'chat', data)
             .success(function (response) {
                 if (util.getErrorMessage(response)) {
                     $scope.chats.pop();

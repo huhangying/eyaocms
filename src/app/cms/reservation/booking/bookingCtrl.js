@@ -120,7 +120,7 @@
         // data
         $scope.bookings = [];
         $scope.getBookings = function() {
-            $http.get(util.baseApiUrl + 'bookings', {})
+            $scope.myPromise = $http.get(util.baseApiUrl + 'bookings', {})
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){

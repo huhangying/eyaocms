@@ -17,7 +17,7 @@
     // ];
 
     $scope.getDepartments = function() {
-      $http.get(util.baseApiUrl + 'departments', {})
+        $scope.myPromise = $http.get(util.baseApiUrl + 'departments', {})
           .success(function (response) {
               // check if return null
               if (response.return && response.return == 'null'){

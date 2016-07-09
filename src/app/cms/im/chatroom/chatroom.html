@@ -1,54 +1,57 @@
+<div ba-panel ba-panel-title="疾病类型功能描述" ba-panel-class="with-scroll">
+    <div cg-busy="myPromise"></div>
 
-<div class="row add-row-editable-table">
-    <div class="col-sm-3 text-right"><span>搜索by 患者名 + 药师名:</span></div>
-    <div class="col-sm-9">
+    <div class="row add-row-editable-table">
+        <div class="col-sm-3 text-right"><span>搜索by 患者名 + 药师名:</span></div>
+        <div class="col-sm-9">
             <span>
                 <input ng-model="search.name" placeholder="患者名 + 药师名" class="input-sm form-control search-input" type="search"/>
             </span>
+        </div>
     </div>
-</div>
-<table class="table table-bordered table-hover table-condensed">
-    <tr style="font-weight: bold">
-        <td style="width:30%">聊天室名(患者名 + 药师名)</td>
-        <td style="width:10%">药师未读消息</td>
-        <td style="width:10%">患者未读消息</td>
-        <td style="width:15%">创建时间</td>
-        <td style="width:15%">更新时间</td>
-        <td style="width:20%">操作</td>
-    </tr>
-    <tr ng-repeat="item in chatrooms | filter: search.name" class="editable-row">
-        <td style="display:none;">
+    <table class="table table-bordered table-hover table-condensed">
+        <tr style="font-weight: bold">
+            <td style="width:30%">聊天室名(患者名 + 药师名)</td>
+            <td style="width:10%">药师未读消息</td>
+            <td style="width:10%">患者未读消息</td>
+            <td style="width:15%">创建时间</td>
+            <td style="width:15%">更新时间</td>
+            <td style="width:20%">操作</td>
+        </tr>
+        <tr ng-repeat="item in chatrooms | filter: search.name" class="editable-row">
+            <td style="display:none;">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
                 </span>
-        </td>
-        <td>
+            </td>
+            <td>
         <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
           {{ item.name || '空' }}
         </span>
-        </td>
-        <td class="select-td">
+            </td>
+            <td class="select-td">
         <span editable-number="item.doctor_unread" e-name="doctor_unread" e-form="rowform">
           {{ item.doctor_unread || '空' }}
         </span>
-        </td>
-        <td class="select-td" >
+            </td>
+            <td class="select-td" >
         <span editable-number="item.user_unread" e-name="user_unread" e-form="rowform" >
           {{ item.user_unread || '空' }}
         </span>
-        </td>
-        <td>
+            </td>
+            <td>
             <span e-name="created" e-form="rowform">
                 {{ item.created | date }}
             </span>
-        </td>
-        <td>
+            </td>
+            <td>
             <span e-name="updated" e-form="rowform">
               {{ item.updated | date }}
             </span>
-        </td>
-        <td>
-            <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeDepartment(item._id)">删除</button>
-        </td>
-    </tr>
-</table>
+            </td>
+            <td>
+                <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeDepartment(item._id)">删除</button>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -31,7 +31,7 @@
 
         $scope.diseases = [];
         $scope.getDiseases = function() {
-            $http.get(util.baseApiUrl + 'diseases', {})
+            $scope.myPromise = $http.get(util.baseApiUrl + 'diseases', {})
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){

@@ -90,7 +90,7 @@
         // data
         $scope.schedules = [];
         $scope.getSchedules = function() {
-            $http.get(util.baseApiUrl + 'schedules', {})
+            $scope.myPromise = $http.get(util.baseApiUrl + 'schedules', {})
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){

@@ -44,7 +44,7 @@
 
         $scope.groups = [];
         $scope.getGroups = function() {
-            $http.get(util.baseApiUrl + 'groups', {})
+            $scope.myPromise = $http.get(util.baseApiUrl + 'groups', {})
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){

@@ -57,7 +57,7 @@
 
         $scope.doctors = [];
         $scope.getDoctors = function() {
-            $http.get(util.baseApiUrl + 'doctors/100', {})
+            $scope.myPromise = $http.get(util.baseApiUrl + 'doctors/100', {})
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){

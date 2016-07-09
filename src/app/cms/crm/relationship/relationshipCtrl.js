@@ -101,7 +101,7 @@
 
         $scope.relationships = [];
         $scope.getRelationships = function() {
-            $http.get(util.baseApiUrl + 'relationships', {})
+            $scope.myPromise = $http.get(util.baseApiUrl + 'relationships', {})
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){
