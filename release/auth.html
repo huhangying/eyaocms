@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>登录</title><link href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900&subset=latin,greek,greek-ext,vietnamese,cyrillic-ext,latin-ext,cyrillic" rel="stylesheet" type="text/css"><link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon-96x96.png"><link rel="stylesheet" href="styles/vendor-21c0992fa2.css"><link rel="stylesheet" href="styles/auth-0273c91b10.css"></head><body ng-app="myApp" ng-controller="myCtrl"><div class="auth-main"><div class="auth-block"><h1>e药管理后台</h1><a href="reg.html" class="auth-link">没有账号? 注册!</a><form class="form-horizontal"><div class="form-group"><label for="userName" class="col-sm-2 control-label">用户名</label><div class="col-sm-10"><input type="text" class="form-control" id="userName" placeholder="用户名" autofocus="" ng-model="credentials.user_id"></div></div><div class="form-group"><label for="password" class="col-sm-2 control-label">密码</label><div class="col-sm-10"><input type="password" class="form-control" id="password" placeholder="密码" ng-model="credentials.password"></div></div><div class="form-group"><div class="col-sm-offset-2 col-sm-10"><button type="" ng-click="login()" class="btn btn-default btn-auth">登录</button> <a href="" class="forgot-pass">忘记密码?</a></div></div></form></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/1.7.0/angular-toastr.tpls.min.js"></script><script>
+    //(function(){
+//    var baseApiUrl = 'http://localhost:3000/';
+        var baseApiUrl = 'http://139.224.68.92:3000/';
+
+    angular.module('myApp', ['toastr'])//
+            .controller('myCtrl', function($scope, $http, $window, toastr){
+
+                // set focus
+                //angular.element('#userName').focus();
+
+                $scope.login = function() {
+
+                    $http.patch(baseApiUrl + 'login/doctor', $scope.credentials)
+                            .success(function(response) {
+                                if (!response || response.length < 1 ||
+                                        (response.return && response.return.length > 0)) {
+                                    toastr.error('不正确的用户名或密码, 请确认后重试.');
+                                    $scope.credentials = null;
+                                    return;
+                                }
+                                $window.sessionStorage.user = JSON.stringify(response);
+                                //toastr.info(JSON.stringify($window.sessionStorage.user));
+
+                                if ($window.sessionStorage.currentUrl){
+                                    $window.location.href = $window.sessionStorage.currentUrl;
+                                    $window.sessionStorage.currentUrl = null;
+                                }
+                                else
+                                    $window.location.href = '/#/profile/' + response._id;
+
+                            })
+                            .error(function(err){
+                                $window.sessionStorage.clear();
+                            });
+                }
+
+
+            });
+    //})();
+
+</script></body></html>
