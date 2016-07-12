@@ -22,7 +22,8 @@
         </div>
         <div class="col-sm-2">
             <button class="btn btn-primary pull-right"
-                    ng-click="open('app/cms/reservation/schedule/scheduleCreate.html', 'lg', search.doctor)">创建</button>
+                    ng-click="open('app/cms/reservation/schedule/scheduleCreate.html', 'lg', search.doctor)">
+                <i class="ion-android-add-circle"></i> 创建</button>
         </div>
 
     </div>
@@ -49,7 +50,7 @@
             <td class="select-td">
                 <span editable-date="item.date" e-name="date" e-form="rowform" e-required>
                 <!--<span editable-bsdate="item.date" e-name="date" e-form="rowform" e-required-->
-                      <!--e-datepicker-popup="yyyy-MM-dd" e-is-open="opened.$data" e-ng-click="open($event,'$data')">-->
+                    <!--e-datepicker-popup="yyyy-MM-dd" e-is-open="opened.$data" e-ng-click="open($event,'$data')">-->
                   {{ item.date | date:"yyyy-MM-dd" }}
                 </span>
             </td>
