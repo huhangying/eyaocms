@@ -7,7 +7,7 @@
         .controller('chatroomCtrl', chatroomCtrl);
 
     /** @ngInject */
-    function chatroomCtrl($scope, $filter, $http, util, toastr) {
+    function chatroomCtrl($scope, $state, $filter, $http, util, toastr) {
 
 
         $scope.chatrooms = [];
@@ -30,7 +30,10 @@
         }
         $scope.getChatrooms();
 
-
+        // goto 聊天室内容
+        $scope.goChat = function(chatroomid) {
+            $state.go('im.chat', {chatroom: chatroomid});
+        }
 
     }
 })();
