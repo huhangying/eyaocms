@@ -47,16 +47,6 @@
         time: '1 day ago'
       },
       {
-        userId: 3,
-        template: 'Today is &name\'s birthday.',
-        time: '2 days ago'
-      },
-      {
-        image: 'assets/img/comments.svg',
-        template: 'New comments on your post.',
-        time: '3 days ago'
-      },
-      {
         userId: 1,
         template: '&name invited you to join the event.',
         time: '1 week ago'
@@ -89,16 +79,7 @@
         text: 'Get to know who we are - from the inside out. From our history and culture, to the...',
         time: '1 day ago'
       },
-      {
-        userId: 1,
-        text: 'Need some support to reach your goals? Apply for scholarships across a variety of...',
-        time: '2 days ago'
-      },
-      {
-        userId: 0,
-        text: 'Wrap the dropdown\'s trigger and the dropdown menu within .dropdown, or...',
-        time: '1 week ago'
-      }
+      
     ];
 
     $scope.getMessage = function(msg) {
