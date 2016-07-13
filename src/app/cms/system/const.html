@@ -1,0 +1,56 @@
+<div ba-panel ba-panel-title="系统全局变量定义" ba-panel-class="with-scroll">
+    <div cg-busy="myPromise"></div>
+
+    <div class="add-row-editable-table">
+        <button class="btn btn-primary" ng-click="addConst()">
+            <i class="ion-android-add-circle"></i> 创建</button>
+    </div>
+    <table class="table table-bordered table-hover table-condensed">
+        <tr style="font-weight: bold">
+            <td style="width:15%">名字</td>
+            <td style="width:25%">描述</td>
+            <td style="width:10%">类型</td>
+            <td style="width:25%">值</td>
+            <td style="width:25%">操作</td>
+        </tr>
+        <tr ng-repeat="item in consts" class="editable-row">
+
+            <td>
+        <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
+          {{ item.name || '空' }}
+        </span>
+            </td>
+            <td class="select-td">
+        <span editable-text="item.desc" e-name="desc" e-form="rowform">
+          {{ item.desc || '空' }}
+        </span>
+            </td>
+            <td class="select-td" >
+        <span editable-number="item.type" e-name="type" e-form="rowform" >
+          {{ item.type || 0 }}
+        </span>
+            </td>
+            <td class="select-td">
+                <span editable-text="item.value" e-name="value" e-form="rowform" e-required>
+                  {{ item.value || '空' }}
+                </span>
+            </td>
+            <td>
+                <form editable-form name="rowform" onaftersave="saveConst($data, item._id, $index)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                      shown="inserted == item">
+                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary editable-table-button btn-xs">
+                        保存
+                    </button>
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default editable-table-button btn-xs">
+                        取消
+                    </button>
+                </form>
+                <div class="buttons" ng-show="!rowform.$visible">
+                    <button class="btn btn-primary btn-xs" ng-click="rowform.$show()"><i class="ion-compose"></i></button>
+                    <button class="btn btn-danger btn-xs" ng-click="removeConst(item._id)"><i class="ion-ios-trash"></i></button>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -15,6 +15,7 @@
         'BlurAdmin.cms.hospital',
         'BlurAdmin.cms.reservation',
         'BlurAdmin.cms.im',
+        'BlurAdmin.cms.system',
 
         ])
         .config(routeConfig);
