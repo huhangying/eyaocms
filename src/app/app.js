@@ -24,7 +24,7 @@ global.app = angular.module('BlurAdmin', [
     .value('cgBusyDefaults',{
       message:'',
       //backdrop: true,
-      templateUrl: '../loading.html',
+      templateUrl: './loading.html',
       delay: 300,
       minDuration: 1000,
       wrapperClass: 'loading'
