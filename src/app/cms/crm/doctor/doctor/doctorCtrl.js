@@ -47,7 +47,7 @@
         ];
 
         $scope.showRole = function(item) {
-            if(item.role && $scope.roles.length) {
+            if((item.role || item.role === 0) && $scope.roles.length) {
                 var selected = $filter('filter')($scope.roles, {value: item.role});
                 return selected.length ? selected[0].name : '未设置';
             } else {
