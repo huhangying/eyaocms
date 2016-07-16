@@ -24,7 +24,7 @@
         <div class="col-sm-2">
             <span>
                 <select class="form-control" ng-model="search.schedule"
-                        ng-options="s._id as s.name for s in schedules | filter: {doctor: search.doctor}">
+                        ng-options="s._id as (s.date + s.period.name) for s in schedules | filter: {doctor: search.doctor}">
                     <!--<option ng-repeat="department in departments" value="{{department._id}}">{{department.name}}</option>-->
                 </select>
             </span>

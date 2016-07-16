@@ -62,7 +62,7 @@
 
         $scope.schedules = [];
         $scope.loadSchedules = function() {
-            $http.get(util.baseApiUrl + 'schedules')
+            $http.get(util.baseApiUrl + 'schedules/cms/populated')
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){
@@ -82,7 +82,7 @@
         $scope.showSchedule = function(item) {
             if(item.schedule && $scope.schedules.length) {
                 var selected = $filter('filter')($scope.schedules, {_id: item.schedule});
-                return selected.length ? selected[0].name : '未设置';
+                return selected.length ? (selected[0].date + selected[0].period.name) : '未设置';
             } else {
                 return '未设置';
             }
