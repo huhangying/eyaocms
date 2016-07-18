@@ -14,25 +14,33 @@
             <td style="width:25%">操作</td>
         </tr>
         <tr ng-repeat="item in consts" class="editable-row">
-
+            <td style="display:none;">
+                <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
+                    {{item._id}}
+                </span>
+            </td>
             <td>
-        <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
-          {{ item.name || '空' }}
-        </span>
+                <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
+                  {{ item.name || '空' }}
+                </span>
             </td>
             <td class="select-td">
-        <span editable-text="item.desc" e-name="desc" e-form="rowform">
-          {{ item.desc || '空' }}
-        </span>
+                <span editable-text="item.desc" e-name="desc" e-form="rowform">
+                  {{ item.desc || '空' }}
+                </span>
             </td>
             <td class="select-td" >
-        <span editable-number="item.type" e-name="type" e-form="rowform" >
-          {{ item.type || 0 }}
-        </span>
+                <span editable-number="item.type" e-name="type" e-form="rowform" >
+                  {{ item.type || 0 }}
+                </span>
             </td>
             <td class="select-td">
-                <span editable-text="item.value" e-name="value" e-form="rowform" e-required>
+                <span editable-text="item.value" e-name="value" e-form="rowform" e-required ng-if="item.type==0">
                   {{ item.value || '空' }}
+                </span>
+                <span editable-textarea="item.value" e-name="value" e-form="rowform" e-required
+                      ng-if="item.type==1" e-rows="7" e-cols="40">
+                  <pre>{{ item.value || '空' }}</pre>
                 </span>
             </td>
             <td>
