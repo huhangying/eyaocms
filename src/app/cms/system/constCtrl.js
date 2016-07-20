@@ -7,7 +7,7 @@
         .controller('constCtrl', constCtrl);
 
     /** @ngInject */
-    function constCtrl($scope, $state, $filter, $http, util, toastr) {
+    function constCtrl($scope, $filter, $http, util, toastr) {
 
 
         $scope.consts = [];

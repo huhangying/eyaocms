@@ -9,8 +9,8 @@
         <tr style="font-weight: bold">
             <td style="width:15%">名字</td>
             <td style="width:25%">描述</td>
-            <td style="width:10%">类型</td>
-            <td style="width:25%">值</td>
+            <td style="width:5%">类型</td>
+            <td style="width:30%">值</td>
             <td style="width:25%">操作</td>
         </tr>
         <tr ng-repeat="item in consts" class="editable-row">
@@ -30,7 +30,7 @@
                 </span>
             </td>
             <td class="select-td" >
-                <span editable-number="item.type" e-name="type" e-form="rowform" >
+                <span editable-number="item.type" e-name="type" e-form="rowform" e-min="0" e-max="2">
                   {{ item.type || 0 }}
                 </span>
             </td>
@@ -41,6 +41,9 @@
                 <span editable-textarea="item.value" e-name="value" e-form="rowform" e-required
                       ng-if="item.type==1" e-rows="7" e-cols="40">
                   <pre>{{ item.value || '空' }}</pre>
+                </span>
+                <span editable-number="item.value" e-name="value" e-form="rowform" e-required ng-if="item.type==2">
+                  {{ item.value || 0 }}
                 </span>
             </td>
             <td>
@@ -55,7 +58,7 @@
                 </form>
                 <div class="buttons" ng-show="!rowform.$visible">
                     <button class="btn btn-primary btn-xs" ng-click="rowform.$show()"><i class="ion-compose"></i></button>
-                    <button class="btn btn-danger btn-xs" ng-click="removeConst(item._id)"><i class="ion-ios-trash"></i></button>
+                    <!--<button class="btn btn-danger btn-xs" ng-click="removeConst(item._id)"><i class="ion-ios-trash"></i></button>-->
 
                 </div>
             </td>
