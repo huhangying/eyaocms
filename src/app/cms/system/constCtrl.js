@@ -12,7 +12,6 @@
 
         $scope.consts = [];
 
-
         $scope.getConsts = function() {
             $scope.myPromise = $http.get(util.baseApiUrl + 'consts', {})
                 .success(function (response) {
@@ -31,6 +30,30 @@
         }
 
         $scope.getConsts();
+
+        $scope.types = [
+            {value: 0, name: "文本"},
+            {value: 1, name: "多行文本"},
+            {value: 2, name: "是否"},
+            {value: 3, name: "数字"}
+        ];
+
+        $scope.showType = function(item) {
+            if((item.type || item.type === 0) && $scope.types.length) {
+                var selected = $filter('filter')($scope.types, {value: item.type});
+                return selected.length ? selected[0].name : '未设置';
+            } else {
+                return '未设置';
+            }
+        };
+
+        $scope.showLineBreakString = function(str) {
+            if (!str){
+                return '空';
+            }
+            return str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+        }
+
 
         $scope.addConst = function() {
             $scope.inserted = {

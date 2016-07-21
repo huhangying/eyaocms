@@ -8,10 +8,10 @@
     <table class="table table-bordered table-hover table-condensed">
         <tr style="font-weight: bold">
             <td style="width:15%">名字</td>
-            <td style="width:25%">描述</td>
-            <td style="width:5%">类型</td>
-            <td style="width:30%">值</td>
-            <td style="width:25%">操作</td>
+            <td style="width:20%">描述</td>
+            <td style="width:7%">类型</td>
+            <td style="width:51%">值</td>
+            <td style="width:7%">操作</td>
         </tr>
         <tr ng-repeat="item in consts" class="editable-row">
             <td style="display:none;">
@@ -30,8 +30,9 @@
                 </span>
             </td>
             <td class="select-td" >
-                <span editable-number="item.type" e-name="type" e-form="rowform" e-min="0" e-max="2">
-                  {{ item.type || 0 }}
+                <span editable-select="item.type" e-name="type" e-form="rowform"
+                      e-ng-options="t.value as t.name for t in types">
+                  {{ showType(item) }}
                 </span>
             </td>
             <td class="select-td">
@@ -39,10 +40,13 @@
                   {{ item.value || '空' }}
                 </span>
                 <span editable-textarea="item.value" e-name="value" e-form="rowform" e-required
-                      ng-if="item.type==1" e-rows="7" e-cols="40">
-                  <pre>{{ item.value || '空' }}</pre>
+                      ng-if="item.type==1" e-rows="7" e-cols="60">
+                  <div>{{ showLineBreakString(item.value) }}</div>
                 </span>
-                <span editable-number="item.value" e-name="value" e-form="rowform" e-required ng-if="item.type==2">
+                <span editable-checkbox="item.value" e-name="value" e-form="rowform" e-required ng-if="item.type==2">
+                  {{ item.value && '已选择' || '未选' }}
+                </span>
+                <span editable-number="item.value" e-name="value" e-form="rowform" e-required ng-if="item.type==3" >
                   {{ item.value || 0 }}
                 </span>
             </td>
