@@ -50,7 +50,7 @@
                 });
         }
         $scope.loadDoctors();
-        
+
         $scope.showDoctor = function(item) {
             if(item.doctor && $scope.doctors.length) {
                 var selected = $filter('filter')($scope.doctors, {_id: item.doctor});
@@ -82,7 +82,7 @@
         $scope.showSchedule = function(item) {
             if(item.schedule && $scope.schedules.length) {
                 var selected = $filter('filter')($scope.schedules, {_id: item.schedule});
-                return selected.length ? (selected[0].date + selected[0].period.name) : '未设置';
+                return selected.length ? ((new Date(selected[0].date)).toISOString().slice(0,10) + ' ' + selected[0].period.name) : '未设置';
             } else {
                 return '未设置';
             }
