@@ -157,9 +157,17 @@
 
             $http.delete(util.baseApiUrl + 'chats/chatroom/' + $scope.search.chatroom)
                 .success(function (response) {
+                    // 删除聊天室内的内容
                     $scope.chats = $filter('filter')($scope.chats, {chatroom: '!'+$scope.search.chatroom});
 
-                    toastr.success('成功删除');
+                    //删除聊天室
+                    $http.delete(util.baseApiUrl + 'chatroom/' + $scope.search.chatroom)
+                        .success(function (rsp) {
+                            $scope.chatrooms = $filter('filter')($scope.chatrooms, {_id: '!'+$scope.search.chatroom});
+
+                            toastr.success('成功删除');
+                        });
+
                 });
         }
 
