@@ -82,8 +82,16 @@
             $http.delete(util.baseApiUrl + 'user/' + id)
                 .success(function (response) {
                     $scope.users = $filter('filter')($scope.users, {_id: '!'+id});
+                    
+                    // 同时需要删除 relationship
+                    $http.delete(util.baseApiUrl + 'relationships/user/' + id)
+                        .success(function(rsp){
+                            toastr.success('成功删除user 和 relationships');
+                        })
+                        .error(function(error){
+                            toastr.success('成功删除user, 但是删除 relationships失败');
+                        });
 
-                    toastr.success('成功删除');
                 })
 
                 .error(function(err){
