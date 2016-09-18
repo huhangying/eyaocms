@@ -87,6 +87,7 @@
                 name: '',
                 role: 0,
                 title: '',
+                order: 0,
                 apply: true
             };
 

@@ -30,10 +30,11 @@
             <td style="width:15%">医院科室</td>
             <td style="width:15%">名称</td>
             <td style="width:15%">User ID</td>
-            <td style="width:15%">用户权限</td>
+            <td style="width:10%">用户权限</td>
             <td style="width:10%">职称</td>
+            <td style="width:10%">顺序</td>
             <td style="width:5%">有效</td>
-            <td style="width:25%">操作</td>
+            <td style="width:20%">操作</td>
         </tr>
         <tr ng-repeat="item in doctors | filter: search" class="editable-row">
             <td style="display:none;">
@@ -66,6 +67,11 @@
             <td>
                 <span editable-text="item.title" e-name="title" e-form="rowform" e-required>
                   {{ item.title || '空' }}
+                </span>
+            </td>
+            <td class="select-td">
+                <span editable-text="item.order" e-name="order" e-form="rowform" e-required>
+                  {{ item.order || '' }}
                 </span>
             </td>
             <td class="select-td">
