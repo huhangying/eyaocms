@@ -164,6 +164,8 @@
 
                         // remove
                         $scope.doctors.splice($scope.doctors.length - 1, 1);
+                        data._id = response._id;
+                        //$scope.$apply();
 
                     });
             }
