@@ -3,24 +3,24 @@
 (function () {
   'use strict';
 
-  angular.module('BlurAdmin.cms.survey.category')
-    .controller('surveyCategoryCtrl', surveyCategoryCtrl);
+  angular.module('BlurAdmin.cms.survey.group')
+    .controller('surveyGroupCtrl', surveyGroupCtrl);
 
   /** @ngInject */
-  function surveyCategoryCtrl($scope, $state, $filter, $http, util, toastr) {
+  function surveyGroupCtrl($scope, $state, $filter, $http, util, toastr) {
 
 
-    $scope.cats = [];
+    $scope.groups = [];
 
-    $scope.getCats = function() {
-        $scope.myPromise = $http.get(util.baseApiUrl + 'surveycats', {})
+    $scope.getGroups = function() {
+        $scope.myPromise = $http.get(util.baseApiUrl + 'surveygroups', {})
           .success(function (response) {
               // check if return null
               if (response.return && response.return == 'null'){
-                  $scope.cats = [];
+                  $scope.groups = [];
               }
               else {
-                  $scope.cats = response;
+                  $scope.groups = response;
               }
 
           })
@@ -29,39 +29,28 @@
           });
     }
 
-    $scope.getCats();
+    $scope.getGroups();
 
-    $scope.addCat = function() {
+    $scope.addGroup = function() {
         $scope.inserted = {
             name: '',
             desc: '',
-            order: 0,
+            surveys: [],
             apply: true
         };
 
 
-        $scope.cats.push($scope.inserted);
+        $scope.groups.push($scope.inserted);
     }
 
-    $scope.removeCat = function(id, index) {
+    $scope.removeGroup = function(id, index) {
 
-        $http.get(util.baseApiUrl + 'surveys/' + id)
-            .success(function(response) {
-                var surveys = util.getResponse(response);
-                if (surveys && surveys.length > 0) {
-                    toastr.error('不能被删除,请先删除与之关联的问卷调查。');
-                }
-                else {
-                    $http.delete(util.baseApiUrl + 'surveycat/' + id)
-                        .success(function (response) {
-                            $scope.cats = $filter('filter')($scope.cats, {_id: '!'+id});
+        $http.delete(util.baseApiUrl + 'surveygroup/' + id)
+            .success(function (response) {
+                $scope.groups = $filter('filter')($scope.groups, {_id: '!'+id});
 
-                            toastr.success('成功删除');
-                        })
-
-                }
+                toastr.success('成功删除');
             });
-
     }
       
       $scope.validate = function(item) {
@@ -72,7 +61,7 @@
           return true;
       }
     
-    $scope.saveCat = function(data, id, index) {
+    $scope.saveGroup = function(data, id, index) {
 
         //validate
         if (!$scope.validate(data)){
@@ -80,27 +69,27 @@
         }
 
         if (!data._id) { // create
-            $http.post(util.baseApiUrl + 'surveycat', data)
+            $http.post(util.baseApiUrl + 'surveygroup', data)
                 .success(function (response) {
                     if (util.getErrorMessage(response)) {
-                        $scope.cats.pop();
+                        $scope.groups.pop();
                         return toastr.error(util.getErrorMessage(response));
                     };
 
                     $scope.inserted = response;
 
-                    $scope.cats.push($scope.inserted);
+                    $scope.groups.push($scope.inserted);
                     toastr.success('成功创建');
 
                     // remove
-                    $scope.cats.splice($scope.cats.length - 1, 1);
+                    $scope.groups.splice($scope.groups.length - 1, 1);
 
                     data._id = response._id;
                 });
         }
         else{ // update
             //angular.extend(data, {_id: id});
-            $http.patch(util.baseApiUrl + 'surveycat/' + id, data)
+            $http.patch(util.baseApiUrl + 'surveygroup/' + id, data)
                 .success(function (response) {
                     //console.log(JSON.stringify(response))
                     if (!response) {
@@ -112,12 +101,7 @@
                 });
         }
 
-        //
-
     }
-
-      $scope.getSurveysByCatId = function(id){
-          $state.go('survey.survey', {cat: id});
-      }
+      
   }
 })();

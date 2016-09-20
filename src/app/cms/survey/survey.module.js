@@ -6,6 +6,7 @@
 
     angular.module('BlurAdmin.cms.survey', [
         'BlurAdmin.cms.survey.category',
+        'BlurAdmin.cms.survey.group',
     ])
         .config(routeConfig);
 
