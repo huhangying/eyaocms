@@ -12,7 +12,7 @@
 
     $scope.cats = [];
 
-    $scope.getCategories = function() {
+    $scope.getCats = function() {
         $scope.myPromise = $http.get(util.baseApiUrl + 'surveycats', {})
           .success(function (response) {
               // check if return null
