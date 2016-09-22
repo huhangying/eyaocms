@@ -31,9 +31,9 @@
                 </span>
             </td>
             <td class="select-td" >
-        <span editable-textarea="item.questions" e-name="questions" e-form="rowform" e-rows="4" e-cols="60">
-          <pre>{{ item.questions || '空' }}</pre>
-        </span>
+                <span editable-textarea="item.questions" e-name="questions" e-form="rowform" e-rows="4" e-cols="60">
+                  <pre>{{ item.questions || '空' }}</pre>
+                </span>
             </td>
             <td class="select-td">
                 <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
@@ -53,6 +53,9 @@
                 <div class="buttons" ng-show="!rowform.$visible">
                     <button class="btn btn-primary btn-xs" ng-click="rowform.$show()"><i class="ion-compose"></i></button>
                     <button class="btn btn-danger btn-xs" ng-click="removeSurvey(item._id)"><i class="ion-ios-trash"></i></button>
+                    <button class="btn btn-primary btn-xs" data-toggle="modal" ng-click="open('app/cms/survey/survey/surveyEdit.html', 'lg', item)">
+                        试题编辑
+                    </button>
                 </div>
             </td>
         </tr>

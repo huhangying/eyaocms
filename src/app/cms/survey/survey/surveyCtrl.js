@@ -7,7 +7,7 @@
     .controller('surveyCtrl', surveyCtrl);
 
   /** @ngInject */
-  function surveyCtrl($scope, $state, $filter, $http, util, toastr) {
+  function surveyCtrl($scope,$rootScope, $state, $filter, $http, util, toastr, $uibModal) {
 
       $scope.cats = [];
       $scope.loadCats = function() {
@@ -130,5 +130,19 @@
 
     }
       
+      $scope.open = function (page, size, item) {
+          $rootScope.myUser = item; // pass item into the edit page
+          $uibModal.open({
+              animation: true,
+              templateUrl: page,
+              controller: 'userEditCtrl',
+              size: size,
+              // resolve: {
+              //     item: function () {
+              //         return item;
+              //     }
+              // }
+          });
+      };
   }
 })();

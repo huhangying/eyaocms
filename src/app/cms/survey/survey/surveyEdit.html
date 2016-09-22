@@ -1,0 +1,93 @@
+<div class="modal-content" ng-controller="userEditCtrl">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+            <em class="ion-ios-close-empty sn-link-close"></em>
+        </button>
+        <h4 class="modal-title">试题编辑</h4>
+    </div>
+    <div class="modal-body">
+        <h3 class="with-line-no-padding">ID: {{data._id}}</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row clearfix">
+                    <label for="inputName" class="col-sm-3 control-label">问题</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputName" placeholder="" ng-model="data.name">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row clearfix">
+                    <label for="inputName" class="col-sm-3 control-label">姓名</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputName" placeholder="" ng-model="data.name">
+                    </div>
+                </div>
+                <div class="form-group row clearfix">
+                    <label class="col-sm-3 control-label">性别</label>
+
+                    <div class="col-sm-9">
+                        <!--<input type="text" class="form-control" id="inputGender" placeholder="" ng-model="doctor.gender">-->
+                        <label class="radio-inline custom-radio nowrap">
+                            <input type="radio" ng-model="data.gender" value="M">
+                            <span>男</span>
+                        </label>
+                        <label class="radio-inline custom-radio nowrap">
+                            <input type="radio" ng-model="data.gender" value="F">
+                            <span>女</span>
+                        </label>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row clearfix">
+                    <label for="inputCell" class="col-sm-3 control-label">手机</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputCell" placeholder="" ng-model="data.cell">
+                    </div>
+                </div>
+
+                <div class="form-group row clearfix">
+                    <label class="col-sm-3 control-label">出生日期</label>
+
+                    <div class="col-sm-9">
+                        <div class="input-group date">
+                            <input type="text" class="form-control ng-pristine ng-valid ng-isolate-scope ng-not-empty ng-valid-datetime ng-touched"
+                                   datetime-picker="yyyy-MM-dd" ng-model="data.birthdate"  is-open="isOpen"
+                                   enable-time="false" button-bar="data.birthdate.buttonBar"/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openCalendar($event)"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="with-line-no-padding">用户关联信息</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row clearfix">
+                    <label for="inputsin" class="col-sm-3 control-label">社保号码</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputSin" placeholder="" ng-model="data.sin">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="closeMe()">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="saveMe(data)"><i class="ion-android-checkmark-circle"></i>更新用户信息</button>
+    </div>
+</div>
