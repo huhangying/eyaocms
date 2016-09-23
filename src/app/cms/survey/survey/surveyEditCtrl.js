@@ -10,58 +10,27 @@
     /** @ngInject */
     function surveyEditCtrl($scope, $rootScope, $filter, $http, util, toastr) {
         $scope.data = $rootScope.myUser;
+        $scope.editQ = {};
+        //$scope.editStatus = 0; // Status: 0:init; 1: create; 2: edit;
 
         // toastr.info(JSON.stringify($scope.data));
-        $scope.data.birthdate = new Date($scope.data.birthdate);
-        $scope.data.birthdate.buttonBar = {
-            show: false,
-            now: {
-                show: true,
-                text: 'Now'
-            },
-            today: {
-                show: true,
-                text: 'Today'
-            },
-            clear: {
-                show: true,
-                text: 'Clear'
-            },
-            date: {
-                show: true,
-                text: 'Date'
-            },
-            time: {
-                show: true,
-                text: 'Time'
-            },
-            close: {
-                show: true,
-                text: 'Close'
-            }
-        };
-        
-        $scope.openCalendar = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            $scope.isOpen = true;
-        };
+
 
         $scope.saveMe = function(item) {
 
             //validate
 
             // update
-            $http.patch(util.baseApiUrl + 'user/wechat/' + item.link_id, item)
-                .success(function (response) {
-                    console.log(JSON.stringify(response))
-                    if (!response) {
-                        toastr.error(error.messageFormatted);
-                    }
-                    else{
-                        toastr.success('成功更新');
-                    }
-                });
+            // $http.patch(util.baseApiUrl + 'user/wechat/' + item.link_id, item)
+            //     .success(function (response) {
+            //         console.log(JSON.stringify(response))
+            //         if (!response) {
+            //             toastr.error(error.messageFormatted);
+            //         }
+            //         else{
+            //             toastr.success('成功更新');
+            //         }
+            //     });
 
 
             $scope.closeMe();
@@ -74,5 +43,18 @@
             $scope.$dismiss();
             // $uibModalInstance.$dismiss('cancel');
         }
+        
+        $scope.createQuestion = function() {
+            $scope.editStatus = 1;
+
+            // set default
+            $scope.editQ.apply = true;
+            $scope.editQ.optionNumber = 3;
+        }
+
+        $scope.editQuestion = function(question) {
+            $scope.editStatus = 2;
+        }
+
     }
 })();

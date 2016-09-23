@@ -137,6 +137,7 @@
               templateUrl: page,
               controller: 'userEditCtrl',
               size: size,
+              scope: $scope
               // resolve: {
               //     item: function () {
               //         return item;
