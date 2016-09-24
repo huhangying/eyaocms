@@ -9,6 +9,7 @@
 
     /** @ngInject */
     function surveyEditCtrl($scope, $rootScope, $filter, $http, util, toastr) {
+        $scope.questions = []; //todo: load
         $scope.editQ = {options: []};
         $scope.editStatus = 0; // Status: 0:init; 1: create; 2: edit;
 
@@ -31,6 +32,15 @@
             //             toastr.success('成功更新');
             //         }
             //     });
+            switch ($scope.editStatus) {
+                case 1: // create
+                    $scope.questions.push(angular.copy($scope.editQ));
+                    break;
+                case 2: // edit
+                    break;
+                default:
+                    break;
+            }
 
 toastr.info(JSON.stringify(item))
             //$scope.closeMe();
@@ -56,6 +66,9 @@ toastr.info(JSON.stringify(item))
 
         $scope.editQuestion = function(question) {
             $scope.editStatus = 2;
+
+            // load question to edit area
+            $scope.editQ = question;
         }
 
         $scope.changeEditAnswerType = function() {

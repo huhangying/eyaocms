@@ -84,18 +84,29 @@
         </form>
 
         <h3 class="with-line-no-padding">问卷试题</h3>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group row clearfix">
-                    <label for="inputsin" class="col-sm-3 control-label">社保号码</label>
+        <table class="table">
+            <thead class="bold-text bg-info">
+            <td style="width:5%">顺序</td>
+            <td style="width:55%">问题</td>
+            <td style="width:10%">问题类型</td>
+            <td style="width:8%">分值</td>
+            <td style="width:7%">有效?</td>
+            <td style="width:15%"></td>
+            </thead>
+            <tbody>
+            <tr ng-repeat="question in questions track by $index">
+                <td>{{ question.order }}</td>
+                <td>{{ question.question }}</td>
+                <td>{{ question.answerType }}</td>
+                <td>{{ question.weight }}</td>
+                <td>{{ question.apply }}</td>
+                <td>
+                    <button class="btn btn-primary btn-xs" ng-click="editQuestion(question)"><i class="ion-compose"></i></button>
+                    <button class="btn btn-danger btn-xs" ng-click="removeQuestion($index)"><i class="ion-ios-trash"></i></button>
+                </td>
 
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" id="inputSin" placeholder="" ng-model="data.sin">
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-6"></div>
-        </div>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
