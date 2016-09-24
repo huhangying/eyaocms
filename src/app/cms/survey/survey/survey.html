@@ -37,10 +37,8 @@
                   {{ showCat(item)}}
                 </span>
             </td>
-            <td class="select-td" >
-                <span editable-textarea="item.questions" e-name="questions" e-form="rowform" e-rows="4" e-cols="60">
-                  <pre>{{ item.questions || '空' }}</pre>
-                </span>
+            <td>
+                <pre>{{ showQuestions(item.questions) }}</pre>
             </td>
             <td class="select-td">
                 <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>

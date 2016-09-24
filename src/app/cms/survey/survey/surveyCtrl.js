@@ -86,6 +86,14 @@
 
         $scope.getSurveys();
 
+        $scope.showQuestions = function(questions) {
+            var qs = '';
+            for (var i=0; i<questions.length; i++){
+                qs += questions[i].order + '. ' + questions[i].question + '\n';
+            }
+            return qs;
+        }
+
         $scope.addSurvey = function() {
             $scope.inserted = {
                 name: '',
@@ -159,11 +167,11 @@
         }
 
         $scope.open = function (page, size, item) {
-            $rootScope.myUser = item; // pass item into the edit page
+            $scope.editItem = item; // pass item into the edit page
             $uibModal.open({
                 animation: true,
                 templateUrl: page,
-                controller: 'userEditCtrl',
+                controller: 'surveyEditCtrl',
                 size: size,
                 scope: $scope
                 // resolve: {
