@@ -82,7 +82,7 @@
             </table>
 
             <div class="modal-footer" style="padding-top:.5em;">
-                <a type="button" class="btn btn-primary" ng-click="saveMe(editQ)" ng-disabled="editQForm.$invalid"><i class="ion-android-checkmark-circle"></i> {{ editStatus === 1 ? "创建" : "更新" }}</a>
+                <a type="button" class="btn btn-primary" ng-click="saveQuestion(editQ)" ng-disabled="editQForm.$invalid"><i class="ion-android-checkmark-circle"></i> {{ editStatus === 1 ? "创建" : "更新" }}</a>
             </div>
         </form>
 
@@ -97,7 +97,7 @@
             <td style="width:10%"></td>
             </thead>
             <tbody>
-            <tr ng-repeat="question in questions | orderBy:order track by $index">
+            <tr ng-repeat="question in questions | orderBy:'order' track by $index">
                 <td>{{ question.order }}</td>
                 <td>{{ question.question }}</td>
                 <td>{{ question.answer_type }}</td>

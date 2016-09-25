@@ -14,7 +14,7 @@
             <td style="width:8%">开关</td>
             <td style="width:15%">操作</td>
         </tr>
-        <tr ng-repeat="item in surveys" class="editable-row">
+        <tr ng-repeat="item in surveys track by $index" class="editable-row">
             <td style="display:none;">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
@@ -58,8 +58,8 @@
                 <div class="buttons" ng-show="!rowform.$visible">
                     <button class="btn btn-primary btn-xs" ng-click="rowform.$show()"><i class="ion-compose"></i></button>
                     <button class="btn btn-danger btn-xs" ng-click="removeSurvey(item._id)"><i class="ion-ios-trash"></i></button>
-                    <button class="btn btn-primary btn-xs" data-toggle="modal" ng-click="open('app/cms/survey/survey/surveyEdit.html', 'lg', item)">
-                        试题编辑
+                    <button class="btn btn-primary btn-xs" data-toggle="modal" ng-click="open('app/cms/survey/survey/surveyEdit.html', 'lg', item, $index)">
+                        问卷编辑
                     </button>
                 </div>
             </td>

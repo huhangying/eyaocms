@@ -12,12 +12,12 @@
         $scope.questions = angular.copy($scope.editItem.questions || []);
         $scope.editQ = {options: []};
         $scope.editStatus = 0; // Status: 0:init; 1: create; 2: edit;
-        $scope.editIndex = -1;
+        $scope.editQIndex = -1;
 
         // toastr.info(JSON.stringify($scope.data));
 
 
-        $scope.saveMe = function(index) {
+        $scope.saveQuestion = function(index) {
 
             //validate
             if ($scope.editQForm.$invalid)
@@ -28,13 +28,13 @@
                     $scope.questions.push(angular.copy($scope.editQ));
                     break;
                 case 2: // edit
-                    $scope.questions[$scope.editIndex] = angular.copy($scope.editQ);
+                    $scope.questions[$scope.editQIndex] = angular.copy($scope.editQ);
                     break;
                 default:
                     break;
             }
             $scope.editStatus = 0;
-            $scope.editIndex = -1;
+            $scope.editQIndex = -1;
             //toastr.info(JSON.stringify(item))
         }
 
@@ -56,36 +56,40 @@
                     }
                     else{
                         toastr.success('成功更新');
-                        $scope.editItem = survey;
+                        $scope.editItem = response;
+                        $scope.updateParent($scope.editItem);
                         $scope.closeMe();
                     }
                 });
         }
         
         $scope.closeMe = function(){
-            //toastr.info(item._id);
-            $rootScope.myUser = null;
             $scope.$dismiss();
-            // $uibModalInstance.$dismiss('cancel');
         }
         
         $scope.createQuestion = function() {
             $scope.editStatus = 1;
-            $scope.editIndex = -1;
+            $scope.editQIndex = -1;
 
             // set default
+            $scope.editQ._id = undefined;
+            $scope.editQ.question = '';
+            $scope.editQ.answer_type = -1;
             $scope.editQ.apply = true;
             $scope.editQ.optionNumber = 0;
             $scope.editQ.order = 0;
             $scope.editQ.weight = 0;
+            $scope.editQ.required = false;
         }
 
         $scope.editQuestion = function(question, index) {
             $scope.editStatus = 2;
-            $scope.editIndex = index;
+            $scope.editQIndex = index;
 
             // load question to edit area
             $scope.editQ = angular.copy(question);
+            $scope.editQ.answer_type = $scope.editQ.answer_type.toString(); // for select display
+            $scope.changeEditAnswerType();
         }
 
         $scope.removeQuestion = function(index) {

@@ -88,8 +88,10 @@
 
         $scope.showQuestions = function(questions) {
             var qs = '';
-            for (var i=0; i<questions.length; i++){
-                qs += questions[i].order + '. ' + questions[i].question + '\n';
+            if (questions && questions.length > 0) {
+                for (var i=0; i<questions.length; i++){
+                    qs += questions[i].order + '. ' + questions[i].question + '\n';
+                }
             }
             return qs;
         }
@@ -166,8 +168,9 @@
 
         }
 
-        $scope.open = function (page, size, item) {
+        $scope.open = function (page, size, item, index) {
             $scope.editItem = item; // pass item into the edit page
+            $scope.editIndex = index;
             $uibModal.open({
                 animation: true,
                 templateUrl: page,
@@ -181,5 +184,9 @@
                 // }
             });
         };
+        
+        $scope.updateParent = function(updatedItem) {
+            $scope.surveys[$scope.editIndex] = updatedItem;
+        }
     }
 })();
