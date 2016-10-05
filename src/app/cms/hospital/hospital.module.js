@@ -8,6 +8,7 @@
         'BlurAdmin.cms.hospital.department',
         'BlurAdmin.cms.hospital.disease',
         'BlurAdmin.cms.hospital.symptom',
+        'BlurAdmin.cms.hospital.medicine',
     ])
         .config(routeConfig);
 

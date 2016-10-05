@@ -1,0 +1,118 @@
+<div class="modal-content" ng-controller="medicineEditCtrl">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+            <em class="ion-ios-close-empty sn-link-close"></em>
+        </button>
+        <h4 class="modal-title">问卷[{{ editItem.name }}]编辑</h4>
+    </div>
+    <div class="modal-body">
+        <h3 class="with-line-no-padding text-muted" style="font-size: 1em;">
+            类别: {{ showCat(editItem) + ' / 科室: ' + showDepartment(editItem) }}
+            <a type="button"class="btn btn-sm btn-default pull-right" ng-click="createQuestion()">增加新问题</a>
+        </h3>
+        <form name="editQForm" ng-show="editStatus > 0">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="inputName" class="control-label">问题</label>
+                        <input type="text" class="form-control" id="inputName" placeholder="" ng-model="editQ.question" required />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="inputAnswerType" class="control-label">答案类型</label>
+                        <select class="form-control" id="inputAnswerType" ng-model="editQ.answer_type" ng-change="changeEditAnswerType()">
+                            <option value=""> -- 选择答案类型 -- </option>
+                            <option value="0">是非题</option>
+                            <option value="1">单选题</option>
+                            <option value="2">多选题</option>
+                            <option value="3">填空</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <!--<div class="form-group" ng-show="editQ.answer_type === '1' || editQ.answer_type === '2'">-->
+                        <label for="inputoptionNumber" class="control-label">答案个数</label>
+                        <input type="number" class="form-control" id="inputoptionNumber" ng-model="editQ.optionNumber" ng-blur="changeEditOptionNumber()" min="1" max="10">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="inputWeight" class="control-label">分值</label>
+                        <input type="number" class="form-control" id="inputWeight" ng-model="editQ.weight" min="0" max="100">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="inputOrder" class="control-label">排序</label>
+                        <input type="number" class="form-control" id="inputOrder" ng-model="editQ.order">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label for="radioRequired" class="control-label">必填?</label>
+                        <input type="checkbox" class="form-control" id="radioRequired" ng-model="editQ.required">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label for="radioApply" class="control-label">有效?</label>
+                        <input type="checkbox" class="form-control" id="radioApply" ng-model="editQ.apply">
+                    </div>
+                </div>
+            </div>
+            <table class="table" ng-show="editQ.optionNumber > 0">
+                <thead class="bold-text bg-info">
+                <td style="width:4%">#</td>
+                <td style="width:76%">答案</td>
+                <td style="width:10%">用户填空</td>
+                <td style="width:10%" ng-if="editQ.weight>0">分值</td>
+                </thead>
+                <tbody>
+                <tr ng-repeat="option in editQ.options track by $index">
+                    <td>{{$index+1}}</td>
+                    <td><input type="text" class="form-control" ng-model="option.answer" placeholder="设置答案"></td>
+                    <td><input type="checkbox" class="form-control" ng-model="option.input_required"></td>
+                    <td><input type="number" class="form-control" ng-model="option.weight" ng-if="editQ.weight>0"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="modal-footer" style="padding-top:.5em;">
+                <a type="button" class="btn btn-primary" ng-click="saveQuestion(editQ)" ng-disabled="editQForm.$invalid"><i class="ion-android-checkmark-circle"></i> {{ editStatus === 1 ? "创建" : "更新" }}</a>
+            </div>
+        </form>
+
+        <h3 class="with-line-no-padding">问卷试题</h3>
+        <table class="table">
+            <thead class="bold-text bg-info">
+            <td style="width:5%">顺序</td>
+            <td style="width:60%">问题</td>
+            <td style="width:10%">问题类型</td>
+            <td style="width:8%">分值</td>
+            <td style="width:7%">有效?</td>
+            <td style="width:10%"></td>
+            </thead>
+            <tbody>
+            <tr ng-repeat="question in questions | orderBy:'order' track by $index">
+                <td>{{ question.order }}</td>
+                <td>{{ question.question }}</td>
+                <td>{{ question.answer_type }}</td>
+                <td>{{ question.weight }}</td>
+                <td>{{ question.apply }}</td>
+                <td>
+                    <button class="btn btn-primary btn-xs" ng-click="editQuestion(question, $index)"><i class="ion-compose"></i></button>
+                    <button class="btn btn-danger btn-xs" ng-click="removeQuestion($index)"><i class="ion-ios-trash"></i></button>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+        <div class="modal-footer" style="padding-top:.5em;">
+            <a type="button" class="btn btn-primary" ng-click="saveSurvey()" ng-disabled="questions.length < 1 "><i class="ion-android-checkmark-circle"></i> 保存</a>
+        </div>
+    </div>
+</div>
