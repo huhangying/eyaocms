@@ -4,78 +4,22 @@
     'use strict';
 
     angular.module('BlurAdmin.cms.hospital.medicine')
-        .controller('medicineCtrl', surveyCtrl);
+        .controller('medicineCtrl', medicineCtrl);
 
     /** @ngInject */
-    function medicineCtrl($scope,$rootScope, $state, $filter, $http, util, toastr, $uibModal) {
+    function medicineCtrl($scope, $state, $filter, $http, util, toastr, $uibModal) {
 
-        $scope.departments = [];
-        $scope.loadDepartments = function() {
-            $http.get(util.baseApiUrl + 'departments', {})
+        $scope.medicines = [];
+
+        $scope.getMedicines = function() {
+            $scope.myPromise = $http.get(util.baseApiUrl + 'medicines', {})
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){
-                        $scope.departments = [];
+                        $scope.medicines = [];
                     }
                     else {
-                        $scope.departments = response;
-                    }
-
-                })
-                .error(function(error){
-                    toastr.error(error.messageFormatted);
-                });
-        }
-        $scope.loadDepartments();
-
-        $scope.showDepartment= function(item) {
-            if(item.department && $scope.departments.length) {
-                var selected = $filter('filter')($scope.departments, {_id: item.department});
-                return selected.length ? selected[0].name : '未设置';
-            } else {
-                return '未设置';
-            }
-        };
-
-        $scope.cats = [];
-        $scope.loadCats = function() {
-            $http.get(util.baseApiUrl + 'surveycats', {})
-                .success(function (response) {
-                    // check if return null
-                    if (response.return && response.return == 'null'){
-                        $scope.cats = [];
-                    }
-                    else {
-                        $scope.cats = response;
-                    }
-
-                })
-                .error(function(error){
-                    toastr.error(error.messageFormatted);
-                });
-        }
-        $scope.loadCats();
-
-        $scope.showCat= function(item) {
-            if(item.cat && $scope.cats.length) {
-                var selected = $filter('filter')($scope.cats, {_id: item.cat});
-                return selected.length ? selected[0].name : '未设置';
-            } else {
-                return '未设置';
-            }
-        };
-
-        $scope.surveys = [];
-
-        $scope.getSurveys = function() {
-            $scope.myPromise = $http.get(util.baseApiUrl + 'surveys', {})
-                .success(function (response) {
-                    // check if return null
-                    if (response.return && response.return == 'null'){
-                        $scope.surveys = [];
-                    }
-                    else {
-                        $scope.surveys = response;
+                        $scope.medicines = response;
                     }
 
                 })
@@ -84,35 +28,29 @@
                 });
         }
 
-        $scope.getSurveys();
+        $scope.getMedicines();
 
-        $scope.showQuestions = function(questions) {
-            var qs = '';
-            if (questions && questions.length > 0) {
-                for (var i=0; i<questions.length; i++){
-                    qs += questions[i].order + '. ' + questions[i].question + '\n';
-                }
-            }
-            return qs;
-        }
-
-        $scope.addSurvey = function() {
+        $scope.addMedicine = function() {
             $scope.inserted = {
                 name: '',
-                desc: '',
-                surveys: [],
+                unit: '',
+                usage: '',
+                dosage: {
+                    frequency: 0,
+                    way: ''
+                },
                 apply: true
             };
 
 
-            $scope.surveys.push($scope.inserted);
+            $scope.medicines.push($scope.inserted);
         }
 
-        $scope.removeSurvey = function(id, index) {
+        $scope.removeMedicine = function(id, index) {
 
-            $http.delete(util.baseApiUrl + 'survey/' + id)
+            $http.delete(util.baseApiUrl + 'medicine/' + id)
                 .success(function (response) {
-                    $scope.surveys = $filter('filter')($scope.surveys, {_id: '!'+id});
+                    $scope.medicines = $filter('filter')($scope.medicines, {_id: '!'+id});
 
                     toastr.success('成功删除');
                 });
@@ -123,38 +61,47 @@
                 toastr.error('名字不能为空!');
                 return false;
             }
+            else if (!item.unit) {
+                toastr.error('单位不能为空!');
+                return false;
+            }
             return true;
         }
 
-        $scope.saveSurvey = function(data, id, index) {
+        $scope.saveMedicine = function(data, id, index) {
 
             //validate
             if (!$scope.validate(data)){
                 return;
             }
 
+            data.dosage = {
+                frequency: data.frequency,
+                way: data.way
+            };
+
             if (!data._id) { // create
-                $http.post(util.baseApiUrl + 'survey', data)
+                $http.post(util.baseApiUrl + 'medicine', data)
                     .success(function (response) {
                         if (util.getErrorMessage(response)) {
-                            $scope.surveys.pop();
+                            $scope.medicines.pop();
                             return toastr.error(util.getErrorMessage(response));
                         };
 
                         $scope.inserted = response;
 
-                        $scope.surveys.push($scope.inserted);
+                        $scope.medicines.push($scope.inserted);
                         toastr.success('成功创建');
 
                         // remove
-                        $scope.surveys.splice($scope.surveys.length - 1, 1);
+                        $scope.medicines.splice($scope.medicines.length - 1, 1);
 
                         data._id = response._id;
                     });
             }
             else{ // update
                 //angular.extend(data, {_id: id});
-                $http.patch(util.baseApiUrl + 'survey/' + id, data)
+                $http.patch(util.baseApiUrl + 'medicine/' + id, data)
                     .success(function (response) {
                         //console.log(JSON.stringify(response))
                         if (!response) {
@@ -174,7 +121,7 @@
             $uibModal.open({
                 animation: true,
                 templateUrl: page,
-                controller: 'surveyEditCtrl',
+                controller: 'medicineEditCtrl',
                 size: size,
                 scope: $scope
                 // resolve: {
@@ -186,7 +133,7 @@
         };
         
         $scope.updateParent = function(updatedItem) {
-            $scope.surveys[$scope.editIndex] = updatedItem;
+            $scope.medicines[$scope.editIndex] = updatedItem;
         }
     }
 })();
