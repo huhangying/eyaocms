@@ -3,115 +3,146 @@
         <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
             <em class="ion-ios-close-empty sn-link-close"></em>
         </button>
-        <h4 class="modal-title">药品[{{ editItem.name }}]编辑</h4>
+        <h4 class="modal-title">药品编辑 [{{ editItem.name }}]</h4>
     </div>
     <div class="modal-body">
-        <h3 class="with-line-no-padding text-muted" style="font-size: 1em;">
-            <a type="button"class="btn btn-sm btn-default pull-right" ng-click="createQuestion()">新增提醒</a>
+        <h3 class="with-line-no-padding text-muted">
+            药名属性
         </h3>
-        <form name="editQForm" ng-show="editStatus > 0">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="inputName" class="control-label">药名</label>
+                    <input type="text" class="form-control" id="inputName" placeholder="" ng-model="item.name" required />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="inputDesc" class="control-label">描述</label>
+                    <input type="text" class="form-control" id="inputDesc" placeholder="" ng-model="item.desc" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="inputCapacity" class="control-label">药品总量</label>
+                    <input type="number" class="form-control" id="inputCapacity" ng-model="item.capacity" min="0" max="10000" required />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="inputCapacity" class="control-label"> </label>
+                    <select class="form-control" ng-model="item.unit" required>
+                        <option value="tablet" selected>粒</option>
+                        <option value="ml">毫升</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="inputUsage" class="control-label">使用方法</label>
+                    <select class="form-control" ng-model="item.usage" id="inputUsage" required>
+                        <option value="0">内服</option>
+                        <option value="1">外用</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="inputFrequency" class="control-label">默认服用频率</label>
+                    <input type="number" class="form-control" id="inputFrequency" min="0" max="100"
+                           ng-model="item.dosage.frequency" required />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                    <br/>
+                    <select class="form-control" ng-model="item.dosage.way" required>
+                        <option value="0">-- 请选择 --</option>
+                        <option value="1">饭后</option>
+                        <option value="2">饭前</option>
+                        <option value="3">饭中</option>
+                        <option value="4">睡前</option>
+                        <option value="5">每4小时</option>
+                        <option value="6">每8小时</option>
+                        <option value="7">每12小时</option>
+                        <option value="8">每天</option>
+                        <option value="9">隔天</option>
+                    </select>
+            </div>
+        </div>
+
+        <h3 class="with-line-no-padding text-muted">
+            监测提醒
+            <a type="button"class="btn btn-sm btn-default pull-right" ng-click="createNotice()">新增提醒</a>
+        </h3>
+        <form name="editNForm" ng-show="editStatus > 0">
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="inputName" class="control-label">问题</label>
-                        <input type="text" class="form-control" id="inputName" placeholder="" ng-model="editQ.question" required />
+                        <label for="inputNotice" class="control-label">提醒名称</label>
+                        <input type="text" class="form-control" id="inputNotice" placeholder="" ng-model="editN.notice" required />
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
-                        <label for="inputAnswerType" class="control-label">答案类型</label>
-                        <select class="form-control" id="inputAnswerType" ng-model="editQ.answer_type" ng-change="changeEditAnswerType()">
-                            <option value=""> -- 选择答案类型 -- </option>
-                            <option value="0">是非题</option>
-                            <option value="1">单选题</option>
-                            <option value="2">多选题</option>
-                            <option value="3">填空</option>
-                        </select>
+                        <label for="inputDaysToStart" class="control-label">提醒开始(服药后的天数)</label>
+                        <input type="number" class="form-control" id="inputDaysToStart" ng-model="editN.days_to_start" min="0" max="1000">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="inputDuring" class="control-label">提醒持续天数</label>
+                        <input type="number" class="form-control" id="inputDuring" ng-model="editN.during">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <!--<div class="form-group" ng-show="editQ.answer_type === '1' || editQ.answer_type === '2'">-->
-                        <label for="inputoptionNumber" class="control-label">答案个数</label>
-                        <input type="number" class="form-control" id="inputoptionNumber" ng-model="editQ.optionNumber" ng-blur="changeEditOptionNumber()" min="1" max="10">
+                        <label for="radioRequireConfirm" class="control-label">用户确认取消?</label>
+                        <input type="checkbox" class="form-control" id="radioRequireConfirm" ng-model="editN.require_confirm">
                     </div>
                 </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="inputWeight" class="control-label">分值</label>
-                        <input type="number" class="form-control" id="inputWeight" ng-model="editQ.weight" min="0" max="100">
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="inputOrder" class="control-label">排序</label>
-                        <input type="number" class="form-control" id="inputOrder" ng-model="editQ.order">
-                    </div>
-                </div>
-                <div class="col-md-1">
-                    <div class="form-group">
-                        <label for="radioRequired" class="control-label">必填?</label>
-                        <input type="checkbox" class="form-control" id="radioRequired" ng-model="editQ.required">
-                    </div>
-                </div>
-                <div class="col-md-1">
+                <div class="col-md-2 col-md-offset-2">
                     <div class="form-group">
                         <label for="radioApply" class="control-label">有效?</label>
-                        <input type="checkbox" class="form-control" id="radioApply" ng-model="editQ.apply">
+                        <input type="checkbox" class="form-control" id="radioApply" ng-model="editN.apply">
                     </div>
                 </div>
             </div>
-            <table class="table" ng-show="editQ.optionNumber > 0">
+            <div class="modal-footer" style="padding-top:.5em;">
+                <a type="button" class="btn btn-primary" ng-click="saveNotice(editN)" ng-disabled="editNForm.$invalid"><i class="ion-android-checkmark-circle"></i> {{ editStatus === 1 ? "创建" : "更新" }}</a>
+            </div>
+        </form>
+            <table class="table">
                 <thead class="bold-text bg-info">
                 <td style="width:4%">#</td>
-                <td style="width:76%">答案</td>
-                <td style="width:10%">用户填空</td>
-                <td style="width:10%" ng-if="editQ.weight>0">分值</td>
+                <td style="width:46%">名称</td>
+                <td style="width:10%">提醒开始</td>
+                <td style="width:10%">持续天数</td>
+                <td style="width:10%">确认取消?</td>
+                <td style="width:10%">有效?</td>
+                <td style="width:10%"></td>
                 </thead>
                 <tbody>
-                <tr ng-repeat="option in editQ.options track by $index">
+                <tr ng-repeat="notice in item.notices track by $index">
                     <td>{{$index+1}}</td>
-                    <td><input type="text" class="form-control" ng-model="option.answer" placeholder="设置答案"></td>
-                    <td><input type="checkbox" class="form-control" ng-model="option.input_required"></td>
-                    <td><input type="number" class="form-control" ng-model="option.weight" ng-if="editQ.weight>0"></td>
+                    <td><input type="text" class="form-control" ng-model="notice.notice" placeholder="设置提醒名称"></td>
+                    <td><input type="number" class="form-control" ng-model="notice.days_to_start"></td>
+                    <td><input type="number" class="form-control" ng-model="notice.during" placeholder="设置答案"></td>
+                    <td><input type="checkbox" class="form-control" ng-model="notice.require_confirm"></td>
+                    <td><input type="checkbox" class="form-control" ng-model="notice.apply"></td>
+                    <td>
+                        <button class="btn btn-primary btn-xs" ng-click="editNotice(notice, $index)"><i class="ion-compose"></i></button>
+                        <button class="btn btn-danger btn-xs" ng-click="removeNotice($index)"><i class="ion-ios-trash"></i></button>
+                    </td>
                 </tr>
                 </tbody>
             </table>
 
-            <div class="modal-footer" style="padding-top:.5em;">
-                <a type="button" class="btn btn-primary" ng-click="saveQuestion(editQ)" ng-disabled="editQForm.$invalid"><i class="ion-android-checkmark-circle"></i> {{ editStatus === 1 ? "创建" : "更新" }}</a>
-            </div>
-        </form>
-
-        <h3 class="with-line-no-padding">问卷试题</h3>
-        <table class="table">
-            <thead class="bold-text bg-info">
-            <td style="width:5%">顺序</td>
-            <td style="width:60%">问题</td>
-            <td style="width:10%">问题类型</td>
-            <td style="width:8%">分值</td>
-            <td style="width:7%">有效?</td>
-            <td style="width:10%"></td>
-            </thead>
-            <tbody>
-            <tr ng-repeat="question in questions | orderBy:'order' track by $index">
-                <td>{{ question.order }}</td>
-                <td>{{ question.question }}</td>
-                <td>{{ question.answer_type }}</td>
-                <td>{{ question.weight }}</td>
-                <td>{{ question.apply }}</td>
-                <td>
-                    <button class="btn btn-primary btn-xs" ng-click="editQuestion(question, $index)"><i class="ion-compose"></i></button>
-                    <button class="btn btn-danger btn-xs" ng-click="removeQuestion($index)"><i class="ion-ios-trash"></i></button>
-                </td>
-
-            </tr>
-            </tbody>
-        </table>
         <div class="modal-footer" style="padding-top:.5em;">
-            <a type="button" class="btn btn-primary" ng-click="saveSurvey()" ng-disabled="questions.length < 1 "><i class="ion-android-checkmark-circle"></i> 保存</a>
+            <a type="button" class="btn btn-primary" ng-click="saveMedicine(item)"><i class="ion-android-checkmark-circle"></i>更新</a>
         </div>
     </div>
 </div>

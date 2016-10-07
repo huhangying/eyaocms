@@ -9,43 +9,42 @@
 
     /** @ngInject */
     function medicineEditCtrl($scope, $rootScope, $filter, $http, util, toastr) {
-        $scope.questions = angular.copy($scope.editItem.questions || []);
-        $scope.editQ = {options: []};
+        $scope.item = angular.copy($scope.editItem);
+        $scope.editN = {notices: []};
         $scope.editStatus = 0; // Status: 0:init; 1: create; 2: edit;
-        $scope.editQIndex = -1;
+        $scope.editNIndex = -1;
 
         // toastr.info(JSON.stringify($scope.data));
 
 
-        $scope.saveQuestion = function(index) {
+        $scope.saveNotice = function(index) {
 
             //validate
-            if ($scope.editQForm.$invalid)
+            if ($scope.editNForm.$invalid)
                 return;
 
             switch ($scope.editStatus) {
                 case 1: // create
-                    $scope.questions.push(angular.copy($scope.editQ));
+                    $scope.item.notices.push(angular.copy($scope.editN));
                     break;
                 case 2: // edit
-                    $scope.questions[$scope.editQIndex] = angular.copy($scope.editQ);
+                    $scope.item.notices[$scope.editNIndex] = angular.copy($scope.editN);
                     break;
                 default:
                     break;
             }
             $scope.editStatus = 0;
-            $scope.editQIndex = -1;
-            //toastr.info(JSON.stringify(item))
+            $scope.editNIndex = -1;
+
         }
 
-        $scope.saveSurvey = function() {
+        $scope.saveMedicine = function() {
 
-            var survey = angular.copy($scope.editItem);
-            survey.questions = $scope.questions;
-
+            var medicine = angular.copy($scope.item);
+            toastr.info(JSON.stringify(medicine))
 
             // update
-            $http.patch(util.baseApiUrl + 'survey/' + survey._id, survey)
+            $http.patch(util.baseApiUrl + 'medicine/' + medicine._id, medicine)
                 .success(function (response) {
                     //console.log(JSON.stringify(response))
                     if (!response ){
@@ -67,86 +66,30 @@
             $scope.$dismiss();
         }
         
-        $scope.createQuestion = function() {
+        $scope.createNotice = function() {
             $scope.editStatus = 1;
-            $scope.editQIndex = -1;
+            $scope.editNIndex = -1;
 
             // set default
-            $scope.editQ._id = undefined;
-            $scope.editQ.question = '';
-            $scope.editQ.answer_type = -1;
-            $scope.editQ.apply = true;
-            $scope.editQ.optionNumber = 0;
-            $scope.editQ.order = 0;
-            $scope.editQ.weight = 0;
-            $scope.editQ.required = false;
+            $scope.editN.notice = '';
+            $scope.editN.days_to_start = 0;
+            $scope.editN.during = 0;
+            $scope.editQ.require_confirm = false;
+            $scope.editN.apply = true;
+
         }
 
-        $scope.editQuestion = function(question, index) {
+        $scope.editNotice = function(notice, index) {
             $scope.editStatus = 2;
-            $scope.editQIndex = index;
+            $scope.editNIndex = index;
 
             // load question to edit area
-            $scope.editQ = angular.copy(question);
-            $scope.editQ.answer_type = $scope.editQ.answer_type.toString(); // for select display
-            $scope.changeEditAnswerType();
+            $scope.editN = angular.copy(notice);
         }
 
-        $scope.removeQuestion = function(index) {
-            $scope.questions.splice(index, 1);
+        $scope.removeNotice = function(index) {
+            $scope.item.notices.splice(index, 1);
         }
 
-        $scope.changeEditAnswerType = function() {
-            switch($scope.editQ.answer_type) {
-                case '0':
-                    $scope.editQ.optionNumber = 2;
-                    break;
-                case '1':
-                case '2':
-                    if (!$scope.editQ.optionNumber || $scope.editQ.optionNumber < 3)
-                        $scope.editQ.optionNumber = 3;
-                    break;
-                case '3':
-                    $scope.editQ.optionNumber = 1;
-                    break;
-                default:
-                    $scope.editQ.optionNumber = 0;
-                    break;
-            }
-            $scope.changeEditOptionNumber();
-        }
-
-        $scope.changeEditOptionNumber = function() {
-            var diff = $scope.editQ.optionNumber - $scope.editQ.options.length;
-            if (diff > 0) {
-                if ($scope.editQ.answer_type == 0){ // 如果是是非题,预设答案
-                    $scope.editQ.options.push({
-                        answer: '是',
-                        addition_text: false,
-                        weight: 0
-                    });
-                    $scope.editQ.options.push({
-                        answer: '不是',
-                        addition_text: false,
-                        weight: 0
-                    });
-                }
-                else {
-                    for (var i=0; i<diff; i++) {
-                        $scope.editQ.options.push({
-                            answer: '',
-                            addition_text: false,
-                            weight: 0
-                        });
-                    }
-                }
-
-            }
-            else if (diff < 0) {
-                for (var i=0; i<(0-diff); i++) {
-                    $scope.editQ.options.pop();
-                }
-            }
-        }
     }
 })();

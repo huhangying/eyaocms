@@ -7,8 +7,8 @@
     </div>
     <table class="table table-bordered table-hover table-condensed">
         <tr style="font-weight: bold">
-            <td style="width:20%">名字</td>
-            <td style="width:10%">单位</td>
+            <td style="width:20%">药名</td>
+            <td style="width:10%">描述</td>
             <td style="width:20%">使用方法</td>
             <td style="width:10%">服药频率</td>
             <td style="width:12%">服药时间</td>
@@ -27,14 +27,14 @@
                 </span>
             </td>
             <td>
-                <span editable-text="item.unit" e-name="unit" e-form="rowform" e-required e-style="width:100px" >
-                  {{ item.unit || '空' }}
+                <span editable-text="item.desc" e-name="desc" e-form="rowform">
+                  {{ item.desc || '空' }}
                 </span>
             </td>
             <td>
-                <span editable-text="item.usage" e-name="usage" e-form="rowform" e-required>
-                  {{ item.usage || '空' }}
-                </span>
+              <span editable-select="item.usage"  e-form="tableform" e-ng-options="s.value as s.text for s in usages">
+                {{showUsage(item)}}
+              </span>
             </td>
             <td>
                 <span editable-number="item.dosage.frequency" e-name="frequency" e-form="rowform" e-style="width:65px" e-required>
@@ -42,9 +42,9 @@
                 </span>
             </td>
             <td>
-                <span editable-text="item.dosage.way" e-name="way" e-form="rowform"  e-required>
-                  {{ item.dosage.way || '空' }}
-                </span>
+              <span editable-select="item.dosage.way"  e-form="tableform" e-ng-options="s.value as s.text for s in ways">
+                {{showDosageWay(item)}}
+              </span>
             </td>
             <td class="select-td">
                 <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>

@@ -9,6 +9,36 @@
     /** @ngInject */
     function medicineCtrl($scope, $state, $filter, $http, util, toastr, $uibModal) {
 
+        $scope.usages = [{text: "内服", value: "0"},
+            {text: "外用", value: "1"}
+        ];
+        $scope.showUsage = function(item) {
+            var selected = [];
+            if(item.usage > -1) {
+                selected = $filter('filter')($scope.usages, {value: item.usage});
+            }
+            return selected.length ? selected[0].text : '空';
+        }
+
+        $scope.ways = [
+            {text: "饭后", value: "1"},
+            {text: "饭前", value: "2"},
+            {text: "饭中", value: "3"},
+            {text: "睡前", value: "4"},
+            {text: "每4小时", value: "5"},
+            {text: "每8小时", value: "6"},
+            {text: "每12小时", value: "7"},
+            {text: "每天", value: "8"},
+            {text: "隔天", value: "9"}
+        ];
+        $scope.showDosageWay = function(item) {
+            var selected = [];
+            if(item.dosage.way > 0) {
+                selected = $filter('filter')($scope.ways, {value: item.dosage.way});
+            }
+            return selected.length ? selected[0].text : '空';
+        }
+
         $scope.medicines = [];
 
         $scope.getMedicines = function() {
@@ -33,11 +63,12 @@
         $scope.addMedicine = function() {
             $scope.inserted = {
                 name: '',
-                unit: '',
-                usage: '',
+                desc: '',
+                capacity: 0,
+                usage: '0',
                 dosage: {
                     frequency: 0,
-                    way: ''
+                    way: '0'
                 },
                 apply: true
             };
@@ -61,10 +92,7 @@
                 toastr.error('名字不能为空!');
                 return false;
             }
-            else if (!item.unit) {
-                toastr.error('单位不能为空!');
-                return false;
-            }
+
             return true;
         }
 
