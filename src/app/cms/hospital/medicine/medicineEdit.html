@@ -39,7 +39,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <div class="form-group">
                     <label for="inputUsage" class="control-label">使用方法</label>
                     <select class="form-control" ng-model="item.usage" id="inputUsage" required>
@@ -69,6 +69,12 @@
                         <option value="8">每天</option>
                         <option value="9">隔天</option>
                     </select>
+            </div>
+            <div class="col-sm-1">
+                <div class="form-group">
+                    <label for="inputApply" class="control-label">开关</label>
+                    <input type="checkbox" class="form-control" id="inputApply" ng-model="item.apply">
+                </div>
             </div>
         </div>
 

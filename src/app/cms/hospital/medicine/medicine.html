@@ -1,4 +1,4 @@
-<div ba-panel ba-panel-title="问卷调查试题" ba-panel-class="with-scroll">
+<div ba-panel  ba-panel-class="with-scroll">
     <div cg-busy="myPromise"></div>
 
     <div class="add-row-editable-table">
@@ -8,12 +8,13 @@
     <table class="table table-bordered table-hover table-condensed">
         <tr style="font-weight: bold">
             <td style="width:20%">药名</td>
-            <td style="width:10%">描述</td>
-            <td style="width:20%">使用方法</td>
+            <td style="width:17%">描述</td>
+            <td style="width:10%">使用方法</td>
             <td style="width:10%">服药频率</td>
-            <td style="width:12%">服药时间</td>
+            <td style="width:10%">服药时间</td>
+            <td style="width:10%">提醒个数</td>
             <td style="width:8%">开关</td>
-            <td style="width:20%">操作</td>
+            <td style="width:15%">操作</td>
         </tr>
         <tr ng-repeat="item in medicines track by $index" class="editable-row">
             <td style="display:none;">
@@ -46,6 +47,11 @@
                 {{showDosageWay(item)}}
               </span>
             </td>
+          <td class="select-td">
+                <span>
+                  {{ item.notices.length }}
+                </span>
+          </td>
             <td class="select-td">
                 <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
                   {{ item.apply || false }}
