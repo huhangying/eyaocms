@@ -1,38 +1,66 @@
 <div ba-panel ba-panel-title="问卷调查类别描述" ba-panel-class="with-scroll">
     <div cg-busy="myPromise"></div>
 
-    <div class="add-row-editable-table">
-        <button class="btn btn-primary" ng-click="addCat()">
-            <i class="ion-android-add-circle"></i> 创建</button>
+    <div class="row add-row-editable-table">
+        <div class="col-sm-1 text-right"><span>医院科室</span></div>
+        <div class="col-sm-3">
+            <span>
+                <select class="form-control" ng-model="search.department"
+                        ng-options="department._id as department.name for department in departments">
+                    <!--<option ng-repeat="department in departments" value="{{department._id}}">{{department.name}}</option>-->
+                </select>
+            </span>
+
+        </div>
+      <div class="col-sm-2 text-right">
+        <span>
+            <button class="btn btn-primary" ng-if="search.department" ng-click="createDefaultCatsByDepartment(search.department)">
+              <i class="ion-android-add-circle"></i>创建固定类别</button>
+          </span>
+      </div>
+        <div class="col-sm-1 text-right"><span>类别名称</span></div>
+        <div class="col-sm-3">
+            <span>
+                <span>
+                <input ng-model="search.name" placeholder="类别名称" class="input-sm form-control search-input" type="search"/>
+            </span>
+            </span>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-primary pull-right" ng-click="addCat()">
+                <i class="ion-android-add-circle"></i> 创建类别</button>
+        </div>
+
     </div>
     <table class="table table-bordered table-hover table-condensed">
         <tr style="font-weight: bold">
-            <td style="width:30%">名字</td>
-            <td style="width:30%">描述</td>
-            <td style="width:10%">顺序</td>
-            <td style="width:5%">开关</td>
+            <td style="width:20%">科室</td>
+            <td style="width:20%">名称</td>
+            <td style="width:25%">描述</td>
+            <td style="width:10%">开关</td>
             <td style="width:25%">操作</td>
         </tr>
-        <tr ng-repeat="item in cats" class="editable-row">
+        <tr ng-repeat="item in cats | filter: search | orderBy: '-fixed'" class="editable-row">
             <td style="display:none;">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
                 </span>
             </td>
+            <td class="select-td">
+                <span editable-select="item.department" e-name="department" e-form="rowform" e-required
+                      e-ng-options="d._id as d.name for d in departments">
+                  {{ showDepartment(item)}}
+                </span>
+            </td>
             <td>
-        <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
-          {{ item.name || '空' }}
-        </span>
+                <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
+                  {{ item.name || '空' }}
+                </span>
             </td>
             <td class="select-td">
-        <span editable-text="item.desc" e-name="desc" e-form="rowform">
-          {{ item.desc || '空' }}
-        </span>
-            </td>
-            <td class="select-td" >
-        <span editable-number="item.order" e-name="order" e-form="rowform" >
-          {{ item.order || '' }}
-        </span>
+                <span editable-text="item.desc" e-name="desc" e-form="rowform">
+                  {{ item.desc || '空' }}
+                </span>
             </td>
             <td class="select-td">
                 <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>

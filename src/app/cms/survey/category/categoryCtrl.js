@@ -7,9 +7,36 @@
     .controller('surveyCategoryCtrl', surveyCategoryCtrl);
 
   /** @ngInject */
-  function surveyCategoryCtrl($scope, $state, $filter, $http, util, toastr) {
+  function surveyCategoryCtrl($scope, $state, $filter, $http, $q, util, toastr) {
 
+      $scope.departments = [];
+      $scope.loadDepartments = function() {
+          $http.get(util.baseApiUrl + 'departments', {})
+              .success(function (response) {
+                  // check if return null
+                  if (response.return && response.return == 'null'){
+                      $scope.departments = [];
+                  }
+                  else {
+                      $scope.departments = response;
+                  }
 
+              })
+              .error(function(error){
+                  toastr.error(error.messageFormatted);
+              });
+      }
+      $scope.loadDepartments();
+
+      $scope.showDepartment= function(item) {
+          if(item.department && $scope.departments.length) {
+              var selected = $filter('filter')($scope.departments, {_id: item.department});
+              return selected.length ? selected[0].name : '未设置';
+          } else {
+              return '未设置';
+          }
+      };
+      
     $scope.cats = [];
 
     $scope.getCats = function() {
@@ -100,16 +127,7 @@
         }
         else{ // update
             //angular.extend(data, {_id: id});
-            $http.patch(util.baseApiUrl + 'surveycat/' + id, data)
-                .success(function (response) {
-                    //console.log(JSON.stringify(response))
-                    if (!response) {
-                        toastr.error(error.messageFormatted);
-                    }
-                    else{
-                        toastr.success('成功更新');
-                    }
-                });
+            $http.patchç
         }
 
         //
@@ -118,6 +136,56 @@
 
       $scope.getSurveysByCatId = function(id){
           $state.go('survey.survey', {cat: id});
+      }
+      
+      // 固定类别模版,用于创建科室的固定类别(跟具体的逻辑相关)
+      var fixedCats = [
+          {
+              name: '门诊预约后',
+              desc: '线上门诊预约后发送给病患'
+          },
+          {
+              name: '处方或重组后',
+              desc: '药师开处方或医嘱重组后发送给病患'
+          }];
+
+      $scope.createDefaultCatsByDepartment = function (departmentId) {
+          // check if existed
+          $http.get(util.baseApiUrl + 'surveycats/department/' + departmentId)
+              .success(function(response) {
+                  var surveycats = util.getResponse(response);
+                  if (surveycats && surveycats.length > 0) {
+                      for (var i=0; i<surveycats.length; i++) {
+                          if (surveycats[i] && surveycats[i].fixed) { // found
+                              toastr.warning('该科室的固定类别已经创建。');
+                              return;
+                          }
+                      }
+                  }
+
+                  // create
+                  var promises = [], reqBody;
+                  for (var i=0; i<fixedCats.length; i++) {
+                      reqBody = {
+                          department: departmentId,
+                          name: fixedCats[i].name,
+                          desc: fixedCats[i].desc,
+                          fixed: true
+                      };
+                      promises.push(
+                          $http.post(util.baseApiUrl + 'surveycat', reqBody)
+                              .success(function (response) {
+                                  $scope.cats.push(response);
+                              })
+                      );
+                  }
+
+                  $q.all(promises).then(function(values) {
+                     toastr.success('成功创建固定类别');
+                  });
+
+
+              });
       }
   }
 })();
