@@ -11,7 +11,7 @@
   function routeConfig($stateProvider) {
     $stateProvider
         .state('survey.survey', {
-          url: '/survey',
+          url: '/survey/:department/:cat',
           templateUrl: 'app/cms/survey/survey/survey.html',
           controller: 'surveyCtrl',
           title: '问卷试题',

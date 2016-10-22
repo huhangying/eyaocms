@@ -1,40 +1,34 @@
-<div ba-panel ba-panel-title="问卷调查试题" ba-panel-class="with-scroll">
+<div ba-panel ba-panel-title="{{'科室:' + department.name + ' / 类别:' + cat.name }}" ba-panel-class="with-scroll">
     <div cg-busy="myPromise"></div>
 
     <div class="add-row-editable-table">
         <button class="btn btn-primary" ng-click="addSurvey()">
             <i class="ion-android-add-circle"></i> 创建</button>
+        <button class="btn btn-default" ng-click="backToCats()">
+            <i class="ion-ios-undo-outline"></i> 返回到类别</button>
     </div>
     <table class="table table-bordered table-hover table-condensed">
         <tr style="font-weight: bold">
-            <td style="width:10%">名字</td>
-            <td style="width:12%">科室</td>
-            <td style="width:15%">类别</td>
-            <td style="width:40%">试题</td>
+            <td style="width:17%">名字</td>
+            <td style="width:60%">试题</td>
             <td style="width:8%">开关</td>
             <td style="width:15%">操作</td>
         </tr>
         <tr ng-repeat="item in surveys track by $index" class="editable-row">
-            <td style="display:none;">
+            <td ng-show="false">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
+                </span>
+                <span editable-text="item.department" e-name="department" e-form="rowform" e-required>
+                    {{item.department}}
+                </span>
+                <span editable-text="item.cat" e-name="cat" e-form="rowform" e-required>
+                    {{item.cat}}
                 </span>
             </td>
             <td>
                 <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
                   {{ item.name || '空' }}
-                </span>
-            </td>
-            <td class="select-td">
-                <span editable-select="item.department" e-name="department" e-form="rowform" e-required
-                    e-ng-options="d._id as d.name for d in departments">
-                  {{ showDepartment(item)}}
-                </span>
-            </td>
-            <td class="select-td">
-                <span editable-select="item.cat" e-name="cat" e-form="rowform" e-required
-                      e-ng-options="c._id as c.name for c in cats">
-                  {{ showCat(item)}}
                 </span>
             </td>
             <td>

@@ -8,7 +8,8 @@
 
   /** @ngInject */
   function surveyCategoryCtrl($scope, $state, $filter, $http, $q, util, toastr) {
-
+      $scope.search = {};
+      
       $scope.departments = [];
       $scope.loadDepartments = function() {
           $http.get(util.baseApiUrl + 'departments', {})
@@ -39,8 +40,8 @@
       
     $scope.cats = [];
 
-    $scope.getCats = function() {
-        $scope.myPromise = $http.get(util.baseApiUrl + 'surveycats', {})
+    $scope.getCats = function(departmentId) {
+        $scope.myPromise = $http.get(util.baseApiUrl + 'surveycats', {department: departmentId})
           .success(function (response) {
               // check if return null
               if (response.return && response.return == 'null'){
@@ -50,13 +51,16 @@
                   $scope.cats = response;
               }
 
+              // set department search/filter
+              $scope.search.department = departmentId;
+
           })
           .error(function(error){
               toastr.error(error.messageFormatted);
           });
     }
 
-    $scope.getCats();
+    $scope.getCats($state.params.department);
 
     $scope.addCat = function() {
         $scope.inserted = {
@@ -134,8 +138,8 @@
 
     }
 
-      $scope.getSurveysByCatId = function(id){
-          $state.go('survey.survey', {cat: id});
+      $scope.getSurveysByCatId = function(id, departmentId){
+          $state.go('survey.survey', {cat: id, department: departmentId});
       }
       
       // 固定类别模版,用于创建科室的固定类别(跟具体的逻辑相关)

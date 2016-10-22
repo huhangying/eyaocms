@@ -8,7 +8,42 @@
 
     /** @ngInject */
     function surveyCtrl($scope,$rootScope, $state, $filter, $http, util, toastr, $uibModal) {
+        $scope.search = {};
 
+        // get department name and cat name
+        var init = function () {
+            $http.get(util.baseApiUrl + 'department/' + $state.params.department)
+                .success(function (response) {
+                    // check if return null
+                    if (response.return && response.return == 'null'){
+                        $scope.department = null;
+                    }
+                    else {
+                        $scope.department = response;
+                    }
+
+                })
+                .error(function(error){
+                    toastr.error(error.messageFormatted);
+                });
+
+            $http.get(util.baseApiUrl + 'surveycat/' + $state.params.cat)
+                .success(function (response) {
+                    // check if return null
+                    if (response.return && response.return == 'null'){
+                        $scope.cat = null;
+                    }
+                    else {
+                        $scope.cat = response;
+                    }
+
+                })
+                .error(function(error){
+                    toastr.error(error.messageFormatted);
+                });
+        }
+        init();
+/*
         $scope.departments = [];
         $scope.loadDepartments = function() {
             $http.get(util.baseApiUrl + 'departments', {})
@@ -27,7 +62,6 @@
                 });
         }
         $scope.loadDepartments();
-
         $scope.showDepartment= function(item) {
             if(item.department && $scope.departments.length) {
                 var selected = $filter('filter')($scope.departments, {_id: item.department});
@@ -64,11 +98,12 @@
                 return '未设置';
             }
         };
+*/
 
         $scope.surveys = [];
 
         $scope.getSurveys = function() {
-            $scope.myPromise = $http.get(util.baseApiUrl + 'surveys', {})
+            $scope.myPromise = $http.get(util.baseApiUrl + 'surveys/cat/' + $state.params.cat)
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){
@@ -99,7 +134,9 @@
         $scope.addSurvey = function() {
             $scope.inserted = {
                 name: '',
-                desc: '',
+                department: $state.params.department,
+                cat: $state.params.cat,
+                //desc: '',
                 surveys: [],
                 apply: true
             };
@@ -185,8 +222,14 @@
             });
         };
         
-        $scope.updateParent = function(updatedItem) {
+        $scope.updateParent = function (updatedItem) {
             $scope.surveys[$scope.editIndex] = updatedItem;
+        }
+
+        //================================
+
+        $scope.backToCats = function () {
+            $state.go('survey.category', {department: $state.params.department});
         }
     }
 })();
