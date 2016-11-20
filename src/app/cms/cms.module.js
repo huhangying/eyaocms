@@ -16,7 +16,8 @@
         'BlurAdmin.cms.reservation',
         'BlurAdmin.cms.im',
         'BlurAdmin.cms.system',
-        'BlurAdmin.cms.survey'
+        'BlurAdmin.cms.survey',
+        'BlurAdmin.cms.education'
 
         ])
         .config(routeConfig);
