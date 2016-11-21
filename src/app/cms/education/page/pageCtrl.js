@@ -205,6 +205,17 @@
 
         }
 
+        $scope.cancelCat = function() {
+            // remove items without _id
+            if ($scope.cats && $scope.cats.length > 0) {
+                $scope.cats.forEach(function(cat, index) {
+                    if (!cat._id) {
+                        $scope.cats.splice(index, 1);
+                    }
+                });
+            }
+        };
+
         $scope.open = function (page, size, item, index) {
             $scope.editItem = item; // pass item into the edit page
             $scope.editIndex = index;

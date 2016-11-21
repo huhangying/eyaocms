@@ -145,6 +145,15 @@
 
     }
 
+      $scope.cancelCat = function() {
+          // remove items without _id
+          if ($scope.cats && $scope.cats.length > 0) {
+              $scope.cats.map(function(cat) {
+                  return !cat._id;
+            });
+          }
+      };
+
       $scope.getSurveysByCatId = function(id, departmentId){
           $state.go('survey.survey', {cat: id, department: departmentId});
       }

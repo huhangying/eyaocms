@@ -203,7 +203,16 @@
                     });
             }
 
-        }
+        };
+
+        //todo: not working!!!
+        $scope.cancelSurvey = function() {
+            if ($scope.surveys && $scope.surveys.length > 0) {
+                $scope.surveys.map(function(survey) {
+                    return (survey._id !== undefined);
+                });
+            }
+        };
 
         $scope.open = function (page, size, item, index) {
             $scope.editItem = item; // pass item into the edit page
