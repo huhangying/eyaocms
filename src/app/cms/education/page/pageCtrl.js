@@ -12,105 +12,75 @@
 
         // get department name and cat name
         var init = function () {
-            $http.get(util.baseApiUrl + 'department/' + $state.params.department)
-                .success(function (response) {
-                    // check if return null
-                    if (response.return && response.return == 'null'){
-                        $scope.department = null;
-                    }
-                    else {
-                        $scope.department = response;
-                    }
 
-                })
-                .error(function(error){
-                    toastr.error(error.messageFormatted);
-                });
+            $scope.departments = [];
+            $scope.loadDepartments = function() {
+                $http.get(util.baseApiUrl + 'departments', {})
+                    .success(function (response) {
+                        // check if return null
+                        if (response.return && response.return == 'null'){
+                            $scope.departments = [];
+                        }
+                        else {
+                            $scope.departments = response;
+                        }
 
-            $http.get(util.baseApiUrl + 'surveycat/' + $state.params.cat)
-                .success(function (response) {
-                    // check if return null
-                    if (response.return && response.return == 'null'){
-                        $scope.cat = null;
-                    }
-                    else {
-                        $scope.cat = response;
-                    }
+                    })
+                    .error(function(error){
+                        toastr.error(error.messageFormatted);
+                    });
+            }
+            $scope.loadDepartments();
 
-                })
-                .error(function(error){
-                    toastr.error(error.messageFormatted);
-                });
+            $scope.cats = [];
+            $scope.loadPageCats = function() {
+                $http.get(util.baseApiUrl + 'pagecats', {})
+                    .success(function (response) {
+                        // check if return null
+                        if (response.return && response.return == 'null'){
+                            $scope.cats = [];
+                        }
+                        else {
+                            $scope.cats = response;
+                        }
+
+                    })
+                    .error(function(error){
+                        toastr.error(error.messageFormatted);
+                    });
+            }
+            $scope.loadPageCats();
         }
+
         init();
-/*
-        $scope.departments = [];
-        $scope.loadDepartments = function() {
-            $http.get(util.baseApiUrl + 'departments', {})
-                .success(function (response) {
-                    // check if return null
-                    if (response.return && response.return == 'null'){
-                        $scope.departments = [];
-                    }
-                    else {
-                        $scope.departments = response;
-                    }
 
-                })
-                .error(function(error){
-                    toastr.error(error.messageFormatted);
-                });
-        }
-        $scope.loadDepartments();
-        $scope.showDepartment= function(item) {
-            if(item.department && $scope.departments.length) {
-                var selected = $filter('filter')($scope.departments, {_id: item.department});
-                return selected.length ? selected[0].name : '未设置';
-            } else {
-                return '未设置';
+        // set pre-set values (department & cat)
+        $scope.$on('$viewContentLoaded', function(){
+            //Here your view content is fully loaded !!
+            if ($state.params.cat && $state.params.department) {
+                $scope.search.department = $state.params.department;
+                $scope.search.cat = $state.params.cat;
             }
-        };
-
-        $scope.cats = [];
-        $scope.loadCats = function() {
-            $http.get(util.baseApiUrl + 'surveycats', {})
-                .success(function (response) {
-                    // check if return null
-                    if (response.return && response.return == 'null'){
-                        $scope.cats = [];
-                    }
-                    else {
-                        $scope.cats = response;
-                    }
-
-                })
-                .error(function(error){
-                    toastr.error(error.messageFormatted);
-                });
-        }
-        $scope.loadCats();
-
-        $scope.showCat= function(item) {
-            if(item.cat && $scope.cats.length) {
-                var selected = $filter('filter')($scope.cats, {_id: item.cat});
-                return selected.length ? selected[0].name : '未设置';
-            } else {
-                return '未设置';
+            else {
+                // list all
             }
-        };
-*/
+        });
 
-        $scope.surveys = [];
 
-        $scope.getSurveys = function() {
-            $scope.myPromise = $http.get(util.baseApiUrl + 'surveys/cat/' + $state.params.cat)
+
+        //===========================================================
+
+        $scope.pages = [];
+
+        $scope.getPages = function() {
+            $scope.myPromise = $http.get(util.baseApiUrl + 'pages/cat/' + $state.params.cat)
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){
-                        $scope.surveys = [];
+                        $scope.pages = [];
                     }
                     else {
-                        $scope.surveys = response;
+                        $scope.pages = response;
                     }
 
                 })
@@ -119,37 +89,32 @@
                 });
         }
 
-        $scope.getSurveys();
+        $scope.getPages();
 
         $scope.showQuestions = function(questions) {
-            var qs = '';
-            if (questions && questions.length > 0) {
-                for (var i=0; i<questions.length; i++){
-                    qs += questions[i].order + '. ' + questions[i].question + '\n';
-                }
-            }
-            return qs;
+
         }
 
-        $scope.addSurvey = function() {
+        $scope.addPage = function() {
             $scope.inserted = {
+
+                department: $scope.search.department,
+                cat: $scope.search.cat,
                 name: '',
-                department: $state.params.department,
-                cat: $state.params.cat,
-                //desc: '',
-                surveys: [],
+                title: '',
+                title_image: '',
                 apply: true
             };
 
-
-            $scope.surveys.push($scope.inserted);
+            $scope.pages.push($scope.inserted);
+            //toastr.info($scope.pages[0] == $scope.inserted)
         }
 
-        $scope.removeSurvey = function(id, index) {
+        $scope.removePage = function(id, index) {
 
-            $http.delete(util.baseApiUrl + 'survey/' + id)
+            $http.delete(util.baseApiUrl + 'page/' + id)
                 .success(function (response) {
-                    $scope.surveys = $filter('filter')($scope.surveys, {_id: '!'+id});
+                    $scope.pages = $filter('filter')($scope.pages, {_id: '!'+id});
 
                     toastr.success('成功删除');
                 });
@@ -163,7 +128,7 @@
             return true;
         }
 
-        $scope.saveSurvey = function(data, id, index) {
+        $scope.savePage = function(data, id, index) {
 
             //validate
             if (!$scope.validate(data)){
@@ -171,27 +136,27 @@
             }
 
             if (!data._id) { // create
-                $http.post(util.baseApiUrl + 'survey', data)
+                $http.post(util.baseApiUrl + 'page', data)
                     .success(function (response) {
                         if (util.getErrorMessage(response)) {
-                            $scope.surveys.pop();
+                            $scope.pages.pop();
                             return toastr.error(util.getErrorMessage(response));
                         };
 
                         $scope.inserted = response;
 
-                        $scope.surveys.push($scope.inserted);
+                        $scope.pages.push($scope.inserted);
                         toastr.success('成功创建');
 
                         // remove
-                        $scope.surveys.splice($scope.surveys.length - 1, 1);
+                        $scope.pages.splice($scope.pages.length - 1, 1);
 
                         data._id = response._id;
                     });
             }
             else{ // update
                 //angular.extend(data, {_id: id});
-                $http.patch(util.baseApiUrl + 'survey/' + id, data)
+                $http.patch(util.baseApiUrl + 'page/' + id, data)
                     .success(function (response) {
                         //console.log(JSON.stringify(response))
                         if (!response) {
@@ -205,13 +170,11 @@
 
         }
 
-        $scope.cancelCat = function() {
+        $scope.cancelPage = function() {
             // remove items without _id
-            if ($scope.cats && $scope.cats.length > 0) {
-                $scope.cats.forEach(function(cat, index) {
-                    if (!cat._id) {
-                        $scope.cats.splice(index, 1);
-                    }
+            if ($scope.pages && $scope.pages.length > 0) {
+                $scope.pages.map(function(page) {
+                    return !page._id;
                 });
             }
         };
@@ -234,13 +197,13 @@
         };
         
         $scope.updateParent = function (updatedItem) {
-            $scope.surveys[$scope.editIndex] = updatedItem;
+            $scope.pages[$scope.editIndex] = updatedItem;
         }
 
         //================================
 
         $scope.backToCats = function () {
-            $state.go('survey.category', {department: $state.params.department});
+            $state.go('page.category', {department: $state.params.department});
         }
     }
 })();

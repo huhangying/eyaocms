@@ -1,20 +1,39 @@
 <div ba-panel ba-panel-title="{{'科室:' + department.name + ' / 类别:' + cat.name }}" ba-panel-class="with-scroll">
     <div cg-busy="myPromise"></div>
 
-    <div class="add-row-editable-table">
-        <button class="btn btn-primary" ng-click="addSurvey()">
-            <i class="ion-android-add-circle"></i> 创建</button>
-        <button class="btn btn-default" ng-click="backToCats()">
-            <i class="ion-ios-undo-outline"></i> 返回到类别</button>
+    <div class="row add-row-editable-table">
+        <div class="col-sm-2 text-right"><span>选择医院科室:</span></div>
+        <div class="col-sm-2">
+            <span>
+                <select class="form-control" ng-model="search.department"
+                        ng-options="department._id as department.name for department in departments">
+                </select>
+            </span>
+        </div>
+        <div class="col-sm-1 text-right"><span>材料类别:</span></div>
+        <div class="col-sm-2">
+            <span>
+                <select class="form-control" ng-model="search.cat"
+                        ng-options="d._id as d.name for d in cats">
+                </select>
+            </span>
+        </div>
+        <div class="col-sm-4 text-right">
+            <button class="btn btn-primary" ng-click="addPage()" ng-disabled="!search.cat || !search.department">
+                <i class="ion-android-add-circle"></i> 创建</button>
+            <button class="btn btn-default" ng-click="backToCats()">
+                <i class="ion-ios-undo-outline"></i> 返回到类别</button>
+        </div>
     </div>
     <table class="table table-bordered table-hover table-condensed">
         <tr style="font-weight: bold">
-            <td style="width:17%">名字</td>
-            <td style="width:60%">试题</td>
-            <td style="width:8%">开关</td>
-            <td style="width:15%">操作</td>
+            <td style="width:20%">名字</td>
+            <td style="width:25%">Title</td>
+            <td style="width:25%">Title 图片</td>
+            <td style="width:10%">开关</td>
+            <td style="width:20%">操作</td>
         </tr>
-        <tr ng-repeat="item in surveys track by $index" class="editable-row">
+        <tr ng-repeat="item in pages | filter: search track by $index" class="editable-row">
             <td ng-show="false">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
@@ -27,12 +46,19 @@
                 </span>
             </td>
             <td>
-                <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
+                <span editable-text="item.name" e-name="name" e-form="rowform">
                   {{ item.name || '空' }}
                 </span>
             </td>
             <td>
-                <pre>{{ showQuestions(item.questions) }}</pre>
+                <span editable-text="item.title" e-name="title" e-form="rowform">
+                  {{ item.title || '空' }}
+                </span>
+            </td>
+            <td>
+                <span editable-text="item.title_image" e-name="title_image" e-form="rowform">
+                  {{ item.title_image || '空' }}
+                </span>
             </td>
             <td class="select-td">
                 <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
@@ -40,20 +66,20 @@
                 </span>
             </td>
             <td>
-                <form editable-form name="rowform" onaftersave="saveSurvey($data, item._id, $index)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                <form editable-form name="rowform" onaftersave="savePage($data, item._id, $index)" ng-show="rowform.$visible" class="form-buttons form-inline"
                       shown="inserted == item">
                     <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary editable-table-button btn-xs">
                         保存
                     </button>
-                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelCat();" class="btn btn-default editable-table-button btn-xs">
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelPage();" class="btn btn-default editable-table-button btn-xs">
                         取消
                     </button>
                 </form>
                 <div class="buttons" ng-show="!rowform.$visible">
                     <button class="btn btn-primary btn-xs" ng-click="rowform.$show()"><i class="ion-compose"></i></button>
-                    <button class="btn btn-danger btn-xs" ng-click="removeSurvey(item._id)"><i class="ion-ios-trash"></i></button>
-                    <button class="btn btn-primary btn-xs" data-toggle="modal" ng-click="open('app/cms/survey/survey/surveyEdit.html', 'lg', item, $index)">
-                        问卷编辑
+                    <button class="btn btn-danger btn-xs" ng-click="removePage(item._id)"><i class="ion-ios-trash"></i></button>
+                    <button class="btn btn-primary btn-xs" data-toggle="modal" ng-click="open('app/cms/education/page/pageEdit.html', 'lg', item, $index)">
+                        材料模版编辑
                     </button>
                 </div>
             </td>
