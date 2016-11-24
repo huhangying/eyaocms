@@ -1,0 +1,15 @@
+.pls {
+  padding-left: .5em;
+}
+
+.prs {
+  padding-right: .5em;
+}
+
+.pts {
+  padding-top: .5em;
+}
+
+.pbs {
+  padding-bottom: .5em;
+}
