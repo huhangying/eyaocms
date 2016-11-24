@@ -77,7 +77,7 @@
                 </form>
                 <div class="buttons" ng-show="!rowform.$visible">
                     <button class="btn btn-primary btn-xs" ng-click="rowform.$show()"><i class="ion-compose"></i></button>
-                    <button class="btn btn-danger btn-xs" ng-click="removeSchedule(item._id)"><i class="ion-ios-trash"></i></button>
+                    <delete-btn item-id="item._id" yes-delete="removeSchedule"></delete-btn>
                     <button class="btn btn-primary  btn-xs" data-toggle="modal" ng-click="getScheduleDetails(item._id)">
                         查看药师门诊详情
                     </button>

@@ -91,7 +91,7 @@
                 </form>
                 <div class="buttons" ng-show="!rowform.$visible">
                     <button class="btn btn-primary btn-xs" ng-click="rowform.$show()"><i class="ion-compose"></i></button>
-                    <button class="btn btn-danger  btn-xs" ng-click="removeDoctor(item._id, item.user_id)"><i class="ion-ios-trash"></i></button>
+                    <delete-btn item-id="item._id" user-id="item.user_id" yes-delete="removeDoctor"></delete-btn>
                     <button class="btn btn-primary  btn-xs" data-toggle="modal" ng-click="goDoctorProfile(item._id)">
                         更多信息
                     </button>

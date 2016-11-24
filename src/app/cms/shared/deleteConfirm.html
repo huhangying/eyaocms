@@ -1,0 +1,16 @@
+<div class="modal-content" ng-controller="deleteConfirmCtrl">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <em class="ion-ios-close-empty sn-link-close"></em>
+    </button>
+    <h4 class="modal-title"><i class="ion-alert text-warning"></i>&nbsp;&nbsp; 删除确认 </h4>
+  </div>
+  <div class="modal-body">
+    确认要删除该纪录?
+
+    <div class="modal-footer text-center" style="padding-top:1em;">
+      <a type="button" class="btn btn-default" ng-click="$dismiss()">取消</a>
+      <a type="button" class="btn btn-primary" ng-click="ok();$dismiss()"><i class="ion-android-checkmark-circle"></i> 确认</a>
+    </div>
+  </div>
+</div>

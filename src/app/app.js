@@ -20,6 +20,9 @@ global.app = angular.module('BlurAdmin', [
   'BlurAdmin.theme',
   // 'BlurAdmin.pages',
   'BlurAdmin.cms',
+    
+    // directives
+    'BlurAdmin.shared',
   ])
     .value('cgBusyDefaults',{
       message:'',
@@ -30,6 +33,7 @@ global.app = angular.module('BlurAdmin', [
       wrapperClass: 'loading'
     });
 
+//app.directive('deleteConfirm', )
 // app.control('mainCtrl', ['$scope', '$window', 'lodash', function($scope, $window, _){
 //     toastr.info(JSON.stringify($window.sessionStorage.user));
 // }]);

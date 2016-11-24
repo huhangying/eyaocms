@@ -90,7 +90,7 @@
                 </form>
                 <div class="buttons" ng-show="!rowform.$visible">
                     <button class="btn btn-primary btn-xs" ng-click="rowform.$show()"><i class="ion-compose"></i></button>
-                    <button class="btn btn-danger btn-xs" ng-click="removeBooking(item._id)"><i class="ion-ios-trash"></i></button>
+                    <delete-btn item-id="item._id" yes-delete="removeBooking"></delete-btn>
 
                 </div>
             </td>
