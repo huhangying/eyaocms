@@ -64,7 +64,7 @@
 
         $scope.addCat = function() {
             $scope.inserted = {
-                department: '',
+                department: $scope.search.department || '',
                 name: '',
                 desc: '',
                 apply: true

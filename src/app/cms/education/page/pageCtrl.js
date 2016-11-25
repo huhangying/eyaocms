@@ -89,11 +89,10 @@
                 });
         }
 
-        $scope.getPages();
-
-        $scope.showQuestions = function(questions) {
-
+        if ($state.params.cat){
+            $scope.getPages();
         }
+
 
         $scope.addPage = function() {
             $scope.inserted = {
@@ -203,7 +202,7 @@
         //================================
 
         $scope.backToCats = function () {
-            $state.go('page.category', {department: $state.params.department});
+            $state.go('education.category', {department: $state.params.department});
         }
     }
 })();

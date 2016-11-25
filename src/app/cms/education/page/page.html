@@ -1,4 +1,4 @@
-<div ba-panel ba-panel-title="{{'科室:' + department.name + ' / 类别:' + cat.name }}" ba-panel-class="with-scroll">
+<div ba-panel ba-panel-class="with-scroll">
     <div cg-busy="myPromise"></div>
 
     <div class="row add-row-editable-table">
@@ -25,11 +25,15 @@
                 <i class="ion-ios-undo-outline"></i> 返回到类别</button>
         </div>
     </div>
-    <table class="table table-bordered table-hover table-condensed">
+    <hr>
+    <div ng-if="pages.length < 1">
+        无记录。
+    </div>
+    <table class="table table-bordered table-hover table-condensed" ng-if="pages.length > 0">
         <tr style="font-weight: bold">
             <td style="width:20%">名字</td>
-            <td style="width:25%">Title</td>
-            <td style="width:25%">Title 图片</td>
+            <td style="width:25%">消息标题</td>
+            <td style="width:25%">标题图片</td>
             <td style="width:10%">开关</td>
             <td style="width:20%">操作</td>
         </tr>
