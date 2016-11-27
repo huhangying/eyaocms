@@ -32,6 +32,15 @@
             }
             $scope.loadDepartments();
 
+            $scope.showDepartment= function(item) {
+                if(item.department && $scope.departments.length) {
+                    var selected = $filter('filter')($scope.departments, {_id: item.department});
+                    return selected.length ? selected[0].name : '未设置';
+                } else {
+                    return '未设置';
+                }
+            };
+
             $scope.cats = [];
             $scope.loadPageCats = function() {
                 $http.get(util.baseApiUrl + 'pagecats', {})
@@ -50,6 +59,16 @@
                     });
             }
             $scope.loadPageCats();
+
+            $scope.showCat= function(item) {
+                if(item.cat && $scope.cats.length) {
+                    var selected = $filter('filter')($scope.cats, {_id: item.cat});
+                    return selected.length ? selected[0].name : '未设置';
+                } else {
+                    return '未设置';
+                }
+            };
+
         }
 
         init();
@@ -186,7 +205,8 @@
                 templateUrl: page,
                 controller: 'pageEditCtrl',
                 size: size,
-                scope: $scope
+                scope: $scope,
+                backdrop: 'static'
                 // resolve: {
                 //     item: function () {
                 //         return item;

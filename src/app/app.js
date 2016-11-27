@@ -15,7 +15,7 @@ global.app = angular.module('BlurAdmin', [
     'ui.bootstrap.datetimepicker',
     'cgBusy',
     // 'angular-sanitize',
-    'textAngular',
+    // 'textAngular',
     // 'lodash',
 
     // 'BlurAdmin.login',
