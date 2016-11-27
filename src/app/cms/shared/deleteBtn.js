@@ -24,7 +24,7 @@
 
                         $uibModal.open({
                             animation: true,
-                            templateUrl: './app/cms/shared/deleteConfirm.html',
+                            templateUrl: 'app/cms/shared/deleteConfirm.html',
                             controller: 'deleteConfirmCtrl',
                             size: 'sm',
                             scope: $scope
