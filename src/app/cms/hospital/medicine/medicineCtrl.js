@@ -128,7 +128,7 @@
                     });
             }
             else{ // update
-                //angular.extend(data, {_id: id});
+                data.apply = data.apply || false; // fix the xeditable issue
                 $http.patch(util.baseApiUrl + 'medicine/' + id, data)
                     .success(function (response) {
                         //console.log(JSON.stringify(response))

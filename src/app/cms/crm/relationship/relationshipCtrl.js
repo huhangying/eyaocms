@@ -204,8 +204,7 @@
                     });
             }
             else{ // update
-                //angular.extend(data, {_id: id});
-                //toastr.info(JSON.stringify(data));
+                data.apply = data.apply || false; // fix the xeditable issue
                 $http.patch(util.baseApiUrl + 'relationship/' + data._id, data)
                     .success(function (response) {
                         //console.log(JSON.stringify(response))

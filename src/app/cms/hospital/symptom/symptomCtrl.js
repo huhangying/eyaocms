@@ -130,17 +130,17 @@
             });
       }
       else{ // update
-        //angular.extend(data, {_id: id});
-        $http.patch(util.baseApiUrl + 'disease/' + id, data)
-            .success(function (response) {
-              //console.log(JSON.stringify(response))
-              if (!response) {
-                toastr.error(error.messageFormatted);
-              }
-              else{
-                toastr.success('成功更新');
-              }
-            });
+          data.apply = data.apply || false; // fix the xeditable issue
+          $http.patch(util.baseApiUrl + 'disease/' + id, data)
+              .success(function (response) {
+                  //console.log(JSON.stringify(response))
+                  if (!response) {
+                      toastr.error(error.messageFormatted);
+                  }
+                  else{
+                      toastr.success('成功更新');
+                  }
+              });
       }
 
       //$scope.inserted = null;

@@ -130,6 +130,7 @@
                 });
         }
         else{ // update
+            data.apply = data.apply || false; // fix the xeditable issue
             $http.patch(util.baseApiUrl + 'surveycat/' + data._id, data)
                 .success(function (response) {
                     if (util.getErrorMessage(response)) {

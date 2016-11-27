@@ -141,7 +141,7 @@
                     });
             }
             else{ // update
-                //angular.extend(data, {_id: id});
+                data.apply = data.apply || false; // fix the xeditable issue
                 $http.patch(util.baseApiUrl + 'group/' + data._id, data)
                     .success(function (response) {
                         if (util.getErrorMessage(response)) {
