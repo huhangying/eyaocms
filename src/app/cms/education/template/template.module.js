@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  angular.module('BlurAdmin.cms.education.page', ['textAngular'])
+  angular.module('BlurAdmin.cms.education.template', ['textAngular'])
     .config(routeConfig)
       .config(['$provide', function($provide){
           // this demonstrates how to register a new tool and add it to the default toolbar
@@ -35,10 +35,10 @@
   /** @ngInject */
   function routeConfig($stateProvider) {
     $stateProvider
-        .state('education.page', {
-          url: '/page/:department/:cat',
-          templateUrl: 'app/cms/education/page/page.html',
-          controller: 'pageCtrl',
+        .state('education.template', {
+          url: '/template/:department/:cat',
+          templateUrl: 'app/cms/education/template/template.html',
+          controller: 'templateCtrl',
           title: '宣教材料',
           sidebarMeta: {
             order: 200,

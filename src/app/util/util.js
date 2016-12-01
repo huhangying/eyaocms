@@ -2,10 +2,10 @@
  * Created by harry on 16/6/8.
  */
 app.provider('util', function() {
-    this.$get = function() {
+    this.$get = function($window) {
         return {
-            //baseApiUrl: 'http://127.0.0.1:3000/',
-            baseApiUrl: 'http://139.224.68.92:3000/',
+            baseApiUrl: 'http://127.0.0.1:3000/',
+            //baseApiUrl: 'http://139.224.68.92:3000/',
 
             getResponse: function(response) {
                 if (response.return && response.return == 'null'){
@@ -21,6 +21,11 @@ app.provider('util', function() {
                     return "错误: " + response.return;
                 }
                 return null;
+            },
+
+            getLoginUserId: function() {
+                var user = JSON.parse($window.sessionStorage.user);
+                return user._id;
             }
         };
     };

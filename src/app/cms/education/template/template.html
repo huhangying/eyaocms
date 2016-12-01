@@ -19,17 +19,17 @@
             </span>
         </div>
         <div class="col-sm-4 text-right">
-            <button class="btn btn-primary" ng-click="addPage()" ng-disabled="!search.cat || !search.department">
+            <button class="btn btn-primary" ng-click="addTemplate()" ng-disabled="!search.cat || !search.department">
                 <i class="ion-android-add-circle"></i> 创建</button>
             <button class="btn btn-default" ng-click="backToCats()">
                 <i class="ion-ios-undo-outline"></i> 返回到类别</button>
         </div>
     </div>
     <hr>
-    <div ng-if="pages.length < 1">
+    <div ng-if="templates.length < 1">
         无记录。
     </div>
-    <table class="table table-bordered table-hover table-condensed" ng-if="pages.length > 0">
+    <table class="table table-bordered table-hover table-condensed" ng-if="templates.length > 0">
         <tr style="font-weight: bold">
             <td style="width:20%">名字</td>
             <td style="width:25%">消息标题</td>
@@ -37,7 +37,7 @@
             <td style="width:10%">开关</td>
             <td style="width:20%">操作</td>
         </tr>
-        <tr ng-repeat="item in pages | filter: search track by $index" class="editable-row">
+        <tr ng-repeat="item in templates | filter: search track by $index" class="editable-row">
             <td ng-show="false">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
@@ -47,6 +47,9 @@
                 </span>
                 <span editable-text="item.cat" e-name="cat" e-form="rowform" e-required>
                     {{item.cat}}
+                </span>
+                <span editable-text="item.updatedBy" e-name="updatedBy" e-form="rowform" e-required>
+                    {{item.updatedBy}}
                 </span>
             </td>
             <td>
@@ -70,19 +73,19 @@
                 </span>
             </td>
             <td>
-                <form editable-form name="rowform" onaftersave="savePage($data, item._id, $index)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                <form editable-form name="rowform" onaftersave="saveTemplate($data, item._id, $index)" ng-show="rowform.$visible" class="form-buttons form-inline"
                       shown="inserted == item">
                     <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary editable-table-button btn-xs">
                         保存
                     </button>
-                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelPage();" class="btn btn-default editable-table-button btn-xs">
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelTemplate();" class="btn btn-default editable-table-button btn-xs">
                         取消
                     </button>
                 </form>
                 <div class="buttons" ng-show="!rowform.$visible">
                     <button class="btn btn-primary btn-xs" ng-click="rowform.$show()"><i class="ion-compose"></i></button>
-                    <delete-btn item-id="item._id" yes-delete="removePage"></delete-btn>
-                    <button class="btn btn-primary btn-xs" data-toggle="modal" ng-click="open('app/cms/education/page/pageEdit.html', 'lg', item, $index)">
+                    <delete-btn item-id="item._id" yes-delete="removeTemplate"></delete-btn>
+                    <button class="btn btn-primary btn-xs" data-toggle="modal" ng-click="open('app/cms/education/template/templateEdit.html', 'lg', item, $index)">
                         材料模版编辑
                     </button>
                 </div>

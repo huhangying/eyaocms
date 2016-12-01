@@ -6,7 +6,7 @@
 
     angular.module('BlurAdmin.cms.education', [
         'BlurAdmin.cms.education.category',
-        'BlurAdmin.cms.education.page',
+        'BlurAdmin.cms.education.template',
     ])
         .config(routeConfig);
 

@@ -4,19 +4,19 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.cms.education.page')
-        .controller('pageEditCtrl', pageEditCtrl);
+    angular.module('BlurAdmin.cms.education.template')
+        .controller('templateEditCtrl', templateEditCtrl);
 
     /** @ngInject */
-    function pageEditCtrl($scope, $rootScope, $filter, $http, util, toastr) {
+    function templateEditCtrl($scope, $filter, $http, util, toastr) {
         $scope.preview = false;
 
-        $scope.savePage = function() {
+        $scope.saveTemplate = function() {
 
-            var page = angular.copy($scope.editItem);
+            var template = angular.copy($scope.editItem);
 
             // update
-            $http.patch(util.baseApiUrl + 'page/' + page._id, page)
+            $http.patch(util.baseApiUrl + 'template/' + template._id, template)
                 .success(function (response) {
                     //console.log(JSON.stringify(response))
                     if (!response ){

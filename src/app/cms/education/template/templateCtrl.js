@@ -3,11 +3,11 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.cms.education.page')
-        .controller('pageCtrl', pageCtrl);
+    angular.module('BlurAdmin.cms.education.template')
+        .controller('templateCtrl', templateCtrl);
 
     /** @ngInject */
-    function pageCtrl($scope,$rootScope, $state, $filter, $http, util, toastr, $uibModal) {
+    function templateCtrl($scope, $state, $filter, $http, util, toastr, $uibModal) {
         $scope.search = {};
 
         // get department name and cat name
@@ -42,8 +42,8 @@
             };
 
             $scope.cats = [];
-            $scope.loadPageCats = function() {
-                $http.get(util.baseApiUrl + 'pagecats', {})
+            $scope.loadTemplateCats = function() {
+                $http.get(util.baseApiUrl + 'articlecats', {})
                     .success(function (response) {
                         // check if return null
                         if (response.return && response.return == 'null'){
@@ -58,7 +58,7 @@
                         toastr.error(error.messageFormatted);
                     });
             }
-            $scope.loadPageCats();
+            $scope.loadTemplateCats();
 
             $scope.showCat= function(item) {
                 if(item.cat && $scope.cats.length) {
@@ -89,17 +89,17 @@
 
         //===========================================================
 
-        $scope.pages = [];
+        $scope.templates = [];
 
-        $scope.getPages = function() {
-            $scope.myPromise = $http.get(util.baseApiUrl + 'pages/cat/' + $state.params.cat)
+        $scope.getTemplates = function() {
+            $scope.myPromise = $http.get(util.baseApiUrl + 'templates/cat/' + $state.params.cat)
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){
-                        $scope.pages = [];
+                        $scope.templates = [];
                     }
                     else {
-                        $scope.pages = response;
+                        $scope.templates = response;
                     }
 
                 })
@@ -109,11 +109,11 @@
         }
 
         if ($state.params.cat){
-            $scope.getPages();
+            $scope.getTemplates();
         }
 
 
-        $scope.addPage = function() {
+        $scope.addTemplate = function() {
             $scope.inserted = {
 
                 department: $scope.search.department,
@@ -121,18 +121,19 @@
                 name: '',
                 title: '',
                 title_image: '',
+                updatedBy: util.getLoginUserId(),
                 apply: true
             };
 
-            $scope.pages.push($scope.inserted);
-            //toastr.info($scope.pages[0] == $scope.inserted)
+            $scope.templates.unshift($scope.inserted);
+            //toastr.info($scope.templates[0] == $scope.inserted)
         }
 
-        $scope.removePage = function(id, index) {
+        $scope.removeTemplate = function(id, index) {
 
-            $http.delete(util.baseApiUrl + 'page/' + id)
+            $http.delete(util.baseApiUrl + 'template/' + id)
                 .success(function (response) {
-                    $scope.pages = $filter('filter')($scope.pages, {_id: '!'+id});
+                    $scope.templates = $filter('filter')($scope.templates, {_id: '!'+id});
 
                     toastr.success('成功删除');
                 });
@@ -146,7 +147,7 @@
             return true;
         }
 
-        $scope.savePage = function(data, id, index) {
+        $scope.saveTemplate = function(data, id, index) {
 
             //validate
             if (!$scope.validate(data)){
@@ -154,27 +155,27 @@
             }
 
             if (!data._id) { // create
-                $http.post(util.baseApiUrl + 'page', data)
+                $http.post(util.baseApiUrl + 'template', data)
                     .success(function (response) {
                         if (util.getErrorMessage(response)) {
-                            $scope.pages.pop();
+                            $scope.templates.pop();
                             return toastr.error(util.getErrorMessage(response));
                         };
 
                         $scope.inserted = response;
 
-                        $scope.pages.push($scope.inserted);
+                        $scope.templates.unshift($scope.inserted);
                         toastr.success('成功创建');
 
                         // remove
-                        $scope.pages.splice($scope.pages.length - 1, 1);
+                        $scope.templates.splice(1, 1);
 
                         data._id = response._id;
                     });
             }
             else{ // update
                 data.apply = data.apply || false; // fix the xeditable issue
-                $http.patch(util.baseApiUrl + 'page/' + id, data)
+                $http.patch(util.baseApiUrl + 'template/' + id, data)
                     .success(function (response) {
                         //console.log(JSON.stringify(response))
                         if (!response) {
@@ -188,22 +189,22 @@
 
         }
 
-        $scope.cancelPage = function() {
+        $scope.cancelTemplate = function() {
             // remove items without _id
-            if ($scope.pages && $scope.pages.length > 0) {
-                $scope.pages.map(function(page) {
-                    return !page._id;
+            if ($scope.templates && $scope.templates.length > 0) {
+                $scope.templates.map(function(template) {
+                    return !template._id;
                 });
             }
         };
 
-        $scope.open = function (page, size, item, index) {
-            $scope.editItem = item; // pass item into the edit page
+        $scope.open = function (template, size, item, index) {
+            $scope.editItem = item; // pass item into the edit template
             $scope.editIndex = index;
             $uibModal.open({
                 animation: true,
-                templateUrl: page,
-                controller: 'pageEditCtrl',
+                templateUrl: template,
+                controller: 'templateEditCtrl',
                 size: size,
                 scope: $scope,
                 backdrop: 'static'
@@ -216,7 +217,7 @@
         };
         
         $scope.updateParent = function (updatedItem) {
-            $scope.pages[$scope.editIndex] = updatedItem;
+            $scope.templates[$scope.editIndex] = updatedItem;
         }
 
         //================================

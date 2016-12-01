@@ -1,4 +1,4 @@
-<div class="modal-content" ng-controller="pageEditCtrl">
+<div class="modal-content" ng-controller="templateEditCtrl">
     <div class="modal-header">
         <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
             <em class="ion-ios-close-empty sn-link-close"></em>
@@ -31,12 +31,12 @@
             </div>
         </div>
 
-        <text-angular ng-model="editItem.edit_html" ng-if="!preview"></text-angular>
-        <text-angular ng-model="editItem.edit_html" ng-if="preview" ta-bind></text-angular>
+        <text-angular ng-model="editItem.content" ng-if="!preview"></text-angular>
+        <text-angular ng-model="editItem.content" ng-if="preview" ta-bind></text-angular>
 
         <div class="modal-footer" style="padding-top:.5em;">
             <a type="button" class="btn btn-default" ng-click="$dismiss()" >取消</a>
-            <a type="button" class="btn btn-primary" ng-click="savePage()" ><i class="ion-android-checkmark-circle"></i> 保存</a>
+            <a type="button" class="btn btn-primary" ng-click="saveTemplate()" ><i class="ion-android-checkmark-circle"></i> 保存</a>
         </div>
     </div>
 </div>

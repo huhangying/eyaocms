@@ -41,7 +41,7 @@
         $scope.cats = [];
 
         $scope.getCats = function(departmentId) {
-            $scope.myPromise = $http.get(util.baseApiUrl + 'pagecats', {department: departmentId})
+            $scope.myPromise = $http.get(util.baseApiUrl + 'articlecats', {department: departmentId})
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){
@@ -75,14 +75,14 @@
 
         $scope.removeCat = function(id, index) {
 
-            $http.get(util.baseApiUrl + 'pages/cat/' + id)
+            $http.get(util.baseApiUrl + 'templates/cat/' + id)
                 .success(function(response) {
-                    var pages = util.getResponse(response);
-                    if (pages && pages.length > 0) {
+                    var templates = util.getResponse(response);
+                    if (templates && templates.length > 0) {
                         toastr.error('不能被删除,请先删除与之关联的问卷调查。');
                     }
                     else {
-                        $http.delete(util.baseApiUrl + 'pagecat/' + id)
+                        $http.delete(util.baseApiUrl + 'articlecat/' + id)
                             .success(function (response) {
                                 $scope.cats = $filter('filter')($scope.cats, {_id: '!'+id});
 
@@ -110,7 +110,7 @@
             }
 
             if (!data._id) { // create
-                $http.post(util.baseApiUrl + 'pagecat', data)
+                $http.post(util.baseApiUrl + 'articlecat', data)
                     .success(function (response) {
                         if (util.getErrorMessage(response)) {
                             $scope.cats.pop();
@@ -119,18 +119,18 @@
 
                         $scope.inserted = response;
 
-                        $scope.cats.push($scope.inserted);
+                        $scope.cats.unshift($scope.inserted);
                         toastr.success('成功创建');
 
                         // remove
-                        $scope.cats.splice($scope.cats.length - 1, 1);
+                        $scope.cats.splice(1, 1);
 
                         data._id = response._id;
                     });
             }
             else{ // update
                 data.apply = data.apply || false; // fix the xeditable issue
-                $http.patch(util.baseApiUrl + 'pagecat/' + data._id, data)
+                $http.patch(util.baseApiUrl + 'articlecat/' + data._id, data)
                     .success(function (response) {
                         if (util.getErrorMessage(response)) {
                             $scope.cats.pop();
@@ -154,8 +154,8 @@
             }
         };
 
-        $scope.getPagesByCatId = function(id, departmentId){
-            $state.go('education.page', {cat: id, department: departmentId});
+        $scope.getTemplatesByCatId = function(id, departmentId){
+            $state.go('education.template', {cat: id, department: departmentId});
         }
 
     }
