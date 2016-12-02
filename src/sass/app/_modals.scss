@@ -104,3 +104,14 @@ $modal-input-border: #e7e7e7;
     text-align: center;
   }
 }
+
+.my-modal-popup{
+
+  @media (min-width: 1024px){
+
+    .modal-lg {
+      width: 1010px;
+    }
+  }
+
+}

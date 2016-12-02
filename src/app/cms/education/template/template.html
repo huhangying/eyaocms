@@ -14,7 +14,7 @@
         <div class="col-sm-2">
             <span>
                 <select class="form-control" ng-model="search.cat"
-                        ng-options="d._id as d.name for d in cats">
+                        ng-options="d._id as d.name for d in cats | filter: search.department">
                 </select>
             </span>
         </div>

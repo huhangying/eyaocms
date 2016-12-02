@@ -116,8 +116,8 @@
         $scope.addTemplate = function() {
             $scope.inserted = {
 
-                department: $scope.search.department,
-                cat: $scope.search.cat,
+                department: $scope.search.department || '',
+                cat: $scope.search.cat || '',
                 name: '',
                 title: '',
                 title_image: '',
@@ -125,7 +125,7 @@
                 apply: true
             };
 
-            $scope.templates.unshift($scope.inserted);
+            $scope.templates.push($scope.inserted);
             //toastr.info($scope.templates[0] == $scope.inserted)
         }
 
@@ -206,6 +206,7 @@
                 templateUrl: template,
                 controller: 'templateEditCtrl',
                 size: size,
+                windowClass: 'my-modal-popup',
                 scope: $scope,
                 backdrop: 'static'
                 // resolve: {
