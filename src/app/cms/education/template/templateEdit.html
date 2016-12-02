@@ -15,19 +15,43 @@
             <div class="col-md-5">
                 <div class="form-group">
                     <label for="inputTitle" class="control-label">消息标题</label>
-                    <input type="text" class="form-control" id="inputTitle" placeholder="" ng-model="editItem.title" required />
+                    <textarea class="form-control" id="inputTitle" rows="2" ng-model="editItem.title" required></textarea>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="inputTitleImage" class="control-label">标题图片</label>
-                    <input type="file" class="form-control" id="inputTitleImage" placeholder="" ng-model="editItem.title_image" required />
+            <div class="col-md-7">
+                <div flow-init="{singleFile:true}"
+                     flow-files-submitted="$flow.upload()"
+                     flow-file-success="$file.msg = $message;editItem.title_image=$flow.files[0];"
+                     flow-file-added="!!{png:1,jpg:1,jpeg:1}[$file.getExtension()]">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div>
+                            <label class="control-label">标题图片</label>
+                        </div>
+                        <div>
+                            <button class="btn btn-info" ng-show="!$flow.files.length" flow-btn="">
+                                上传图片<input type="file" style="visibility: hidden; position: absolute;">
+                            </button>
+                            <button class="btn btn-info ng-hide" ng-show="$flow.files.length" flow-btn="">
+                                更改图片<input type="file" style="visibility: hidden; position: absolute;">
+                            </button>
+                            <button class="btn btn-danger ng-hide" ng-show="$flow.files.length" ng-click="$flow.cancel()">
+                                删除
+                            </button>
+                        </div>
+                        <small>
+                            只支持 PNG,JPG 格式图片。
+                        </small>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="thumbnail ng-hide" ng-show="$flow.files.length">
+                            <img flow-img="editItem.title_image" style="height:90px" />
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <img></img>
-                </div>
+                    </div>
+
+
             </div>
         </div>
 

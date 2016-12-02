@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  angular.module('BlurAdmin.cms.education.template', ['textAngular'])
+  angular.module('BlurAdmin.cms.education.template', ['textAngular', 'flow'])
     .config(routeConfig)
       .config(['$provide', function($provide){
           // this demonstrates how to register a new tool and add it to the default toolbar
@@ -30,7 +30,23 @@
               return taOptions; // whatever you return will be the taOptions
           }]);
 
-      }]);
+      }])
+
+      .config(['flowFactoryProvider', function (flowFactoryProvider) {
+          flowFactoryProvider.defaults = {
+              target: 'http://127.0.0.1:3000/upload',
+              testChunks: false,
+              permanentErrors: [500, 501],
+              maxChunkRetries: 1,
+              chunkRetryInterval: 5000,
+              simultaneousUploads: 1
+          };
+          // flowFactoryProvider.on('catchAll', function (event) {
+          //     console.log('catchAll', arguments);
+          // });
+          // Can be used with different implementations of Flow.js
+          //flowFactoryProvider.factory = fustyFlowFactory;
+      }]);;
 
   /** @ngInject */
   function routeConfig($stateProvider) {
