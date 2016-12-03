@@ -23,8 +23,10 @@
                     }
 
                 })
-                .error(function(error){
-                    toastr.error(error.messageFormatted);
+                .error(function(_error){
+                    if (_error){
+                        toastr.error(_error.messageFormatted);
+                    }
                 });
         }
         $scope.loadDepartments();

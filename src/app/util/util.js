@@ -5,6 +5,7 @@ app.provider('util', function() {
     this.$get = function($window) {
         return {
             baseApiUrl: 'http://127.0.0.1:3000/',
+            baseImageServer: 'http://127.0.0.1:3031/',
             //baseApiUrl: 'http://139.224.68.92:3000/',
 
             getResponse: function(response) {

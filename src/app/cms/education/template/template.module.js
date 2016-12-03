@@ -34,6 +34,7 @@
 
       .config(['flowFactoryProvider', function (flowFactoryProvider) {
           flowFactoryProvider.defaults = {
+              // target: util.baseApiUrl + 'upload',
               target: 'http://127.0.0.1:3000/upload',
               testChunks: false,
               permanentErrors: [500, 501],

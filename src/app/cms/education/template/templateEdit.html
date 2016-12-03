@@ -3,26 +3,26 @@
         <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
             <em class="ion-ios-close-empty sn-link-close"></em>
         </button>
-        <h4 class="modal-title">模版编辑 [{{ editItem.name }}]</h4>
+        <h4 class="modal-title">模版编辑 [{{ template.name }}]</h4>
     </div>
     <div class="modal-body">
         <h3 class="with-line-no-padding text-muted" style="font-size: 1em;">
-            科室: <span class="alert alert-success">{{ showDepartment(editItem) }}</span> /
-            类别: <span class="alert alert-success">{{ showCat(editItem)}}</span>
+            科室: <span class="alert alert-success">{{ showDepartment(template) }}</span> /
+            类别: <span class="alert alert-success">{{ showCat(template)}}</span>
             <a type="button"class="btn btn-sm {{preview?'btn-success':'btn-default'}} pull-right" ng-click="previewToggle()">预览</a>
         </h3>
         <div class="row">
             <div class="col-md-5">
                 <div class="form-group">
                     <label for="inputTitle" class="control-label">消息标题</label>
-                    <textarea class="form-control" id="inputTitle" rows="2" ng-model="editItem.title" required></textarea>
+                    <textarea class="form-control" id="inputTitle" rows="2" ng-model="template.title" required></textarea>
                 </div>
             </div>
             <div class="col-md-7">
                 <div flow-init="{singleFile:true}"
                      flow-files-submitted="$flow.upload()"
-                     flow-file-success="$file.msg = $message;editItem.title_image=$flow.files[0];"
-                     flow-file-added="!!{png:1,jpg:1,jpeg:1}[$file.getExtension()]">
+                     flow-file-success="$file.msg = $message;template.title_image='upload/'+$flow.files[0].relativePath;uploadedImg();"
+                     flow-file-added="!!{jpg:1,jpeg:1}[$file.getExtension()]">
                 <div class="row">
                     <div class="col-sm-4">
                         <div>
@@ -40,12 +40,15 @@
                             </button>
                         </div>
                         <small>
-                            只支持 PNG,JPG 格式图片。
+                            只支持 JPG 格式图片。
                         </small>
                     </div>
                     <div class="col-sm-8">
-                        <div class="thumbnail ng-hide" ng-show="$flow.files.length">
-                            <img flow-img="editItem.title_image" style="height:90px" />
+                        <div class="thumbnail" ng-show="$flow.files.length && !updated">
+                            <img flow-img="$flow.files[0]" style="height:90px" />
+                        </div>
+                        <div class="thumbnail" ng-show="updated">
+                            <img ng-src="{{displayedUrl}}" style="height:90px" />
                         </div>
                     </div>
                 </div>
@@ -55,8 +58,8 @@
             </div>
         </div>
 
-        <text-angular ng-model="editItem.content" ng-if="!preview"></text-angular>
-        <text-angular ng-model="editItem.content" ng-if="preview" ta-bind></text-angular>
+        <text-angular ng-model="template.content" ng-if="!preview"></text-angular>
+        <text-angular ng-model="template.content" ng-if="preview" ta-bind></text-angular>
 
         <div class="modal-footer" style="padding-top:.5em;">
             <a type="button" class="btn btn-default" ng-click="$dismiss()" >取消</a>

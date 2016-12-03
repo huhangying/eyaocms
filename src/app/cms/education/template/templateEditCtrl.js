@@ -9,14 +9,18 @@
 
     /** @ngInject */
     function templateEditCtrl($scope, $filter, $http, util, toastr) {
+        $scope.template = angular.copy($scope.editItem);
         $scope.preview = false;
+        $scope.updated = false;
+        if ($scope.template.title_image) {
+            $scope.displayedUrl = util.baseImageServer + $scope.template.title_image;
+            $scope.updated = true;
+        }
 
         $scope.saveTemplate = function() {
 
-            var template = angular.copy($scope.editItem);
-
             // update
-            $http.patch(util.baseApiUrl + 'template/' + template._id, template)
+            $http.patch(util.baseApiUrl + 'template/' + $scope.template._id, $scope.template)
                 .success(function (response) {
                     //console.log(JSON.stringify(response))
                     if (!response ){
@@ -27,8 +31,8 @@
                     }
                     else{
                         toastr.success('成功更新');
-                        $scope.editItem = response;
-                        $scope.updateParent($scope.editItem);
+                        $scope.template = response;
+                        $scope.updateParent($scope.template);
                         $scope.closeMe();
                     }
                 });
@@ -46,5 +50,9 @@
             $scope.preview = !$scope.preview;
         };
 
+        $scope.uploadedImg = function() {
+            $scope.displayedUrl = util.baseApiUrl + $scope.template.title_image;
+            $scope.updated = true;
+        };
     }
 })();
