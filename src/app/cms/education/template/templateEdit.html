@@ -5,6 +5,7 @@
         </button>
         <h4 class="modal-title">模版编辑 [{{ template.name }}]</h4>
     </div>
+    <div cg-busy="myPromise"></div>
     <div class="modal-body">
         <h3 class="with-line-no-padding text-muted" style="font-size: 1em;">
             科室: <span class="alert alert-success">{{ showDepartment(template) }}</span> /
@@ -21,7 +22,7 @@
             <div class="col-md-7">
                 <div flow-init="{singleFile:true}"
                      flow-files-submitted="$flow.upload()"
-                     flow-file-success="$file.msg = $message;template.title_image='upload/'+$flow.files[0].relativePath;uploadedImg();"
+                     flow-file-success="$file.msg = $message;template.title_image=$flow.files[0].relativePath;uploadedImg();"
                      flow-file-added="!!{jpg:1,jpeg:1}[$file.getExtension()]">
                 <div class="row">
                     <div class="col-sm-4">

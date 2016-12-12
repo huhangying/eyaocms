@@ -20,7 +20,7 @@
         $scope.saveTemplate = function() {
 
             // update
-            $http.patch(util.baseApiUrl + 'template/' + $scope.template._id, $scope.template)
+            $scope.myPromise = $http.patch(util.baseApiUrl + 'template/' + $scope.template._id, $scope.template)
                 .success(function (response) {
                     //console.log(JSON.stringify(response))
                     if (!response ){
@@ -51,7 +51,7 @@
         };
 
         $scope.uploadedImg = function() {
-            $scope.displayedUrl = util.baseApiUrl + $scope.template.title_image;
+            $scope.displayedUrl = util.baseImageServer + $scope.template.title_image;
             $scope.updated = true;
         };
     }

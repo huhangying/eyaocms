@@ -92,7 +92,8 @@
         $scope.templates = [];
 
         $scope.getTemplates = function() {
-            $scope.myPromise = $http.get(util.baseApiUrl + 'templates/cat/' + $state.params.cat)
+            var catId = $scope.search.cat || $state.params.cat;
+            $scope.myPromise = $http.get(util.baseApiUrl + 'templates/cat/' + catId)
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){
