@@ -28,28 +28,8 @@
     $scope.notifications = [
       {
         userId: 0,
-        template: '&name posted a new article.',
-        time: '1 min ago'
-      },
-      {
-        userId: 1,
-        template: '&name changed his contact information.',
-        time: '2 hrs ago'
-      },
-      {
-        image: 'assets/img/shopping-cart.svg',
-        template: 'New orders received.',
-        time: '5 hrs ago'
-      },
-      {
-        userId: 2,
-        template: '&name replied to your comment.',
-        time: '1 day ago'
-      },
-      {
-        userId: 1,
-        template: '&name invited you to join the event.',
-        time: '1 week ago'
+        template: '&name 测试消息.',
+        time: '1 小时前'
       }
     ];
 

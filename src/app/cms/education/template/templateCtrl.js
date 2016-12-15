@@ -93,7 +93,7 @@
 
         $scope.getTemplates = function() {
             var catId = $scope.search.cat || $state.params.cat;
-            $scope.myPromise = $http.get(util.baseApiUrl + 'templates/cat/' + catId)
+            $scope.myPromise = $http.get(util.baseApiUrl + 'templates')
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){
@@ -109,9 +109,7 @@
                 });
         }
 
-        if ($state.params.cat){
-            $scope.getTemplates();
-        }
+        $scope.getTemplates();
 
 
         $scope.addTemplate = function() {

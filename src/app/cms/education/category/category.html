@@ -2,7 +2,7 @@
     <div cg-busy="myPromise"></div>
 
     <div class="row add-row-editable-table">
-        <div class="col-sm-1 text-right"><span>医院科室</span></div>
+        <div class="col-sm-2 text-right"><span>医院科室</span></div>
         <div class="col-sm-3">
             <span>
                 <select class="form-control" ng-model="search.department"
@@ -12,19 +12,19 @@
             </span>
 
         </div>
-
-        <div class="col-sm-1 text-right"><span>类别名称</span></div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
+            <button class="btn btn-primary pull-right" ng-click="addCat()">
+                <i class="ion-android-add-circle"></i> 创建类别</button>
+        </div>
+        <div class="col-sm-2 text-right"><span>类别名称</span></div>
+        <div class="col-sm-2">
             <span>
                 <span>
                 <input ng-model="search.name" placeholder="类别名称" class="input-sm form-control search-input" type="search"/>
             </span>
             </span>
         </div>
-        <div class="col-sm-2">
-            <button class="btn btn-primary pull-right" ng-click="addCat()">
-                <i class="ion-android-add-circle"></i> 创建类别</button>
-        </div>
+
 
     </div>
     <table st-table="displayedCats" st-safe-src="cats" class="table table-bordered table-hover table-condensed">
