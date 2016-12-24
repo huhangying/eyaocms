@@ -14,9 +14,9 @@
           url: '/surveygroup',
           templateUrl: 'app/cms/survey/group/group.html',
           controller: 'surveyGroupCtrl',
-          title: '问卷集合',
+          title: '科室类别组',
           sidebarMeta: {
-            order: 300,
+            order: 100,
           },
         });
   }

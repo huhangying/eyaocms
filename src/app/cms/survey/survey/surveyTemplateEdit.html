@@ -7,7 +7,7 @@
     </div>
     <div class="modal-body">
         <h3 class="with-line-no-padding text-muted" style="font-size: 1em;">
-            类别: {{ showType(editItem) + ' / 科室: ' + showDepartment(editItem) }}
+            科室: {{ showDepartment(editItem) }} / 类别: {{ showType(editItem)}}  / 组: {{showDepartment(editItem) }}
             <a type="button"class="btn btn-sm btn-default pull-right" ng-click="createQuestion()">增加新问题</a>
         </h3>
         <form name="editQForm" ng-show="editStatus > 0">
