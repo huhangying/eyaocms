@@ -10,7 +10,7 @@
     function surveyTemplateCtrl($scope,$rootScope, $state, $filter, $http, util, toastr, $uibModal) {
         $scope.search = {};
 
-        // get department name and cat name
+        // get department name and type name
         var init = function () {
 
             $scope.departments = [];
@@ -48,14 +48,6 @@
         init();
 
         $scope.surveyTemplates = [];
-
-        $scope.selectDepartment = function() {
-            //loadSurveyTemplates();
-        };
-
-        $scope.selectType = function() {
-            //loadSurveyTemplates();
-        };
 
         var loadSurveyTemplates = function(newValue, oldValue) {
             if (!$scope.search.department || !$scope.search.type) {

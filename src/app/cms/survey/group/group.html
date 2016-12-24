@@ -1,17 +1,41 @@
-<div ba-panel ba-panel-title="问卷调查类别描述" ba-panel-class="with-scroll">
+<div ba-panel ba-panel-title="问卷调查类别组" ba-panel-class="with-scroll">
     <div cg-busy="myPromise"></div>
 
-    <div class="add-row-editable-table">
-        <button class="btn btn-primary" ng-click="addGroup()">
-            <i class="ion-android-add-circle"></i> 创建</button>
+    <div class="row add-row-editable-table">
+        <div class="col-sm-1 text-right"><label>科室</label></div>
+        <div class="col-sm-3">
+            <span>
+                <select class="form-control" ng-model="search.department"
+                        ng-options="department._id as department.name for department in departments">
+                    <!--<option ng-repeat="department in departments" value="{{department._id}}">{{department.name}}</option>-->
+                </select>
+            </span>
+
+        </div>
+        <div class="col-sm-1 text-right"><label>类别</label></div>
+        <div class="col-sm-3">
+            <span>
+                <select class="form-control" ng-model="search.type"
+                        ng-options="type.id as type.name for type in types">
+                    <!--<option ng-repeat="department in departments" value="{{department._id}}">{{department.name}}</option>-->
+                </select>
+            </span>
+        </div>
+        <div class="col-sm-4">
+            <button class="btn btn-primary pull-right" ng-click="addGroup()" ng-disabled="!search.department || !search.type">
+                <i class="ion-android-add-circle"></i> 创建</button>
+        </div>
+
     </div>
+    <hr/>
+
     <table class="table table-bordered table-hover table-condensed">
         <tr style="font-weight: bold">
-            <td style="width:15%">名字</td>
-            <td style="width:15%">描述</td>
-            <td style="width:40%">问卷</td>
-            <td style="width:5%">开关</td>
-            <td style="width:25%">操作</td>
+            <td style="width:25%">名字</td>
+            <td style="width:35%">描述</td>
+            <td style="width:10%">顺序</td>
+            <td style="width:10%">开关</td>
+            <td style="width:20%">操作</td>
         </tr>
         <tr ng-repeat="item in groups" class="editable-row">
             <td style="display:none;">
@@ -19,20 +43,30 @@
                     {{item._id}}
                 </span>
             </td>
+            <td ng-show="false">
+                <span editable-text="item.department" e-name="department" e-form="rowform" e-required>
+                  {{ item.department || '' }}
+                </span>
+            </td>
+            <td ng-show="false">
+                <span editable-text="item.type" e-name="type" e-form="rowform" e-required>
+                  {{ item.type || '空' }}
+                </span>
+            </td>
             <td>
-        <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
-          {{ item.name || '空' }}
-        </span>
+                <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
+                  {{ item.name || '空' }}
+                </span>
             </td>
             <td class="select-td">
-        <span editable-text="item.desc" e-name="desc" e-form="rowform">
-          {{ item.desc || '空' }}
-        </span>
+                <span editable-text="item.desc" e-name="desc" e-form="rowform">
+                  {{ item.desc || '' }}
+                </span>
             </td>
-            <td class="select-td" >
-        <span editable-text="item.surveys" e-name="surveys" e-form="rowform" >
-          {{ item.surveys || '' }}
-        </span>
+            <td class="select-td">
+                <span editable-number="item.order" e-name="order" e-form="rowform">
+                  {{ item.order || '空' }}
+                </span>
             </td>
             <td class="select-td">
                 <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>

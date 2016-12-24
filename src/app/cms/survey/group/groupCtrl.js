@@ -8,7 +8,44 @@
 
   /** @ngInject */
   function surveyGroupCtrl($scope, $state, $filter, $http, util, toastr) {
+      $scope.search = {};
 
+      // get department name and type name
+      var init = function () {
+
+          $scope.departments = [];
+          $scope.loadDepartments = function() {
+              $http.get(util.baseApiUrl + 'departments', {})
+                  .success(function (response) {
+                      // check if return null
+                      if (response.return && response.return == 'null'){
+                          $scope.departments = [];
+                      }
+                      else {
+                          $scope.departments = response;
+                      }
+
+                  })
+                  .error(function(error){
+                      toastr.error(error.messageFormatted);
+                  });
+          }
+          $scope.loadDepartments();
+
+          if ($state.params.department) {
+              $scope.search = {
+                  department: $state.params.department
+              };
+          }
+
+          $scope.types = util.surveyTypes;
+
+          if ($state.params.type) {
+              $scope.search.type = parseInt($state.params.type, 10);
+          }
+
+      }
+      init();
 
     $scope.groups = [];
 
@@ -33,9 +70,11 @@
 
     $scope.addGroup = function() {
         $scope.inserted = {
+            department: $scope.search.department,
+            type: $scope.search.type,
             name: '',
             desc: '',
-            surveys: [],
+            order: 0,
             apply: true
         };
 
