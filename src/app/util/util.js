@@ -16,6 +16,11 @@ app.provider('util', function() {
                 { id: 5, name: "药师评估" }
             ],
 
+            error: {
+                internal: "API接口内部错误"
+
+            },
+
             getResponse: function(response) {
                 if (response.return && response.return == 'null'){
                     return [];

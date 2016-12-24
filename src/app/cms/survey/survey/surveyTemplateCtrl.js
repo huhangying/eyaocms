@@ -55,7 +55,37 @@
                 return;
             };
 
-            $scope.myPromise = $http.get(util.baseApiUrl + 'surveytemplates/' + $scope.search.department + '/type/' + $scope.search.type)
+            $scope.myPromise = $http.get(util.baseApiUrl + 'surveygroups/' + $scope.search.department + '/type/' + $scope.search.type)
+                .success(function (rsp) {
+                    // check if return null
+                    if (rsp.return && rsp.return == 'null'){
+                        $scope.groups = [];
+
+                        loadSurveyTemplatesWithGroup();
+                    }
+                    else {
+                        $scope.groups = rsp;
+                    }
+
+                })
+                .error(function(){
+                    toastr.error(util.error.internal);
+                });
+
+            
+        }
+
+        var loadSurveyTemplatesWithGroup = function(newValue, oldValue) {
+            if (!$scope.search.department || !$scope.search.type) {
+                $scope.surveyTemplates = [];
+                return;
+            }
+            if (!$scope.search.group) {
+                $scope.search.group = 0;
+            }
+
+            $http.get(util.baseApiUrl + 'surveytemplates/' +
+                $scope.search.department + '/' + $scope.search.type + '/' + $scope.search.group)
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){
@@ -66,13 +96,16 @@
                     }
 
                 })
-                .error(function(error){
-                    toastr.error(error.messageFormatted);
+                .error(function(){
+                    toastr.error(util.error.internal);
                 });
-        }
+
+        };
 
         $scope.$watch('search.type', loadSurveyTemplates);
         $scope.$watch('search.department', loadSurveyTemplates);
+        $scope.$watch('search.group', loadSurveyTemplatesWithGroup);
+
 
         $scope.showQuestions = function(questions) {
             var qs = '';
@@ -90,6 +123,7 @@
                 name: '',
                 department: $scope.search.department,
                 type: $scope.search.type,
+                group: $scope.search.group,
                 //desc: '',
                 questions: [],
                 apply: true
