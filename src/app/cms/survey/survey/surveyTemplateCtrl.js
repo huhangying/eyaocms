@@ -44,6 +44,11 @@
                 $scope.search.type = parseInt($state.params.type, 10);
             }
 
+            if ($state.params.group) {
+                $scope.search.group = $state.params.group;
+            }
+
+
         }
         init();
 
@@ -80,7 +85,7 @@
                 $scope.surveyTemplates = [];
                 return;
             }
-            if (!$scope.search.group) {
+            if (!$scope.search.group || !$scope.groups || $scope.groups.length < 1) {
                 $scope.search.group = 0;
             }
 

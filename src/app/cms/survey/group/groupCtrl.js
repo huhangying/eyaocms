@@ -99,6 +99,10 @@
           }
           return true;
       }
+
+      $scope.getSurveyTemplatesByTypeGroup = function(department, type, group){
+          $state.go('survey.surveyTemplate', {department: department, type: type, group: group});
+      }
     
     $scope.saveGroup = function(data, id, index) {
 
