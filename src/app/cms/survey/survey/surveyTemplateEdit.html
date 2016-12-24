@@ -1,4 +1,4 @@
-<div class="modal-content" ng-controller="surveyEditCtrl">
+<div class="modal-content" ng-controller="surveyTemplateEditCtrl">
     <div class="modal-header">
         <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
             <em class="ion-ios-close-empty sn-link-close"></em>
@@ -12,6 +12,9 @@
         </h3>
         <form name="editQForm" ng-show="editStatus > 0">
             <div class="row">
+                <div ng-show="false">
+                    <label ng-model="editQ._id"></label>
+                </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="inputName" class="control-label">问题</label>
@@ -99,9 +102,9 @@
             <td style="width:10%"></td>
             </thead>
             <tbody>
-            <tr ng-repeat="question in questions | orderBy:'order' track by $index">
+            <tr ng-repeat="question in questions track by $index">
                 <td>{{ question.order }}</td>
-                <td>{{ question.question }}</td>
+                <td>{{ question.question }}({{question._id}})</td>
                 <td>{{ question.answer_type }}</td>
                 <td>{{ question.weight }}</td>
                 <td>{{ question.apply }}</td>
@@ -114,7 +117,7 @@
             </tbody>
         </table>
         <div class="modal-footer" style="padding-top:.5em;">
-            <a type="button" class="btn btn-primary" ng-click="saveSurvey()" ng-disabled="questions.length < 1 "><i class="ion-android-checkmark-circle"></i> 保存</a>
+            <a type="button" class="btn btn-primary" ng-click="saveSurveyTemplate()" ng-disabled="questions.length < 1 "><i class="ion-android-checkmark-circle"></i> 保存</a>
         </div>
     </div>
 </div>

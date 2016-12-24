@@ -3,11 +3,11 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.cms.survey.survey')
-        .controller('surveyCtrl', surveyCtrl);
+    angular.module('BlurAdmin.cms.survey.surveyTemplate')
+        .controller('surveyTemplateCtrl', surveyTemplateCtrl);
 
     /** @ngInject */
-    function surveyCtrl($scope,$rootScope, $state, $filter, $http, util, toastr, $uibModal) {
+    function surveyTemplateCtrl($scope,$rootScope, $state, $filter, $http, util, toastr, $uibModal) {
         $scope.search = {};
 
         // get department name and cat name
@@ -47,7 +47,7 @@
         }
         init();
 
-        $scope.surveys = [];
+        $scope.surveyTemplates = [];
 
         $scope.selectDepartment = function() {
             //loadSurveyTemplates();
@@ -59,7 +59,7 @@
 
         var loadSurveyTemplates = function(newValue, oldValue) {
             if (!$scope.search.department || !$scope.search.type) {
-                $scope.surveys = [];
+                $scope.surveyTemplates = [];
                 return;
             };
 
@@ -67,10 +67,10 @@
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){
-                        $scope.surveys = [];
+                        $scope.surveyTemplates = [];
                     }
                     else {
-                        $scope.surveys = response;
+                        $scope.surveyTemplates = response;
                     }
 
                 })
@@ -104,14 +104,14 @@
             };
 
 
-            $scope.surveys.push($scope.inserted);
+            $scope.surveyTemplates.push($scope.inserted);
         }
 
         $scope.removeSurvey = function(id, index) {
 
             $http.delete(util.baseApiUrl + 'surveytemplate/' + id)
                 .success(function (response) {
-                    $scope.surveys = $filter('filter')($scope.surveys, {_id: '!'+id});
+                    $scope.surveyTemplates = $filter('filter')($scope.surveyTemplates, {_id: '!'+id});
 
                     toastr.success('成功删除');
                 });
@@ -136,17 +136,17 @@
                 $http.post(util.baseApiUrl + 'surveytemplate', data)
                     .success(function (response) {
                         if (util.getErrorMessage(response)) {
-                            $scope.surveys.pop();
+                            $scope.surveyTemplates.pop();
                             return toastr.error(util.getErrorMessage(response));
                         };
 
                         $scope.inserted = response;
 
-                        $scope.surveys.push($scope.inserted);
+                        $scope.surveyTemplates.push($scope.inserted);
                         toastr.success('成功创建');
 
                         // remove
-                        $scope.surveys.splice($scope.surveys.length - 1, 1);
+                        $scope.surveyTemplates.splice($scope.surveyTemplates.length - 1, 1);
 
                         data._id = response._id;
                     });
@@ -168,9 +168,9 @@
         };
 
         //todo: not working!!!
-        $scope.cancelSurvey = function() {
-            if ($scope.surveys && $scope.surveys.length > 0) {
-                $scope.surveys.map(function(survey) {
+        $scope.cancelSurveyTemplate = function() {
+            if ($scope.surveyTemplates && $scope.surveyTemplates.length > 0) {
+                $scope.surveyTemplates.map(function(survey) {
                     return (survey._id !== undefined);
                 });
             }
@@ -182,7 +182,7 @@
             $uibModal.open({
                 animation: true,
                 templateUrl: page,
-                controller: 'surveyEditCtrl',
+                controller: 'surveyTemplateEditCtrl',
                 size: size,
                 scope: $scope
                 // resolve: {
@@ -194,7 +194,7 @@
         };
         
         $scope.updateParent = function (updatedItem) {
-            $scope.surveys[$scope.editIndex] = updatedItem;
+            $scope.surveyTemplates[$scope.editIndex] = updatedItem;
         }
 
         //================================

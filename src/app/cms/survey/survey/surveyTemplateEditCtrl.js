@@ -4,11 +4,11 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.cms.survey.survey')
-        .controller('surveyEditCtrl', surveyEditCtrl);
+    angular.module('BlurAdmin.cms.survey.surveyTemplate')
+        .controller('surveyTemplateEditCtrl', surveyTemplateEditCtrl);
 
     /** @ngInject */
-    function surveyEditCtrl($scope, $rootScope, $filter, $http, util, toastr) {
+    function surveyTemplateEditCtrl($scope, $rootScope, $filter, $http, util, toastr) {
         $scope.questions = angular.copy($scope.editItem.questions || []);
         $scope.editQ = {options: []};
         $scope.editStatus = 0; // Status: 0:init; 1: create; 2: edit;
@@ -17,7 +17,7 @@
         // toastr.info(JSON.stringify($scope.data));
 
 
-        $scope.saveQuestion = function(index) {
+        $scope.saveQuestion = function(question) {
 
             //validate
             if ($scope.editQForm.$invalid)
@@ -25,10 +25,10 @@
 
             switch ($scope.editStatus) {
                 case 1: // create
-                    $scope.questions.push(angular.copy($scope.editQ));
+                    $scope.questions.push(angular.copy(question));
                     break;
                 case 2: // edit
-                    $scope.questions[$scope.editQIndex] = angular.copy($scope.editQ);
+                    $scope.questions[$scope.editQIndex] = angular.copy(question);
                     break;
                 default:
                     break;
@@ -38,14 +38,14 @@
             //toastr.info(JSON.stringify(item))
         }
 
-        $scope.saveSurvey = function() {
+        $scope.saveSurveyTemplate = function() {
 
-            var survey = angular.copy($scope.editItem);
-            survey.questions = $scope.questions;
+            var template = angular.copy($scope.editItem);
+            template.questions = $scope.questions;
 
 
             // update
-            $http.patch(util.baseApiUrl + 'surveytemplate/' + survey._id, survey)
+            $http.patch(util.baseApiUrl + 'surveytemplate/' + template._id, template)
                 .success(function (response) {
                     //console.log(JSON.stringify(response))
                     if (!response ){
