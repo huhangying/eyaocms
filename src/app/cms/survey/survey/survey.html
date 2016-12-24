@@ -1,16 +1,41 @@
-<div ba-panel ba-panel-title="{{'科室:' + department.name + ' / 类别:' + cat.name }}" ba-panel-class="with-scroll">
+<div ba-panel ba-panel-class="with-scroll">
     <div cg-busy="myPromise"></div>
 
-    <div class="add-row-editable-table">
-        <button class="btn btn-primary" ng-click="addSurvey()">
-            <i class="ion-android-add-circle"></i> 创建</button>
-        <button class="btn btn-default" ng-click="backToCats()">
-            <i class="ion-ios-undo-outline"></i> 返回到类别</button>
+    <div class="row add-row-editable-table">
+        <div class="col-sm-1 text-right"><label>科室</label></div>
+        <div class="col-sm-3">
+            <span>
+                <select class="form-control" ng-model="search.department"
+                        ng-options="department._id as department.name for department in departments"
+                        ng-click="selectDepartment()">
+                    <!--<option ng-repeat="department in departments" value="{{department._id}}">{{department.name}}</option>-->
+                </select>
+            </span>
+
+        </div>
+        <div class="col-sm-1 text-right"><label>类别</label></div>
+        <div class="col-sm-3">
+            <span>
+                <select class="form-control" ng-model="search.type"
+                        ng-options="type.id as type.name for type in types"
+                        ng-click="selectType()">
+                    <!--<option ng-repeat="department in departments" value="{{department._id}}">{{department.name}}</option>-->
+                </select>
+            </span>
+        </div>
+        <div class="col-sm-4">
+            <button class="btn btn-primary pull-right" ng-click="addSurveyTemplate()" ng-disabled="!search.department || !search.type">
+                <i class="ion-android-add-circle"></i> 创建</button>
+        </div>
+
     </div>
+    <hr/>
+
     <table class="table table-bordered table-hover table-condensed">
         <tr style="font-weight: bold">
             <td style="width:17%">名字</td>
-            <td style="width:60%">试题</td>
+            <td style="width:50%">试题</td>
+            <td style="width:10%">顺序</td>
             <td style="width:8%">开关</td>
             <td style="width:15%">操作</td>
         </tr>
@@ -22,8 +47,8 @@
                 <span editable-text="item.department" e-name="department" e-form="rowform" e-required>
                     {{item.department}}
                 </span>
-                <span editable-text="item.cat" e-name="cat" e-form="rowform" e-required>
-                    {{item.cat}}
+                <span editable-text="item.type" e-name="type" e-form="rowform" e-required>
+                    {{item.type}}
                 </span>
             </td>
             <td>
@@ -33,6 +58,11 @@
             </td>
             <td>
                 <pre>{{ showQuestions(item.questions) }}</pre>
+            </td>
+            <td>
+                <span editable-number="item.order" e-name="order" e-form="rowform" e-required class="col-xs-12">
+                  {{ item.order || '' }}
+                </span>
             </td>
             <td class="select-td">
                 <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>

@@ -16,7 +16,7 @@ global.app = angular.module('BlurAdmin', [
     'cgBusy',
     // 'angular-sanitize',
     // 'textAngular',
-    // 'lodash',
+    //'lodash',
 
     // 'BlurAdmin.login',
     'BlurAdmin.theme',
@@ -27,8 +27,8 @@ global.app = angular.module('BlurAdmin', [
     'BlurAdmin.shared',
 ])
     .value('cgBusyDefaults',{
-        message:'',
-        //backdrop: true,
+        message:'正在处理...',
+        //backdrop: false,
         templateUrl: './loading.html',
         delay: 300,
         minDuration: 1000,

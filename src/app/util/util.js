@@ -4,9 +4,17 @@
 app.provider('util', function() {
     this.$get = function($window) {
         return {
-            //baseApiUrl: 'http://127.0.0.1:3000/',
+            baseApiUrl: 'http://127.0.0.1:3000/',
             baseImageServer: 'http://139.224.68.92:81/',
-            baseApiUrl: 'http://139.224.68.92:3000/',
+            //baseApiUrl: 'http://139.224.68.92:3000/',
+
+            surveyTypes: [
+                { id: 1, name: "门诊初诊" },
+                { id: 2, name: "门诊结论" },
+                { id: 3, name: "药物知识自测" },
+                { id: 4, name: "化验结果" },
+                { id: 5, name: "药师评估" }
+            ],
 
             getResponse: function(response) {
                 if (response.return && response.return == 'null'){

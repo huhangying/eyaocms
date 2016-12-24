@@ -45,7 +45,7 @@
 
 
             // update
-            $http.patch(util.baseApiUrl + 'survey/' + survey._id, survey)
+            $http.patch(util.baseApiUrl + 'surveytemplate/' + survey._id, survey)
                 .success(function (response) {
                     //console.log(JSON.stringify(response))
                     if (!response ){

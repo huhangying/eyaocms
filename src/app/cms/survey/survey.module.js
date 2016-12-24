@@ -18,7 +18,7 @@
                 url: '/survey',
                 template : '<ui-view></ui-view>',
                 abstract: true,
-                title: '问卷调查',
+                title: '问卷模版管理',
                 sidebarMeta: {
                     icon: 'ion-calendar',
                     order: 1000,

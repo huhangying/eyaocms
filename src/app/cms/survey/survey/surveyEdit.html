@@ -76,7 +76,9 @@
                     <td>{{$index+1}}</td>
                     <td><input type="text" class="form-control" ng-model="option.answer" placeholder="设置答案"></td>
                     <td><input type="checkbox" class="form-control" ng-model="option.input_required"></td>
-                    <td><input type="number" class="form-control" ng-model="option.weight" ng-if="editQ.weight>0"></td>
+                    <td>
+                        <input type="number" class="form-control" ng-model="option.weight" min="0" max="{{editQ.weight}}" ng-if="editQ.weight>0">
+                    </td>
                 </tr>
                 </tbody>
             </table>

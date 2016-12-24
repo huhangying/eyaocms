@@ -11,10 +11,10 @@
   function routeConfig($stateProvider) {
     $stateProvider
         .state('survey.survey', {
-          url: '/survey/:department/:cat',
+          url: '/survey',
           templateUrl: 'app/cms/survey/survey/survey.html',
           controller: 'surveyCtrl',
-          title: '问卷试题',
+          title: '问卷模版',
           sidebarMeta: {
             order: 200,
           },

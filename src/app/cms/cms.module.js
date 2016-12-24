@@ -20,7 +20,13 @@
         'BlurAdmin.cms.education'
 
         ])
-        .config(routeConfig);
+        .config(routeConfig)
+
+        // 使用 lodash: allow DI for use in controllers
+        .constant('_', window._)
+        .run(function ($rootScope) {
+            $rootScope._ = window._;
+        });
 
     /** @ngInject */
     function routeConfig($urlRouterProvider, baSidebarServiceProvider) {
