@@ -11,9 +11,10 @@ app.provider('util', function() {
             surveyTypes: [
                 { id: 1, name: "门诊初诊" },
                 { id: 2, name: "门诊结论" },
-                { id: 3, name: "药物知识自测" },
-                { id: 4, name: "化验结果" },
-                { id: 5, name: "药师评估" }
+                { id: 3, name: "随访问卷" },
+                { id: 4, name: "药物知识自测" },
+                { id: 5, name: "化验结果" },
+                { id: 6, name: "药师评估" }
             ],
 
             error: {

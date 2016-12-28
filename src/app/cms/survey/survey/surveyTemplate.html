@@ -3,7 +3,7 @@
 
     <div class="row add-row-editable-table">
         <div class="col-sm-1 text-right"><label>科室</label></div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <span>
                 <select class="form-control" ng-model="search.department"
                         ng-options="department._id as department.name for department in departments">
@@ -13,7 +13,7 @@
 
         </div>
         <div class="col-sm-1 text-right"><label>类别</label></div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <span>
                 <select class="form-control" ng-model="search.type"
                         ng-options="type.id as type.name for type in types">
@@ -21,18 +21,7 @@
                 </select>
             </span>
         </div>
-        <div ng-show="groups && groups.length>0">
-            <div class="col-sm-1 text-right"><label>内组</label></div>
-            <div class="col-sm-2">
-                <span>
-                    <select class="form-control" ng-model="search.group"
-                            ng-options="group._id as group.name for group in groups">
-                        <!--<option ng-repeat="department in departments" value="{{department._id}}">{{department.name}}</option>-->
-                    </select>
-                </span>
-            </div>
-        </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <button class="btn btn-primary pull-right" ng-click="addSurveyTemplate()" ng-disabled="!search.department || !search.type">
                 <i class="ion-android-add-circle"></i> 创建</button>
         </div>

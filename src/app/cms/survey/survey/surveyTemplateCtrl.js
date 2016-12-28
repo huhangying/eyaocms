@@ -44,9 +44,9 @@
                 $scope.search.type = parseInt($state.params.type, 10);
             }
 
-            if ($state.params.group) {
-                $scope.search.group = $state.params.group;
-            }
+            // if ($state.params.group) {
+            //     $scope.search.group = $state.params.group;
+            // }
 
 
         }
@@ -60,16 +60,16 @@
                 return;
             };
 
-            $scope.myPromise = $http.get(util.baseApiUrl + 'surveygroups/' + $scope.search.department + '/type/' + $scope.search.type)
+            $scope.myPromise = $http.get(util.baseApiUrl + 'surveytemplates/' + $scope.search.department + '/type/' + $scope.search.type)
                 .success(function (rsp) {
                     // check if return null
                     if (rsp.return && rsp.return == 'null'){
-                        $scope.groups = [];
+                        $scope.surveyTemplates = [];
 
-                        loadSurveyTemplatesWithGroup();
+                        //loadSurveyTemplatesWithGroup();
                     }
                     else {
-                        $scope.groups = rsp;
+                        $scope.surveyTemplates = rsp;
                     }
 
                 })
@@ -80,36 +80,36 @@
             
         }
 
-        var loadSurveyTemplatesWithGroup = function(newValue, oldValue) {
-            if (!$scope.search.department || !$scope.search.type) {
-                $scope.surveyTemplates = [];
-                return;
-            }
-            if (!$scope.search.group || !$scope.groups || $scope.groups.length < 1) {
-                $scope.search.group = 0;
-            }
-
-            $http.get(util.baseApiUrl + 'surveytemplates/' +
-                $scope.search.department + '/' + $scope.search.type + '/' + $scope.search.group)
-                .success(function (response) {
-                    // check if return null
-                    if (response.return && response.return == 'null'){
-                        $scope.surveyTemplates = [];
-                    }
-                    else {
-                        $scope.surveyTemplates = response;
-                    }
-
-                })
-                .error(function(){
-                    toastr.error(util.error.internal);
-                });
-
-        };
+        // var loadSurveyTemplatesWithGroup = function(newValue, oldValue) {
+        //     if (!$scope.search.department || !$scope.search.type) {
+        //         $scope.surveyTemplates = [];
+        //         return;
+        //     }
+        //     // if (!$scope.search.group || !$scope.groups || $scope.groups.length < 1) {
+        //     //     $scope.search.group = 0;
+        //     // }
+        //
+        //     $http.get(util.baseApiUrl + 'surveytemplates/' +
+        //         $scope.search.department + '/' + $scope.search.type + '/' + $scope.search.group)
+        //         .success(function (response) {
+        //             // check if return null
+        //             if (response.return && response.return == 'null'){
+        //                 $scope.surveyTemplates = [];
+        //             }
+        //             else {
+        //                 $scope.surveyTemplates = response;
+        //             }
+        //
+        //         })
+        //         .error(function(){
+        //             toastr.error(util.error.internal);
+        //         });
+        //
+        // };
 
         $scope.$watch('search.type', loadSurveyTemplates);
         $scope.$watch('search.department', loadSurveyTemplates);
-        $scope.$watch('search.group', loadSurveyTemplatesWithGroup);
+        //$scope.$watch('search.group', loadSurveyTemplatesWithGroup);
 
 
         $scope.showQuestions = function(questions) {
@@ -128,7 +128,7 @@
                 name: '',
                 department: $scope.search.department,
                 type: $scope.search.type,
-                group: $scope.search.group,
+                // group: $scope.search.group,
                 //desc: '',
                 questions: [],
                 apply: true
