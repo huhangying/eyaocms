@@ -5,8 +5,8 @@ app.provider('util', function() {
     this.$get = function($window) {
         return {
             baseApiUrl: 'http://127.0.0.1:3000/',
-            baseImageServer: 'http://139.224.68.92:81/',
             //baseApiUrl: 'http://139.224.68.92:3000/',
+            baseImageServer: 'http://139.224.68.92:81/',
 
             surveyTypes: [
                 { id: 1, name: "门诊初诊" },

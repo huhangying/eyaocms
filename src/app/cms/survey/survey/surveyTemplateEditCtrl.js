@@ -35,7 +35,12 @@
             }
             $scope.editStatus = 0;
             $scope.editQIndex = -1;
-            //toastr.info(JSON.stringify(item))
+
+            // re-sort questions
+            $scope.questions = _.sortBy($scope.questions, 'order');
+
+            // clean highlight line
+            $scope.highlightIndex = -1;
         }
 
         $scope.saveSurveyTemplate = function() {
@@ -90,6 +95,9 @@
             $scope.editQ = angular.copy(question);
             $scope.editQ.answer_type = $scope.editQ.answer_type.toString(); // for select display
             $scope.changeEditAnswerType();
+
+            // highlight the selected question
+            $scope.highlightIndex = index;
         }
 
         $scope.removeQuestion = function(index) {

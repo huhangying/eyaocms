@@ -102,7 +102,7 @@
             <td style="width:10%"></td>
             </thead>
             <tbody>
-            <tr ng-repeat="question in questions track by $index">
+            <tr ng-repeat="question in questions track by $index" ng-class="highlightIndex === $index ? 'bg-success':''">
                 <td>{{ question.order }}</td>
                 <td>{{ question.question }}({{question._id}})</td>
                 <td>{{ question.answer_type }}</td>
@@ -110,7 +110,7 @@
                 <td>{{ question.apply }}</td>
                 <td>
                     <button class="btn btn-primary btn-xs" ng-click="editQuestion(question, $index)"><i class="ion-compose"></i></button>
-                    <button class="btn btn-danger btn-xs" ng-click="removeQuestion($index)"><i class="ion-ios-trash"></i></button>
+                    <delete-btn item-id="question._id" yes-delete="removeQuestion"></delete-btn>
                 </td>
 
             </tr>
