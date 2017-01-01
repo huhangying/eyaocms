@@ -155,8 +155,8 @@
             // $scope.$apply();
 
             $scope.inserted = {
-                doctor: null,
-                schedule: null,
+                doctor: $scope.search.doctor || null,
+                schedule: $scope.search.schedule || null,
                 user: null,
                 status: '',
                 score: 0,
@@ -211,36 +211,48 @@
                 return;
             }
 
-            if (!data._id) { // create
-                $http.post(util.baseApiUrl + 'booking', data)
-                    .success(function (response) {
-                        if (util.getErrorMessage(response)) {
-                            $scope.bookings.pop();
-                            return toastr.error(util.getErrorMessage(response));
-                        };
-                        $scope.inserted = response;
+            // get schedule
+            $http.get(util.baseApiUrl + 'schedule/' + data.schedule)
+                .success(function(rsp) {
+                    if (util.getErrorMessage(rsp)) {
+                        return toastr.error(util.getErrorMessage(rsp));
+                    };
+                    data.date = rsp.date;
 
-                        $scope.bookings.push($scope.inserted);
-                        toastr.success('成功创建');
+                    // 更新数据库
+                    if (!data._id) { // create
+                        $http.post(util.baseApiUrl + 'booking', data)
+                            .success(function (response) {
+                                if (util.getErrorMessage(response)) {
+                                    $scope.bookings.pop();
+                                    return toastr.error(util.getErrorMessage(response));
+                                };
+                                $scope.inserted = response;
 
-                        // remove
-                        $scope.bookings.splice($scope.bookings.length - 1, 1);
+                                $scope.bookings.push($scope.inserted);
+                                toastr.success('成功创建');
 
-                    });
-            }
-            else{ // update
-                //angular.extend(data, {_id: id});
-                $http.patch(util.baseApiUrl + 'booking/' + data._id, data)
-                    .success(function (response) {
-                        //console.log(JSON.stringify(response))
-                        if (!response) {
-                            toastr.error("no data");
-                        }
-                        else{
-                            toastr.success('成功更新');
-                        }
-                    });
-            }
+                                // remove
+                                $scope.bookings.splice($scope.bookings.length - 1, 1);
+
+                            });
+                    }
+                    else{ // update
+                        //angular.extend(data, {_id: id});
+                        $http.patch(util.baseApiUrl + 'booking/' + data._id, data)
+                            .success(function (response) {
+                                //console.log(JSON.stringify(response))
+                                if (!response) {
+                                    toastr.error("no data");
+                                }
+                                else{
+                                    toastr.success('成功更新');
+                                }
+                            });
+                    }
+                })
+
+
 
             //$scope.inserted = null;
         }
