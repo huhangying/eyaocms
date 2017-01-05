@@ -107,6 +107,7 @@
 
             data.dosage = {
                 frequency: data.frequency,
+                count: data.count,
                 way: data.way
             };
 
@@ -121,10 +122,10 @@
                         $scope.inserted = response;
 
                         $scope.medicines.push($scope.inserted);
-                        toastr.success('成功创建');
+                        toastr.success('成功创建' + JSON.stringify($scope.inserted));
 
                         // remove
-                        $scope.medicines.splice($scope.medicines.length - 1, 1);
+                        $scope.medicines.splice($scope.medicines.length - 2, 1);
 
                         data._id = response._id;
                     });
