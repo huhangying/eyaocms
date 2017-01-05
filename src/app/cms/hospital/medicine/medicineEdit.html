@@ -10,13 +10,13 @@
             药名属性
         </h3>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-5">
                 <div class="form-group">
                     <label for="inputName" class="control-label">药名</label>
                     <input type="text" class="form-control" id="inputName" placeholder="" ng-model="item.name" required />
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-7">
                 <div class="form-group">
                     <label for="inputDesc" class="control-label">描述</label>
                     <input type="text" class="form-control" id="inputDesc" placeholder="" ng-model="item.desc" />
@@ -30,7 +30,7 @@
                     <input type="number" class="form-control" id="inputCapacity" ng-model="item.capacity" min="0" max="10000" required />
                 </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-1">
                 <div class="form-group">
                     <label for="inputCapacity" class="control-label"> </label>
                     <select class="form-control" ng-model="item.unit" required>
@@ -50,12 +50,19 @@
             </div>
             <div class="col-sm-2">
                 <div class="form-group">
-                    <label for="inputFrequency" class="control-label">默认服用频率</label>
+                    <label for="inputCount" class="control-label">每次</label>
+                    <input type="number" class="form-control" id="inputCount" min="0"
+                           ng-model="item.dosage.count" required />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="inputFrequency" class="control-label">服用频率</label>
                     <input type="number" class="form-control" id="inputFrequency" min="0" max="100"
                            ng-model="item.dosage.frequency" required />
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                     <br/>
                     <select class="form-control" ng-model="item.dosage.way" required>
                         <option value="0">-- 请选择 --</option>
@@ -95,6 +102,8 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="inputDaysToStart" class="control-label">提醒开始(服药后的天数)</label>
+                        <a href="#" class="ion-ios-help-outline" tooltip-popup-delay='800'
+                           uib-tooltip="如果设置服药完成前几天,用负数。如 -2 表示服药完成前2天。"></a>
                         <input type="number" class="form-control" id="inputDaysToStart" ng-model="editN.days_to_start" min="0" max="1000">
                     </div>
                 </div>
@@ -132,7 +141,7 @@
                 <td style="width:10%"></td>
                 </thead>
                 <tbody>
-                <tr ng-repeat="notice in item.notices track by $index">
+                <tr ng-repeat="notice in item.notices track by $index" ng-class="editNIndex === $index ? 'bg-success':''">
                     <td>{{$index+1}}</td>
                     <td><input type="text" class="form-control" ng-model="notice.notice" placeholder="设置提醒名称"></td>
                     <td><input type="number" class="form-control" ng-model="notice.days_to_start"></td>

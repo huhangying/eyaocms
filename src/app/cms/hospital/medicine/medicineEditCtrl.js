@@ -41,7 +41,7 @@
         $scope.saveMedicine = function() {
 
             var medicine = angular.copy($scope.item);
-            toastr.info(JSON.stringify(medicine))
+            //toastr.info(JSON.stringify(medicine))
 
             // update
             $http.patch(util.baseApiUrl + 'medicine/' + medicine._id, medicine)

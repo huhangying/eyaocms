@@ -20,7 +20,7 @@
                 abstract: true,
                 title: '问卷模版管理',
                 sidebarMeta: {
-                    icon: 'ion-calendar',
+                    icon: 'ion-clipboard',
                     order: 1000,
                 },
                 minRole: 1,

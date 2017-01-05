@@ -104,7 +104,7 @@
             <tbody>
             <tr ng-repeat="question in questions track by $index" ng-class="highlightIndex === $index ? 'bg-success':''">
                 <td>{{ question.order }}</td>
-                <td>{{ question.question }}({{question._id}})</td>
+                <td>{{ question.question }}</td>
                 <td>{{ question.answer_type }}</td>
                 <td>{{ question.weight }}</td>
                 <td>{{ question.apply }}</td>

@@ -19,7 +19,7 @@
                 abstract: true,
                 title: '药师管理',
                 sidebarMeta: {
-                    icon: 'ion-ios-people',
+                    icon: 'ion-person-stalker',
                     order: 150,
                 },
                 minRole: 1,

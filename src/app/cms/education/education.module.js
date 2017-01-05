@@ -19,7 +19,7 @@
                 abstract: true,
                 title: '宣教材料管理',
                 sidebarMeta: {
-                    icon: 'ion-calendar',
+                    icon: 'ion-map',
                     order: 1001,
                 },
                 minRole: 1,

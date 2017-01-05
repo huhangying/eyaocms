@@ -18,7 +18,7 @@
                 controller: 'ProfilePageCtrl',
                 title: '个人资料',
                 sidebarMeta: {
-                    icon: 'ion-ios-paper',
+                    icon: 'ion-android-contact',
                     order: 0,
                 },
                 minRole: 0,

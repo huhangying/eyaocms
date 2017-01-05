@@ -8,6 +8,7 @@
 
     /** @ngInject */
     function medicineCtrl($scope, $state, $filter, $http, util, toastr, $uibModal) {
+        $scope.search = {};
 
         $scope.usages = [{text: "内服", value: "0"},
             {text: "外用", value: "1"}
@@ -62,12 +63,13 @@
 
         $scope.addMedicine = function() {
             $scope.inserted = {
-                name: '',
+                name: $scope.search.name || '',
                 desc: '',
                 capacity: 0,
                 usage: '0',
                 dosage: {
                     frequency: 0,
+                    count: 1,
                     way: '0'
                 },
                 apply: true

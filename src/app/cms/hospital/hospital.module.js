@@ -21,7 +21,7 @@
                 abstract: true,
                 title: '医院配置信息',
                 sidebarMeta: {
-                    icon: 'ion-gear-a',
+                    icon: 'ion-medkit',
                     order: 300,
                 },
                 minRole: 2,
