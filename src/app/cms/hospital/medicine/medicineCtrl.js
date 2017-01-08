@@ -66,7 +66,7 @@
                 name: $scope.search.name || '',
                 desc: '',
                 capacity: 0,
-                usage: '0',
+                usage: '内服',
                 dosage: {
                     frequency: 0,
                     count: 1,

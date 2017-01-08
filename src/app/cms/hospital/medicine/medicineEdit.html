@@ -16,10 +16,16 @@
                     <input type="text" class="form-control" id="inputName" placeholder="" ng-model="item.name" required />
                 </div>
             </div>
-            <div class="col-sm-7">
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label for="inputDesc" class="control-label">描述</label>
                     <input type="text" class="form-control" id="inputDesc" placeholder="" ng-model="item.desc" />
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <div class="form-group">
+                    <label for="inputApply" class="control-label">开关</label>
+                    <input type="checkbox" class="form-control" id="inputApply" ng-model="item.apply">
                 </div>
             </div>
         </div>
@@ -34,8 +40,8 @@
                 <div class="form-group">
                     <label for="inputCapacity" class="control-label"> </label>
                     <select class="form-control" ng-model="item.unit" required>
-                        <option value="tablet" selected>粒</option>
-                        <option value="ml">毫升</option>
+                        <option value="粒" selected>粒</option>
+                        <option value="毫升">毫升</option>
                     </select>
                 </div>
             </div>
@@ -43,17 +49,25 @@
                 <div class="form-group">
                     <label for="inputUsage" class="control-label">使用方法</label>
                     <select class="form-control" ng-model="item.usage" id="inputUsage" required>
-                        <option value="0">内服</option>
-                        <option value="1">外用</option>
+                        <option value="内服" selected>内服</option>
+                        <option value="外用">外用</option>
                     </select>
                 </div>
             </div>
             <div class="col-sm-2">
-                <div class="form-group">
-                    <label for="inputCount" class="control-label">每次</label>
-                    <input type="number" class="form-control" id="inputCount" min="0"
-                           ng-model="item.dosage.count" required />
-                </div>
+                <br/>
+                <select class="form-control" ng-model="item.dosage.way" required>
+                    <option value="0">-- 请选择 --</option>
+                    <option value="1">饭后</option>
+                    <option value="2">饭前</option>
+                    <option value="3">饭中</option>
+                    <option value="4">睡前</option>
+                    <option value="5">每4小时</option>
+                    <option value="6">每8小时</option>
+                    <option value="7">每12小时</option>
+                    <option value="8">每天</option>
+                    <option value="9">隔天</option>
+                </select>
             </div>
             <div class="col-sm-2">
                 <div class="form-group">
@@ -62,25 +76,17 @@
                            ng-model="item.dosage.frequency" required />
                 </div>
             </div>
-            <div class="col-sm-2">
-                    <br/>
-                    <select class="form-control" ng-model="item.dosage.way" required>
-                        <option value="0">-- 请选择 --</option>
-                        <option value="1">饭后</option>
-                        <option value="2">饭前</option>
-                        <option value="3">饭中</option>
-                        <option value="4">睡前</option>
-                        <option value="5">每4小时</option>
-                        <option value="6">每8小时</option>
-                        <option value="7">每12小时</option>
-                        <option value="8">每天</option>
-                        <option value="9">隔天</option>
-                    </select>
-            </div>
-            <div class="col-sm-1">
+            <div class="col-sm-3">
                 <div class="form-group">
-                    <label for="inputApply" class="control-label">开关</label>
-                    <input type="checkbox" class="form-control" id="inputApply" ng-model="item.apply">
+                    <label for="inputCount" class="control-label">每次</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="inputCount" min="0"
+                               ng-model="item.dosage.count" required />
+                        <span class="input-group-addon" id="basic-addon1">.</span>
+                        <input type="number" class="form-control" id="inputCountFractions" min="0"
+                               ng-model="item.dosage.countFractions" required />
+                    </div>
+
                 </div>
             </div>
         </div>
