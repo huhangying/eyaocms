@@ -64,11 +64,11 @@
 <script>
     //(function(){
 //    var baseApiUrl = 'http://localhost:3000/';
-        var baseApiUrl = 'http://139.224.68.92:3000/';
+
 
     angular.module('myApp', ['toastr'])//
-            .controller('myCtrl', function($scope, $http, $window, toastr){
-
+            .controller('myCtrl', function($scope, $rootScope, $http, $window, toastr){
+              var baseApiUrl = 'http://139.224.68.92:3000/';
                 // set focus
                 //angular.element('#userName').focus();
 
@@ -98,6 +98,30 @@
                             });
                 }
 
+              function getUrlVars() {
+                var vars = {};
+                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+                    function(m,key,value) {
+                      vars[key] = value;
+                    });
+                return vars;
+              }
+
+              var init = function() {
+
+                var debugMode = getUrlVars()['debug'];
+                if (debugMode === '0') {
+                  $window.sessionStorage.debug = 'D0';
+                }
+                else if (debugMode === '1') {
+                  $window.sessionStorage.debug = 'D1';
+                }
+                else {
+                  $window.sessionStorage.debug = undefined;
+                }
+
+              };
+              init();
 
             });
     //})();

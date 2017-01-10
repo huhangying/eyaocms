@@ -9,7 +9,7 @@
         .controller('pageTopCtrl', pageTopCtrl);
 
     /** @ngInject */
-    function pageTopCtrl($scope, $window, toastr) {
+    function pageTopCtrl($scope, $window, $rootScope, toastr, util) {
 
         // check if access is allowed
         //var user = JSON.parse($window.sessionStorage.user)
@@ -36,6 +36,22 @@
             $window.sessionStorage.currentUrl = $window.location.href;
             $window.location.href = '/auth.html';
         };
+
+        var init = function() {
+
+            $scope.debug = $window.sessionStorage.debug;
+            if ($window.sessionStorage.debug === 'D0') {
+                util.baseApiUrl = 'http://127.0.0.1:3000/';
+            }
+            else if ($window.sessionStorage.debug === 'D1') {
+                util.baseApiUrl = 'http://116.62.29.222:3000/';
+            }
+            else {
+                util.baseApiUrl = 'http://139.224.68.92:3000/';
+            }
+
+        };
+        init();
     }
 
 })();

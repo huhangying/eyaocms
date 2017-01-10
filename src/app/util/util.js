@@ -2,10 +2,14 @@
  * Created by harry on 16/6/8.
  */
 app.provider('util', function() {
+    var baseApiUrl = 'http://139.224.68.92:3000/';
+    this.setBaseApiUrl = function(url) {
+        baseApiUrl = url;
+
+    };
     this.$get = function($window) {
         return {
-            baseApiUrl: 'http://127.0.0.1:3000/',
-            // baseApiUrl: 'http://139.224.68.92:3000/',
+            baseApiUrl: baseApiUrl,
             baseImageServer: 'http://139.224.68.92:81/',
 
             surveyTypes: [
