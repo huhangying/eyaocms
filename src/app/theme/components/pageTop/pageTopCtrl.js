@@ -9,7 +9,7 @@
         .controller('pageTopCtrl', pageTopCtrl);
 
     /** @ngInject */
-    function pageTopCtrl($scope, $window, $rootScope, toastr, util) {
+    function pageTopCtrl($scope, $window, $parse, toastr, util) {
 
         // check if access is allowed
         //var user = JSON.parse($window.sessionStorage.user)
@@ -39,11 +39,16 @@
 
         var init = function() {
 
-            $scope.debug = $window.sessionStorage.debug;
-            if ($window.sessionStorage.debug === 'D0') {
+            if ($window.sessionStorage.debug === 'undefined') {
+                $scope.debug = undefined;
+            }
+            else {
+                $scope.debug = $window.sessionStorage.debug
+            }
+            if ($scope.debug === 'D0') {
                 util.baseApiUrl = 'http://127.0.0.1:3000/';
             }
-            else if ($window.sessionStorage.debug === 'D1') {
+            else if ($scope.debug === 'D1') {
                 util.baseApiUrl = 'http://116.62.29.222:3000/';
             }
             else {
