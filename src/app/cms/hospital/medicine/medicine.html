@@ -10,8 +10,8 @@
         <i class="ion-android-add-circle"></i> 创建
       </button>
     </div>
-
   </div>
+
   <table class="table table-bordered table-hover table-condensed">
     <tr style="font-weight: bold">
       <td style="width:20%">药名</td>
@@ -51,7 +51,7 @@
       </td>
       <td>
               <span editable-select="item.dosage.way"  e-form="tableform" e-ng-options="s.value as s.text for s in ways">
-                {{showDosageWay(item)}}
+                {{item.dosage.way}}
               </span>
       </td>
       <td class="select-td">

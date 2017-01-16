@@ -48,25 +48,15 @@
             <div class="col-sm-2">
                 <div class="form-group">
                     <label for="inputUsage" class="control-label">使用方法</label>
-                    <select class="form-control" ng-model="item.usage" id="inputUsage" required>
-                        <option value="内服" selected>内服</option>
-                        <option value="外用">外用</option>
+                    <select class="form-control" ng-model="item.usage" id="inputUsage" required
+                        ng-options="usage for usage in usages">
                     </select>
                 </div>
             </div>
             <div class="col-sm-2">
                 <br/>
-                <select class="form-control" ng-model="item.dosage.way" required>
-                    <option value="0">-- 请选择 --</option>
-                    <option value="1">饭后</option>
-                    <option value="2">饭前</option>
-                    <option value="3">饭中</option>
-                    <option value="4">睡前</option>
-                    <option value="5">每4小时</option>
-                    <option value="6">每8小时</option>
-                    <option value="7">每12小时</option>
-                    <option value="8">每天</option>
-                    <option value="9">隔天</option>
+                <select class="form-control" ng-model="item.dosage.way" required
+                    ng-options="way for way in ways">
                 </select>
             </div>
             <div class="col-sm-2">
