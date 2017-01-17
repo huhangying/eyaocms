@@ -75,6 +75,7 @@
         $scope.createQuestion = function() {
             $scope.editStatus = 1;
             $scope.editQIndex = -1;
+            $scope.highlightIndex = -1;
 
             // set default
             $scope.editQ._id = undefined;
