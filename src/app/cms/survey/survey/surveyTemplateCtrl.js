@@ -171,13 +171,13 @@
                             return toastr.error(util.getErrorMessage(response));
                         };
 
+                        // remove
+                        $scope.surveyTemplates.splice($scope.surveyTemplates.length - 1, 1);
+
                         $scope.inserted = response;
 
                         $scope.surveyTemplates.push($scope.inserted);
                         toastr.success('成功创建');
-
-                        // remove
-                        $scope.surveyTemplates.splice($scope.surveyTemplates.length - 1, 1);
 
                         data._id = response._id;
                     });

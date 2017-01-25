@@ -49,23 +49,45 @@
             template.questions = $scope.questions;
 
 
-            // update
-            $http.patch(util.baseApiUrl + 'surveytemplate/' + template._id, template)
-                .success(function (response) {
-                    //console.log(JSON.stringify(response))
-                    if (!response ){
-                        toastr.error('错误')
-                    }
-                    else if (response.return == 'error') {
-                        toastr.error(response.message);
-                    }
-                    else{
-                        toastr.success('成功更新');
-                        $scope.editItem = response;
-                        $scope.updateParent($scope.editItem);
-                        $scope.closeMe();
-                    }
-                });
+            if (template._id) {
+                // update
+                $http.patch(util.baseApiUrl + 'surveytemplate/' + template._id, template)
+                    .success(function (response) {
+                        //console.log(JSON.stringify(response))
+                        if (!response ){
+                            toastr.error('错误')
+                        }
+                        else if (response.return == 'error') {
+                            toastr.error(response.message);
+                        }
+                        else{
+                            toastr.success('成功更新');
+                            $scope.editItem = response;
+                            $scope.updateParent($scope.editItem);
+                            $scope.closeMe();
+                        }
+                    });
+            }
+            else {
+                // create
+                $http.post(util.baseApiUrl + 'surveytemplate', template)
+                    .success(function (response) {
+                        //console.log(JSON.stringify(response))
+                        if (!response ){
+                            toastr.error('错误')
+                        }
+                        else if (response.return == 'error') {
+                            toastr.error(response.message);
+                        }
+                        else{
+                            toastr.success('成功更新');
+                            $scope.editItem = response;
+                            $scope.updateParent($scope.editItem);
+                            $scope.closeMe();
+                        }
+                    });
+            }
+
         }
         
         $scope.closeMe = function(){
