@@ -28,6 +28,20 @@
                 }
             });
 
+        $http.get(util.baseApiUrl + 'const/medicine_periods')
+            .success(function (response) {
+                //console.log(JSON.stringify(response))
+                if (!response ){
+                    toastr.error('无数据!')
+                }
+                else if (response.return == 'error') {
+                    toastr.error(response.message);
+                }
+                else{
+                    $scope.periods = response.value.split('|');
+                }
+            });
+
         // $scope.showUsage = function(item) {
         //     var selected = [];
         //     if(item.usage > -1) {
@@ -97,9 +111,11 @@
                 capacity: 0,
                 usage: '',
                 dosage: {
+                    period: '',
+                    way: '',
                     frequency: 0,
-                    count: 1,
-                    way: ''
+                    count: 1
+
                 },
                 apply: true
             };
@@ -135,9 +151,10 @@
             }
 
             data.dosage = {
+                period: data.period,
+                way: data.way,
                 frequency: data.frequency,
-                count: data.count,
-                way: data.way
+                count: data.count
             };
 
             if (!data._id) { // create

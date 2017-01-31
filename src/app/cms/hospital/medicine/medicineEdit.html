@@ -10,7 +10,7 @@
             药名属性
         </h3>
         <div class="row">
-            <div class="col-sm-5">
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label for="inputName" class="control-label">药名</label>
                     <input type="text" class="form-control" id="inputName" placeholder="" ng-model="item.name" required />
@@ -22,21 +22,15 @@
                     <input type="text" class="form-control" id="inputDesc" placeholder="" ng-model="item.desc" />
                 </div>
             </div>
-            <div class="col-sm-1">
-                <div class="form-group">
-                    <label for="inputApply" class="control-label">开关</label>
-                    <input type="checkbox" class="form-control" id="inputApply" ng-model="item.apply">
-                </div>
-            </div>
         </div>
         <div class="row">
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <div class="form-group">
                     <label for="inputCapacity" class="control-label">药品总量</label>
                     <input type="number" class="form-control" id="inputCapacity" ng-model="item.capacity" min="0" max="10000" required />
                 </div>
             </div>
-            <div class="col-sm-1">
+            <div class="col-sm-3">
                 <div class="form-group">
                     <label for="inputCapacity" class="control-label"> </label>
                     <select class="form-control" ng-model="item.unit" required>
@@ -45,7 +39,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-4">
                 <div class="form-group">
                     <label for="inputUsage" class="control-label">使用方法</label>
                     <select class="form-control" ng-model="item.usage" id="inputUsage" required
@@ -54,12 +48,28 @@
                 </div>
             </div>
             <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="inputApply" class="control-label">开关</label>
+                    <input type="checkbox" class="form-control" id="inputApply" ng-model="item.apply">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="inputPeriod" class="control-label">用药周期</label>
+                    <select class="form-control" ng-model="item.dosage.period" id="inputPeriod" required
+                            ng-options="period for period in periods">
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
                 <br/>
-                <select class="form-control" ng-model="item.dosage.way" required
+                <select class="form-control" ng-model="item.dosage.way"
                     ng-options="way for way in ways">
                 </select>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <div class="form-group">
                     <label for="inputFrequency" class="control-label">服用频率</label>
                     <input type="number" class="form-control" id="inputFrequency" min="0" max="100"
