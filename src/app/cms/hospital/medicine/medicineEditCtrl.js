@@ -40,6 +40,11 @@
 
         $scope.saveMedicine = function() {
 
+            if ($scope.editForm.$invalid) {
+                toastr.warning('保存前请确认所有的输入项和格式。');
+                return;
+            }
+
             var medicine = angular.copy($scope.item);
             //toastr.info(JSON.stringify(medicine))
 

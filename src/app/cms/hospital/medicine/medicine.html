@@ -18,8 +18,8 @@
       <td style="width:14%">描述</td>
       <td style="width:10%">使用方法</td>
       <td style="width:10%">服药周期</td>
-      <td style="width:10%">周期备注</td>
-      <td style="width:10%">服药频率</td>
+      <td style="width:10%">服药备注</td>
+      <td style="width:10%">服用频率</td>
       <td style="width:8%">提醒个数</td>
       <td style="width:8%">开关</td>
       <td style="width:15%">操作</td>
@@ -46,8 +46,8 @@
               </span>
       </td>
       <td>
-              <span editable-select="item.dosage.period"  e-form="tableform" e-ng-options="s.value as s.text for s in periods">
-                {{item.dosage.period}}
+              <span editable-select="item.dosage.period"  e-form="tableform" e-ng-options="s.value as s.name for s in periods">
+                {{showPeriod(item.dosage.period)}}
               </span>
       </td>
       <td>

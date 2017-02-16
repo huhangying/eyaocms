@@ -38,17 +38,24 @@
                     toastr.error(response.message);
                 }
                 else{
-                    $scope.periods = response.value.split('|');
+                    // 每天:1 ==> name:每天, value: 1
+                    $scope.periods = [];
+                    response.value.split('|').map(function(item) {
+                        $scope.periods.push({
+                           name: item.split(':')[0],
+                           value: item.split(':')[1]
+                        });
+                    });
                 }
             });
 
-        // $scope.showUsage = function(item) {
-        //     var selected = [];
-        //     if(item.usage > -1) {
-        //         selected = $filter('filter')($scope.usages, {value: item.usage});
-        //     }
-        //     return selected.length ? selected[0].text : '空';
-        // }
+        $scope.showPeriod = function(periodValue) {
+            var selected = [];
+            if(periodValue > -1) {
+                selected = $filter('filter')($scope.periods, {value: periodValue});
+            }
+            return selected.length ? selected[0].name : '空';
+        }
 
         $http.get(util.baseApiUrl + 'const/medicine_ways')
             .success(function (response) {
