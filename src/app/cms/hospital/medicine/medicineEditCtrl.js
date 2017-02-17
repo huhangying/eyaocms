@@ -45,6 +45,7 @@
                 return;
             }
 
+            $scope.item.dosage.intervalDay = parseInt($scope.item.dosage.intervalDay, 10);
             var medicine = angular.copy($scope.item);
             //toastr.info(JSON.stringify(medicine))
 

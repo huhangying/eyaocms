@@ -58,9 +58,9 @@
         <div class="row">
             <div class="col-sm-3">
                 <div class="form-group">
-                    <label for="inputPeriod" class="control-label">用药周期</label>
-                    <select class="form-control" ng-model="item.dosage.period" id="inputPeriod" required
-                            ng-options="period.value as period.name for period in periods">
+                    <label for="inputInterval" class="control-label">用药周期</label>
+                    <select class="form-control" ng-model="item.dosage.intervalDay" id="inputInterval" required
+                            ng-options="intervalDay.value as intervalDay.name for intervalDay in intervalDays">
                     </select>
                 </div>
             </div>

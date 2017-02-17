@@ -29,6 +29,9 @@
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
                 </span>
+                <span editable-number="item.dosage.count" e-name="count" e-form="rowform">
+                    {{item.dosage.count}}
+                </span>
       </td>
       <td>
                 <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
@@ -46,8 +49,8 @@
               </span>
       </td>
       <td>
-              <span editable-select="item.dosage.period"  e-form="tableform" e-ng-options="s.value as s.name for s in periods">
-                {{showPeriod(item.dosage.period)}}
+              <span editable-select="item.dosage.intervalDay"  e-form="tableform" e-ng-options="s.value as s.name for s in intervalDays">
+                {{showInterval(item.dosage.intervalDay)}}
               </span>
       </td>
       <td>

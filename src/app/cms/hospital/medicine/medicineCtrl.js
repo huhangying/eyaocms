@@ -39,9 +39,9 @@
                 }
                 else{
                     // 每天:1 ==> name:每天, value: 1
-                    $scope.periods = [];
+                    $scope.intervalDays = [];
                     response.value.split('|').map(function(item) {
-                        $scope.periods.push({
+                        $scope.intervalDays.push({
                            name: item.split(':')[0],
                            value: item.split(':')[1]
                         });
@@ -49,13 +49,13 @@
                 }
             });
 
-        $scope.showPeriod = function(periodValue) {
+        $scope.showInterval = function(intervalDayValue) {
             var selected = [];
-            if(periodValue > -1) {
-                selected = $filter('filter')($scope.periods, {value: periodValue});
+            if(intervalDayValue > -1) {
+                selected = $filter('filter')($scope.intervalDays, {value: intervalDayValue});
             }
             return selected.length ? selected[0].name : '空';
-        }
+        };
 
         $http.get(util.baseApiUrl + 'const/medicine_ways')
             .success(function (response) {
@@ -118,7 +118,7 @@
                 capacity: 0,
                 usage: '',
                 dosage: {
-                    period: '',
+                    intervalDay: 0,
                     way: '',
                     frequency: 0,
                     count: 1
@@ -158,7 +158,7 @@
             }
 
             data.dosage = {
-                period: data.period,
+                intervalDay: parseInt(data.intervalDay, 10),
                 way: data.way,
                 frequency: data.frequency,
                 count: data.count
