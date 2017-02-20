@@ -43,7 +43,7 @@
                     response.value.split('|').map(function(item) {
                         $scope.intervalDays.push({
                            name: item.split(':')[0],
-                           value: item.split(':')[1]
+                           value: parseInt(item.split(':')[1])
                         });
                     });
                 }
