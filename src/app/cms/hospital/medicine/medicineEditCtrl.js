@@ -80,7 +80,7 @@
             $scope.editN.notice = '';
             $scope.editN.days_to_start = 0;
             $scope.editN.during = 0;
-            $scope.editQ.require_confirm = false;
+            $scope.editN.require_confirm = false;
             $scope.editN.apply = true;
 
         }
