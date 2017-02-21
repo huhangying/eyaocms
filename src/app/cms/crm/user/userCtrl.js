@@ -44,7 +44,7 @@
 
         $scope.users = [];
         $scope.getUsers = function() {
-            $scope.myPromise = $http.get(util.baseApiUrl + 'users/100', {})
+            $scope.myPromise = $http.get(util.baseApiUrl + 'users/1000', {})
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){

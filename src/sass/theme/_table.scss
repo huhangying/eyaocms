@@ -44,12 +44,7 @@
   padding: 10px 8px 8px 0 !important;
 }
 
-.table-no-borders {
-  border: none;
-  td, th, tr {
-    border: none !important;
-  }
-}
+
 
 .editable-wrap .btn-group.form-control {
   background-color: transparent;
@@ -344,5 +339,9 @@ th {
 
 .st-sort-descent:before{
   content: '\25BC';
+}
+
+.no-border {
+  border: 0;
 }
 

@@ -1,89 +1,97 @@
 <div ba-panel  ba-panel-class="with-scroll">
     <div cg-busy="myPromise"></div>
 
-    <div class="row add-row-editable-table">
-        <div class="col-sm-2 text-right"><span>搜索by 姓名:</span></div>
-        <div class="col-sm-3">
-            <span>
-                <input ng-model="search.name" placeholder="搜索姓名" class="input-sm form-control search-input" type="search"/>
-            </span>
-        </div>
-        <div class="col-sm-1 text-right"><span>手机:</span></div>
-        <div class="col-sm-3">
-            <span>
-                <input ng-model="search.cell" placeholder="搜索手机号" class="input-sm form-control search-input" type="search"/>
-            </span>
-        </div>
-        <div class="col-sm-2">
-            <button class="btn btn-primary pull-right" ng-click="addUser()">
-                <i class="ion-android-add-circle"></i> 创建</button>
-        </div>
-
-    </div>
-    <table class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
-        <tr style="font-weight: bold">
-            <td style="width:15%">关联ID</td>
-            <td style="width:15%">姓名</td>
-            <td style="width:15%">手机</td>
-            <td style="width:15%">创建时间</td>
-            <td style="width:15%">更新时间</td>
-            <td style="width:5%">有效</td>
-            <td style="width:20%">操作</td>
+    <table st-table="displayedItems" st-safe-src="users" class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
+        <thead>
+            <tr>
+                <th class="no-border" colspan="2">
+                    <label class="left">搜索by 姓名:</label>
+                    <span>
+                        <input ng-model="search.name" placeholder="搜索姓名" class="input-sm form-control search-input pull-right" type="search"/>
+                    </span>
+                </th>
+                <th class="no-border" colspan="4">
+                    <label class="pull-left">手机:</label>
+                    <input ng-model="search.cell" placeholder="搜索手机号" class="input-sm form-control search-input pull-right" type="search"/>
+                </th>
+                <th class="no-border" colspan="1">
+                    <button class="btn btn-primary pull-right" ng-click="addUser()">
+                        <i class="ion-android-add-circle"></i> 创建</button>
+                </th>
+            </tr>
+            <tr style="font-weight: bold" class="bg-info">
+                <th style="width:15%">关联ID</th>
+                <th st-sort="name" style="width:15%">姓名</th>
+                <th st-sort="cell" style="width:15%">手机</th>
+                <th st-sort="create" style="width:15%">创建时间</th>
+                <th st-sort="update" style="width:15%">更新时间</th>
+                <th st-sort="apply" style="width:5%">有效</th>
+                <th style="width:20%">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in displayedItems | filter: search" class="editable-row">
+                <td style="display:none;">
+                    <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
+                        {{item._id}}
+                    </span>
+                </td>
+                <td class="select-td">
+                    <span editable-text="item.link_id" e-name="link_id" e-form="rowform" e-required>
+                    {{ item.link_id || '空' }}
+                    </span>
+                </td>
+                <td>
+                    <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
+                      {{ item.name || '空' }}
+                    </span>
+                </td>
+                <td class="select-td">
+                    <span editable-text="item.cell" e-name="cell" e-form="rowform" e-required>
+                      {{ item.cell || '空' }}
+                    </span>
+                </td>
+                <td>
+                    <span e-name="created" e-form="rowform">
+                      {{ item.created | date }}
+                    </span>
+                </td>
+                <td>
+                    <span e-name="updated" e-form="rowform">
+                      {{ item.updated | date }}
+                    </span>
+                </td>
+                <td class="select-td">
+                    <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
+                      {{ item.apply || false }}
+                    </span>
+                </td>
+                <td>
+                    <form editable-form name="rowform" onaftersave="saveUser($data)" ng-show="rowform.$visible" class="form-buttons form-inline"
+                          shown="inserted == item">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary editable-table-button btn-xs">
+                            保存
+                        </button>
+                        <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default editable-table-button btn-xs">
+                            取消
+                        </button>
+                    </form>
+                    <div class="buttons" ng-show="!rowform.$visible">
+                        <button class="btn btn-primary btn-xs" ng-click="rowform.$show()"><i class="ion-compose"></i></button>
+                        <delete-btn item-id="item._id" user-id="item.user_id" yes-delete="removeUser"></delete-btn>
+                        <button class="btn btn-primary btn-xs" data-toggle="modal" ng-click="open('app/cms/crm/user/userEdit.html', 'lg', item)">
+                            更多用户信息
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="7" class="text-center">
+                <div st-pagination="text-center" st-items-by-page="25" st-displayed-pages="10"></div>
+            </td>
         </tr>
-        <tr ng-repeat="item in users | filter: search" class="editable-row">
-            <td style="display:none;">
-                <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
-                    {{item._id}}
-                </span>
-            </td>
-            <td class="select-td">
-                <span editable-text="item.link_id" e-name="link_id" e-form="rowform" e-required>
-                {{ item.link_id || '空' }}
-                </span>
-            </td>
-            <td>
-                <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
-                  {{ item.name || '空' }}
-                </span>
-            </td>
-            <td class="select-td">
-                <span editable-text="item.cell" e-name="cell" e-form="rowform" e-required>
-                  {{ item.cell || '空' }}
-                </span>
-            </td>
-            <td>
-                <span e-name="created" e-form="rowform">
-                  {{ item.created | date }}
-                </span>
-            </td>
-            <td>
-                <span e-name="updated" e-form="rowform">
-                  {{ item.updated | date }}
-                </span>
-            </td>
-            <td class="select-td">
-                <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
-                  {{ item.apply || false }}
-                </span>
-            </td>
-            <td>
-                <form editable-form name="rowform" onaftersave="saveUser($data)" ng-show="rowform.$visible" class="form-buttons form-inline"
-                      shown="inserted == item">
-                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary editable-table-button btn-xs">
-                        保存
-                    </button>
-                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default editable-table-button btn-xs">
-                        取消
-                    </button>
-                </form>
-                <div class="buttons" ng-show="!rowform.$visible">
-                    <button class="btn btn-primary btn-xs" ng-click="rowform.$show()"><i class="ion-compose"></i></button>
-                    <delete-btn item-id="item._id" user-id="item.user_id" yes-delete="removeUser"></delete-btn>
-                    <button class="btn btn-primary btn-xs" data-toggle="modal" ng-click="open('app/cms/crm/user/userEdit.html', 'lg', item)">
-                        更多用户信息
-                    </button>
-                </div>
-            </td>
-        </tr>
+        </tfoot>
     </table>
 </div>
