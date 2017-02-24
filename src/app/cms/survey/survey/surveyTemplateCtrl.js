@@ -131,6 +131,7 @@
                 // group: $scope.search.group,
                 //desc: '',
                 questions: [],
+                availableDays: 30,
                 apply: true
             };
 
