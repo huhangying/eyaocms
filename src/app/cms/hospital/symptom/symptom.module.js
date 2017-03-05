@@ -18,6 +18,7 @@
           sidebarMeta: {
             order: 400,
           },
+            minRole: 2,
         });
   }
 

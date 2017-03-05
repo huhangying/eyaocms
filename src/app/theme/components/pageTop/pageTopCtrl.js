@@ -9,7 +9,7 @@
         .controller('pageTopCtrl', pageTopCtrl);
 
     /** @ngInject */
-    function pageTopCtrl($scope, $window, $parse, toastr, util) {
+    function pageTopCtrl($scope, $rootScope, $window, $parse, toastr, util) {
 
         // check if access is allowed
         //var user = JSON.parse($window.sessionStorage.user)
@@ -20,15 +20,12 @@
         }
 
 
-        var user = JSON.parse($window.sessionStorage.user);
-        //toastr.success(JSON.stringify(user));
-        $scope.user_id = user._id;
-        $scope.userName = user.name;
+        $rootScope.login = JSON.parse($window.sessionStorage.user);
         $scope.icon = 'Ninja';
-        $scope.role = user.role;
-        if (user.role == 1)
+        $scope.role = $rootScope.login.role;
+        if ($scope.role == 1)
             $scope.icon = 'Burglar';
-        else if (user.role == 2)
+        else if ($scope.role == 2)
             $scope.icon = 'Alien';
 
         $scope.logout = function () {

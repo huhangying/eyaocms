@@ -24,7 +24,7 @@
                     icon: 'ion-medkit',
                     order: 300,
                 },
-                minRole: 2,
+                minRole: 1,
             });
     }
 

@@ -11,7 +11,7 @@
                 </select>
             </span>
         </div>
-        <div class="col-sm-2 text-right"><span>药师User ID:</span></div>
+        <div class="col-sm-2 text-right"><span>药师 ID:</span></div>
         <div class="col-sm-3">
             <span>
                 <input ng-model="search.user_id" placeholder="药师名" class="input-sm form-control search-input" type="search"/>
@@ -24,16 +24,19 @@
 
     </div>
     <table class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
+        <thead>
         <tr style="font-weight: bold">
-            <td style="width:15%">医院科室</td>
-            <td style="width:15%">名称</td>
-            <td style="width:15%">User ID</td>
-            <td style="width:10%">用户权限</td>
+            <td style="width:15%">专科</td>
+            <td style="width:15%">姓名</td>
+            <td style="width:15%">药师ID</td>
+            <td style="width:10%">权限</td>
             <td style="width:10%">职称</td>
             <td style="width:6%">顺序</td>
             <td style="width:5%">有效</td>
             <td style="width:24%">操作</td>
         </tr>
+        </thead>
+
         <tr ng-repeat="item in doctors | filter: search" class="editable-row">
             <td style="display:none;">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>

@@ -9,7 +9,7 @@
         .controller('doctorCtrl', doctorCtrl);
 
     /** @ngInject */
-    function doctorCtrl($scope, $state, $filter, $http, util, toastr, $uibModal) {
+    function doctorCtrl($scope, $rootScope, $state, $filter, $http, util, toastr, $uibModal) {
         $scope.search = {};
 
         $scope.departments = [];
@@ -65,6 +65,15 @@
                     }
                     else {
                         $scope.doctors = response;
+
+                        // 如果是药师, filter out 管理员和系统管理员, 同一个level只有自己
+                        // 如果是管理员, filter out 系统管理员, 同一个level只有自己
+                        $scope.doctors = $scope.doctors.filter(function(doctor) {
+                            if (doctor.role < $rootScope.login.role || (doctor.role == $rootScope.login.role && doctor._id === $rootScope.login._id)) {
+                                return true;
+                            }
+                        });
+
                     }
 
                 })
