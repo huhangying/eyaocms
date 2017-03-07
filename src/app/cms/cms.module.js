@@ -45,7 +45,7 @@
         });
 
     /** @ngInject */
-    function routeConfig($urlRouterProvider, $sceDelegateProvider, baSidebarServiceProvider) {
+    function routeConfig($urlRouterProvider, $sceDelegateProvider, $provide) {
         $urlRouterProvider.otherwise('/profile/');
 
         $sceDelegateProvider.resourceUrlWhitelist([
@@ -79,6 +79,79 @@
         //     }]
         // });
 
+        // $provide.decorator('taOptions', ['taRegisterTool', '$delegate', '$modal',
+        //     function (taRegisterTool, taOptions, $modal) {
+        //         taRegisterTool('uploadImage', {
+        //             buttontext: '上传图片',
+        //             iconclass: "fa fa-image",
+        //             action: function (deferred,restoreSelection) {
+        //                 $modal.open({
+        //                     controller: 'UploadImageModalInstance',
+        //                     templateUrl: 'views/modals/upload.html'
+        //                 }).result.then(
+        //                     function (result) {
+        //                         restoreSelection();
+        //                         document.execCommand('insertImage', true, result);
+        //                         deferred.resolve();
+        //                     },
+        //                     function () {
+        //                         deferred.resolve();
+        //                     }
+        //                 );
+        //                 return false;
+        //             }
+        //         });
+        //         taOptions.toolbar[1].push('uploadImage');
+        //         return taOptions;
+        // }]);
+
+        // $provide.decorator('taOptions', ['taRegisterTool', '$modal', '$delegate',
+        //     function(taRegisterTool, $modal, taOptions) {
+        //         // $delegate is the taOptions we are decorating
+        //         // here we override the default toolbars specified in taOptions.
+        //         taOptions.toolbar = [
+        //             ['clear', 'h1', 'h2', 'h3'],
+        //             ['ul', 'ol'],
+        //             ['bold', 'italics'],
+        //             ['insertLink', 'insertVideo']
+        //         ];
+        //
+        //         // Create our own insertImage button
+        //         taRegisterTool('customInsertImage', {
+        //             iconclass: "fa fa-picture-o",
+        //             action: function() {
+        //                 var textAngular = this;
+        //                 var savedSelection = rangy.saveSelection();
+        //                 var modalInstance = $modal.open({
+        //                     // Put a link to your template here or whatever
+        //                     template: '<label>Enter the url to your image:</label><input type="text" ng-model="img.url"><button ng-click="submit()">OK</button>',
+        //                     size: 'sm',
+        //                     controller: ['$modalInstance', '$scope',
+        //                         function($modalInstance, $scope) {
+        //                             $scope.img = {
+        //                                 url: ''
+        //                             };
+        //                             $scope.submit = function() {
+        //                                 $modalInstance.close($scope.img.url);
+        //                             };
+        //                         }
+        //                     ]
+        //                 });
+        //
+        //                 modalInstance.result.then(function(imgUrl) {
+        //                     rangy.restoreSelection(savedSelection);
+        //                     textAngular.$editor().wrapSelection('insertImage', imgUrl);
+        //                 });
+        //                 return false;
+        //             },
+        //         });
+        //
+        //         // Now add the button to the default toolbar definition
+        //         // Note: It'll be the last button
+        //         taOptions.toolbar[3].push('customInsertImage');
+        //         return taOptions;
+        //     }
+        // ]);
     }
 
 })();
