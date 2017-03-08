@@ -31,8 +31,9 @@
         <tr style="font-weight: bold">
             <td style="width:20%">药师</td>
             <td style="width:20%">日期</td>
-            <td style="width:20%">名称</td>
-            <td style="width:15%">个数限制</td>
+            <td style="width:15%">名称</td>
+            <td style="width:10%">个数限制</td>
+            <td style="width:10%">开关</td>
             <td style="width:25%">操作</td>
         </tr>
         <tr ng-repeat="item in schedules | filter: search" class="editable-row">
@@ -63,6 +64,11 @@
             <td  class="select-td">
                 <span editable-text="item.limit" e-name="limit" e-form="rowform" e-required>
                   {{ item.limit || '空' }}
+                </span>
+            </td>
+            <td class="select-td">
+                <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
+                  {{ item.apply }}
                 </span>
             </td>
             <td>

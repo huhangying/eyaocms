@@ -40,6 +40,7 @@
             name: '',
             desc: '',
             order: 0,
+            assetFolder: '',
             apply: true
         };
 

@@ -8,14 +8,9 @@
         .controller('templateEditCtrl', templateEditCtrl);
 
     /** @ngInject */
-    function templateEditCtrl($scope, $filter, $http, util, toastr) {
-        $scope.template = angular.copy($scope.editItem);
-        $scope.preview = false;
-        $scope.updated = false;
-        if ($scope.template.title_image) {
-            $scope.displayedUrl = util.baseImageServer + $scope.template.title_image;
-            $scope.updated = true;
-        }
+    function templateEditCtrl($scope, $rootScope, $http, util, toastr, $timeout) {
+        var baseImagePath;
+        $scope.obj = {};
 
         $scope.saveTemplate = function() {
 
@@ -51,8 +46,45 @@
         };
 
         $scope.uploadedImg = function() {
-            $scope.displayedUrl = util.baseImageServer + $scope.template.title_image;
+            $scope.displayedUrl = baseImagePath + $scope.template.title_image;
             $scope.updated = true;
         };
+        
+        var init = function() {
+            $scope.template = angular.copy($scope.editItem);
+            $scope.preview = false;
+            $scope.updated = false;
+            $scope.myPromise = $http.get(util.baseApiUrl + 'department/' + $rootScope.login.department).then(
+                function (response) {
+                    // check if return null
+                    if (response.return && response.return == 'null') {
+                        toastr.error(util.error.noData);
+                    }
+                    else {
+                        var assetFolder = '';
+                        if (response.data.assetFolder) {
+                            assetFolder = response.data.assetFolder + '/';
+                        }
+                        baseImagePath = util.baseImageServer + assetFolder;
+                        if ($scope.obj.flow && $scope.obj.flow.defaults) {
+                            $scope.obj.flow.defaults.target = util.baseImageServer + 'upload/' + assetFolder;
+                        }
+
+                        if ($scope.template.title_image) {
+                            $scope.displayedUrl = baseImagePath + $scope.template.title_image;
+                            $scope.updated = true;
+                        }
+                    }
+                },
+                function(error){
+                    toastr.error(error.messageFormatted);
+                });
+
+        };
+        init();
+
+        // $scope.flowInit = function () {
+        //     toastr.error($scope.obj.flow.defaults.target);
+        // };
     }
 })();

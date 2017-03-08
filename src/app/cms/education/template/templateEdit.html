@@ -20,9 +20,10 @@
                 </div>
             </div>
             <div class="col-md-7">
-                <div flow-init="{singleFile:true}"
+                <div flow-name="obj.flow"
+                     flow-init="{singleFile:true}"
                      flow-files-submitted="$flow.upload()"
-                     flow-file-success="$file.msg = $message;template.title_image=$flow.files[0].relativePath;uploadedImg();"
+                     flow-file-success="$file.msg = $message; template.title_image=$flow.files[0].relativePath;uploadedImg();"
                      flow-file-added="!!{jpg:1,jpeg:1}[$file.getExtension()]">
                 <div class="row">
                     <div class="col-sm-4">
@@ -41,7 +42,7 @@
                             </button>
                         </div>
                         <small>
-                            只支持 JPG 格式图片。
+                            只支持 JPG 格式图片。图片大小建议 360*240。
                         </small>
                     </div>
                     <div class="col-sm-8">

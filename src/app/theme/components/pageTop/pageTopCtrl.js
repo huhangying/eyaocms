@@ -11,30 +11,31 @@
     /** @ngInject */
     function pageTopCtrl($scope, $rootScope, $window, $parse, toastr, util) {
 
-        // check if access is allowed
-        //var user = JSON.parse($window.sessionStorage.user)
-        if (!$window.sessionStorage.user) {
-            $window.sessionStorage.currentUrl = $window.location.href;
-            $window.location.href = '/auth.html';
-            return;
-        }
-
-
-        $rootScope.login = JSON.parse($window.sessionStorage.user);
-        $scope.icon = 'Ninja';
-        $scope.role = $rootScope.login.role;
-        if ($scope.role == 1)
-            $scope.icon = 'Burglar';
-        else if ($scope.role == 2)
-            $scope.icon = 'Alien';
-
         $scope.logout = function () {
             $window.sessionStorage.clear();
             $window.sessionStorage.currentUrl = $window.location.href;
             $window.location.href = '/auth.html';
+            $rootScope.login = undefined;
         };
 
         var init = function() {
+
+
+            // check if access is allowed
+            //var user = JSON.parse($window.sessionStorage.user)
+            if (!$window.sessionStorage.user) {
+                $window.sessionStorage.currentUrl = $window.location.href;
+                $window.location.href = '/auth.html';
+                return;
+            }
+
+            $rootScope.login = JSON.parse(angular.copy($window.sessionStorage.user));
+            $scope.icon = 'Ninja';
+            $scope.role = $rootScope.login.role;
+            if ($scope.role == 1)
+                $scope.icon = 'Burglar';
+            else if ($scope.role == 2)
+                $scope.icon = 'Alien';
 
             if ($window.sessionStorage.debug === 'undefined') {
                 $scope.debug = undefined;

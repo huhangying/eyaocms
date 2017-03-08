@@ -24,7 +24,8 @@ app.provider('util', function() {
             ],
 
             error: {
-                internal: "API接口内部错误"
+                internal: "API接口内部错误",
+                noData: "无数据"
 
             },
 
