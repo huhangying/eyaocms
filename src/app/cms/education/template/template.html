@@ -30,6 +30,7 @@
         无记录。
     </div>
     <table class="table table-bordered table-hover table-condensed" ng-if="templates.length > 0">
+        <thead class="bg-info">
         <tr style="font-weight: bold">
             <td style="width:20%">名字</td>
             <td style="width:25%">消息标题</td>
@@ -37,6 +38,8 @@
             <td style="width:10%">开关</td>
             <td style="width:20%">操作</td>
         </tr>
+        </thead>
+        <tbody>
         <tr ng-repeat="item in templates | filter: search track by $index" class="editable-row">
             <td ng-show="false">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
@@ -91,5 +94,7 @@
                 </div>
             </td>
         </tr>
+        </tbody>
+
     </table>
 </div>

@@ -13,6 +13,7 @@
   </div>
 
   <table class="table table-bordered table-hover table-condensed">
+    <thead>
     <tr class="bg-info" style="font-weight: bold">
       <td style="width:25%">药名</td>
       <td style="width:14%">描述</td>
@@ -24,55 +25,57 @@
       <td style="width:8%">开关</td>
       <td style="width:15%">操作</td>
     </tr>
+    </thead>
+    <tbody>
     <tr ng-repeat="item in medicines | filter: search track by $index" class="editable-row">
       <td ng-show="false">
-                <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
-                    {{item._id}}
-                </span>
-                <span editable-number="item.dosage.count" e-name="count" e-form="rowform">
-                    {{item.dosage.count}}
-                </span>
+                    <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
+                        {{item._id}}
+                    </span>
+                    <span editable-number="item.dosage.count" e-name="count" e-form="rowform">
+                        {{item.dosage.count}}
+                    </span>
       </td>
       <td>
-                <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
-                  {{ item.name || '空' }}
-                </span>
+                    <span editable-text="item.name" e-name="name" e-form="rowform" e-required>
+                      {{ item.name || '空' }}
+                    </span>
       </td>
       <td>
-                <span editable-text="item.desc" e-name="desc" e-form="rowform">
-                  {{ item.desc || '空' }}
-                </span>
+                    <span editable-text="item.desc" e-name="desc" e-form="rowform">
+                      {{ item.desc || '空' }}
+                    </span>
       </td>
       <td>
-              <span editable-select="item.usage"  e-form="tableform" e-ng-options="s.value as s.text for s in usages">
-                {{item.usage}}
-              </span>
+                  <span editable-select="item.usage"  e-form="tableform" e-ng-options="s.value as s.text for s in usages">
+                    {{item.usage}}
+                  </span>
       </td>
       <td>
-              <span editable-select="item.dosage.intervalDay"  e-form="tableform" e-ng-options="s.value as s.name for s in intervalDays">
-                {{showInterval(item.dosage.intervalDay)}}
-              </span>
+                  <span editable-select="item.dosage.intervalDay"  e-form="tableform" e-ng-options="s.value as s.name for s in intervalDays">
+                    {{showInterval(item.dosage.intervalDay)}}
+                  </span>
       </td>
       <td>
-              <span editable-select="item.dosage.way"  e-form="tableform" e-ng-options="s.value as s.text for s in ways">
-                {{item.dosage.way}}
-              </span>
+                  <span editable-select="item.dosage.way"  e-form="tableform" e-ng-options="s.value as s.text for s in ways">
+                    {{item.dosage.way}}
+                  </span>
       </td>
       <td>
-                <span editable-number="item.dosage.frequency" e-name="frequency" e-form="rowform" e-style="width:65px" e-required>
-                  {{ item.dosage.frequency || '空' }}
-                </span>
+                    <span editable-number="item.dosage.frequency" e-name="frequency" e-form="rowform" e-style="width:65px" e-required>
+                      {{ item.dosage.frequency || '空' }}
+                    </span>
       </td>
 
       <td class="select-td">
-                <span>
-                  {{ item.notices.length }}
-                </span>
+                    <span>
+                      {{ item.notices.length }}
+                    </span>
       </td>
       <td class="select-td">
-                <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
-                  {{ item.apply || false }}
-                </span>
+                    <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
+                      {{ item.apply || false }}
+                    </span>
       </td>
       <td>
         <form editable-form name="rowform" onaftersave="saveMedicine($data, item._id, $index)" ng-show="rowform.$visible" class="form-buttons form-inline"
@@ -94,5 +97,7 @@
         </div>
       </td>
     </tr>
+    </tbody>
+
   </table>
 </div>

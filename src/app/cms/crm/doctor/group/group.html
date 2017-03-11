@@ -17,12 +17,15 @@
 
     </div>
     <table class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
+        <thead class="bg-info">
         <tr style="font-weight: bold">
             <td style="width:30%">药师</td>
             <td style="width:30%">用户组</td>
             <td style="width:10%">有效</td>
             <td style="width:30%">操作</td>
         </tr>
+        </thead>
+        <tbody>
         <tr ng-repeat="item in groups | filter: search" class="editable-row">
             <td style="display:none;">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
@@ -64,5 +67,7 @@
                 </div>
             </td>
         </tr>
+        </tbody>
+
     </table>
 </div>

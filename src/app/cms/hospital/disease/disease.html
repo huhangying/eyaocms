@@ -19,6 +19,7 @@
 
     </div>
     <table class="table table-bordered table-hover table-condensed">
+        <thead class="bg-info">
         <tr style="font-weight: bold">
             <td style="width:20%">医院科室</td>
             <td style="width:20%">疾病类型</td>
@@ -27,6 +28,8 @@
             <td style="width:5%">开关</td>
             <td style="width:20%">操作</td>
         </tr>
+        </thead>
+        <tbody>
         <tr ng-repeat="item in diseases | filter: search" class="editable-row">
             <td style="display:none;">
                 <span e-name="_id" e-form="rowform" e-required>
@@ -75,5 +78,7 @@
                 </div>
             </td>
         </tr>
+        </tbody>
+
     </table>
 </div>
