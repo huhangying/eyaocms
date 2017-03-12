@@ -16,17 +16,17 @@
         </div>
 
     </div>
-    <table class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
+    <table st-table="displayedItems" st-safe-src="groups" class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
         <thead class="bg-info">
         <tr>
             <th style="width:30%">药师</th>
-            <th style="width:30%">用户组</th>
-            <th style="width:10%">有效</th>
+            <th st-sort="name" style="width:30%">用户组</th>
+            <th st-sort="apply" style="width:10%">有效</th>
             <th style="width:30%">操作</th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in groups | filter: search" class="editable-row">
+        <tr ng-repeat="item in displayedItems | filter: search" class="editable-row">
             <td style="display:none;">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
@@ -68,6 +68,12 @@
             </td>
         </tr>
         </tbody>
-
+        <tfoot>
+        <tr>
+            <td colspan="4" class="text-center">
+                <div st-pagination="text-center" st-items-by-page="20" st-displayed-pages="8"></div>
+            </td>
+        </tr>
+        </tfoot>
     </table>
 </div>

@@ -23,22 +23,22 @@
         </div>
 
     </div>
-    <table class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
+    <table st-table="displayedItems" st-safe-src="doctors" class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
         <thead class="bg-info">
         <tr>
             <th style="width:15%">专科</th>
-            <th style="width:15%">姓名</th>
+            <th st-sort="name" style="width:15%">姓名</th>
             <th style="width:15%">药师ID</th>
-            <th style="width:10%">权限</th>
-            <th style="width:10%">职称</th>
-            <th style="width:6%">顺序</th>
-            <th style="width:5%">有效</th>
+            <th st-sort="role" style="width:10%">权限</th>
+            <th st-sort="title" style="width:10%">职称</th>
+            <th st-sort="order" style="width:6%">顺序</th>
+            <th st-sort="apply" style="width:5%">有效</th>
             <th style="width:24%">操作</th>
         </tr>
         </thead>
-
-        <tr ng-repeat="item in doctors | filter: search" class="editable-row">
-            <td style="display:none;">
+        <tbody>
+        <tr ng-repeat="item in displayedItems | filter: search" class="editable-row">
+            <td ng-show="false">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
                 </span>
@@ -102,5 +102,13 @@
                 </div>
             </td>
         </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="8" class="text-center">
+                <div st-pagination="text-center" st-items-by-page="20" st-displayed-pages="8"></div>
+            </td>
+        </tr>
+        </tfoot>
     </table>
 </div>

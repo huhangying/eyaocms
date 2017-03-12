@@ -29,19 +29,19 @@
     </div>
     <hr/>
 
-    <table class="table table-bordered table-hover table-condensed">
+    <table st-table="displayedItems" st-safe-src="surveyTemplates" class="table table-bordered table-hover table-condensed">
         <thead class="bg-info">
-        <tr style="font-weight: bold">
-            <td style="width:20%">名字</td>
-            <td style="width:44%">试题</td>
-            <td style="width:6%">顺序</td>
-            <td style="width:8%">有效天数</td>
-            <td style="width:8%">开关</td>
-            <td style="width:14%">操作</td>
+        <tr>
+            <th st-sort="name" style="width:20%">名字</th>
+            <th style="width:44%">试题</th>
+            <th st-sort="order" style="width:6%">顺序</th>
+            <th st-sort="availableDays" style="width:8%">有效天数</th>
+            <th st-sort="apply" style="width:8%">开关</th>
+            <th style="width:14%">操作</th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in surveyTemplates track by $index" class="editable-row">
+        <tr ng-repeat="item in displayedItems track by $index" class="editable-row">
             <td ng-show="false">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
@@ -99,6 +99,12 @@
             </td>
         </tr>
         </tbody>
-
+        <tfoot class="pbs">
+        <tr>
+            <td colspan="6" class="text-center">
+                <div st-pagination="" st-items-by-page="20" st-displayed-pages="8"></div>
+            </td>
+        </tr>
+        </tfoot>
     </table>
 </div>

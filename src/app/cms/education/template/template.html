@@ -29,18 +29,18 @@
     <div ng-if="templates.length < 1">
         无记录。
     </div>
-    <table class="table table-bordered table-hover table-condensed" ng-if="templates.length > 0">
+    <table st-table="displayedCats" st-safe-src="templates" class="table table-bordered table-hover table-condensed" ng-if="templates.length > 0">
         <thead class="bg-info">
         <tr>
-            <th style="width:20%">名字</th>
-            <th style="width:25%">消息标题</th>
-            <th style="width:25%">标题图片</th>
-            <th style="width:10%">开关</th>
+            <th st-sort="name" style="width:20%">名字</th>
+            <th st-sort="title" style="width:25%">消息标题</th>
+            <th st-sort="title_image" style="width:25%">标题图片</th>
+            <th st-sort="apply" style="width:10%">开关</th>
             <th style="width:20%">操作</th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in templates | filter: search track by $index" class="editable-row">
+        <tr ng-repeat="item in displayedCats | filter: search track by $index" class="editable-row">
             <td ng-show="false">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
@@ -95,6 +95,12 @@
             </td>
         </tr>
         </tbody>
-
+        <tfoot class="pbs">
+        <tr>
+            <td colspan="5" class="text-center">
+                <div st-pagination="" st-items-by-page="20" st-displayed-pages="8"></div>
+            </td>
+        </tr>
+        </tfoot>
     </table>
 </div>
