@@ -28,14 +28,17 @@
 
     </div>
     <table class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
+        <thead class="bg-info">
         <tr style="font-weight: bold">
-            <td style="width:20%">药师</td>
-            <td style="width:20%">日期</td>
-            <td style="width:15%">名称</td>
-            <td style="width:10%">个数限制</td>
-            <td style="width:10%">开关</td>
-            <td style="width:25%">操作</td>
+            <th style="width:20%">药师</th>
+            <th style="width:20%">日期</th>
+            <th style="width:15%">名称</th>
+            <th style="width:10%">个数限制</th>
+            <th style="width:10%">开关</th>
+            <th style="width:25%">操作</th>
         </tr>
+        </thead>
+        <tbody>
         <tr ng-repeat="item in schedules | filter: search" class="editable-row">
             <td style="display:none;">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
@@ -90,5 +93,7 @@
                 </div>
             </td>
         </tr>
+        </tbody>
+
     </table>
 </div>

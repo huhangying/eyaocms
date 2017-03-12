@@ -36,14 +36,16 @@
 
     </div>
     <table class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
-        <tr style="font-weight: bold">
-            <td style="width:20%">药师</td>
-            <td style="width:25%">预约</td>
-            <td style="width:15%">用户</td>
-            <td style="width:15%">状态</td>
-            <td style="width:10%">评分</td>
-            <td style="width:15%">操作</td>
+        <thead class="bg-info">
+        <tr>
+            <th style="width:20%">药师</th>
+            <th style="width:30%">预约</th>
+            <th style="width:15%">用户</th>
+            <th style="width:15%">状态</th>
+            <th style="width:20%">操作</th>
         </tr>
+        </thead>
+        <tbody>
         <tr ng-repeat="item in bookings | filter: search" class="editable-row">
             <td style="display:none;">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
@@ -74,11 +76,6 @@
                 </span>
             </td>
             <td>
-                <span editable-number="item.score" e-name="score" e-form="rowform" e-required>
-                  {{ item.score || '空' }}
-                </span>
-            </td>
-            <td>
                 <form editable-form name="rowform" onaftersave="saveBooking($data)" ng-show="rowform.$visible" class="form-buttons form-inline"
                       shown="inserted == item">
                     <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary editable-table-button btn-xs">
@@ -95,5 +92,7 @@
                 </div>
             </td>
         </tr>
+        </tbody>
+
     </table>
 </div>

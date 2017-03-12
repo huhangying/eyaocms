@@ -21,6 +21,7 @@
 
     </div>
     <table class="table table-bordered table-hover table-condensed">
+        <thead class="bg-info">
         <tr style="font-weight: bold">
             <td style="width:20%">聊天室名</td>
             <td style="width:10%">发言人</td>
@@ -29,6 +30,8 @@
             <td style="width:5%">read</td>
             <td style="width:10%">操作</td>
         </tr>
+        </thead>
+        <tbody>
         <tr ng-repeat="item in chats | filter: search" class="editable-row">
             <td>
                 <span style="display:none">{item._id}}</span>
@@ -73,5 +76,7 @@
                 </div>
             </td>
         </tr>
+        </tbody>
+
     </table>
 </div>
