@@ -62,7 +62,7 @@
         $scope.$on('$viewContentLoaded', function(){
             //Here your view content is fully loaded !!
             if ($state.params.department) {
-                toastr.info($state.params.department);
+                // toastr.info($state.params.department);
 
                 $scope.search.department = $state.params.department;
             }

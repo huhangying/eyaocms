@@ -132,7 +132,7 @@
             };
             $http.post(util.baseApiUrl + 'schedule', data)
                 .success(function (response) {
-                    toastr.info(JSON.stringify(response));
+                    toastr.success('创建门诊成功');
                     // check if return null
                     // if (response.return && response.return == 'null'){
                     //     $scope.doctor = null;

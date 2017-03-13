@@ -102,7 +102,7 @@
                 $scope.doctor.password = undefined;
             }
 
-            toastr.info(JSON.stringify($scope.doctor));
+            // toastr.info(JSON.stringify($scope.doctor));
 
             $http.patch(util.baseApiUrl + 'doctor/' + $scope.doctor.user_id, $scope.doctor)
                 .success(function (response) {

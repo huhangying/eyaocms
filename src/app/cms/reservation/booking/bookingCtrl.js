@@ -141,7 +141,7 @@
         $scope.$on('$viewContentLoaded', function(){
             //Here your view content is fully loaded !!
             if ($state.params.schedule) {
-                toastr.info($state.params.schedule);
+                // toastr.info($state.params.schedule);
 
                 $scope.search.schedule = $state.params.schedule;
             }
