@@ -18,7 +18,8 @@
         'BlurAdmin.cms.system',
         'BlurAdmin.cms.survey',
         'BlurAdmin.cms.education',
-        'BlurAdmin.cms.wechat'
+        'BlurAdmin.cms.wechat',
+        'BlurAdmin.cms.report'
 
         ])
         .config(routeConfig)

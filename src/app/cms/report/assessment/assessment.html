@@ -1,0 +1,70 @@
+<div ba-panel  ba-panel-class="with-scroll">
+    <div cg-busy="myPromise"></div>
+
+    <div class="row add-row-editable-table">
+        <div class="col-sm-2 text-right"><span>选择药师:</span></div>
+        <div class="col-sm-3">
+            <span>
+                <select
+                        class="form-control" ng-model="search.doctor"
+                        ng-options="d._id as d.name for d in doctors">
+
+                </select>
+            </span>
+        </div>
+        <div class="col-sm-5">
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-primary pull-right" ng-click="getReport()">
+                <i class="ion-android-search"></i> 搜索</button>
+        </div>
+
+    </div>
+    <table st-table="displayedItems" st-safe-src="assessments" class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
+        <thead class="bg-info">
+        <tr>
+            <th style="width:20%">药师</th>
+            <th style="width:30%">用户</th>
+            <th style="width:20%">评分</th>
+            <th style="width:30%">时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in displayedItems | filter: search" class="editable-row">
+            <td ng-show="false">
+                <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
+                    {{item._id}}
+                </span>
+            </td>
+            <td class="select-td">
+                <span editable-select="item.doctor" e-name="doctor" e-form="rowform" e-required
+                      e-ng-options="d._id as d.name for d in doctors">
+                  {{ showDoctor(item) }}
+                </span>
+            </td>
+            <td class="select-td">
+                <span editable-text="item.user.name" e-name="user.name" e-form="rowform" e-required>
+                  {{ item.user.name || '空' }}
+                </span>
+            </td>
+            <td class="select-td">
+                <span editable-number="item.assessment.score" e-name="score" e-form="rowform" e-required>
+                  {{ item.assessment.score || '' }}
+                </span>
+            </td>
+            <td class="select-td">
+                <span editable-date="item.createdAt" e-name="createdAt" e-form="rowform" e-required>
+                  {{ item.createdAt | date:'yyyy-MM-dd' }}
+                </span>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot class="pbs">
+        <tr>
+            <td colspan="5" class="text-center">
+                <div st-pagination="" st-items-by-page="20" st-displayed-pages="8"></div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
