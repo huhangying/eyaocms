@@ -11,7 +11,8 @@ app.provider('util', function() {
         return {
             baseApiUrl: baseApiUrl,
             baseImageServer: 'http://139.224.68.92:81/',
-            peerPageUrl: 'http://zys.rostensoft.com/zhaoys/',
+            peerPageUrl: 'http://yyl.rostensoft.com/zhaoys/',
+            // peerPageUrl: 'http://zys.rostensoft.com/zhaoys/',
 
             surveyTypes: [
                 { id: 1, name: "初诊问卷" },

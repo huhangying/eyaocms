@@ -11,6 +11,8 @@
     /** @ngInject */
     function ProfilePageCtrl($scope, fileReader, $http, $state, $window, $filter, $uibModal, toastr, util) {
 
+        $scope.peerPageUrl = util.peerPageUrl;
+
         $scope.login = JSON.parse($window.sessionStorage.user);
         //toastr.info(JSON.stringify($scope.login));
 

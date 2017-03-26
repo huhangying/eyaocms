@@ -13,15 +13,16 @@
           <div class="col-sm-9">
             <div flow-init="{singleFile:true}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="userpic ng-scope">
               <div  class="userpic-wrapper">
-                <!--<img ng-src="{{ doctor.icon }}">-->
-                <img flow-img="$flow.files[0]">
+                <img ng-src="{{ peerPageUrl  + 'doctor/getCompressImage?attachment=' + doctor.icon + '&width=140&height=140' }}">
+                <!--<img flow-img="$flow.files[0]">-->
               </div>
               <i class="ion-ios-close-outline" ng-click="$flow.cancel()" ng-if="!noPicture"></i>
               <span class="change-userpic" ng-show="!$flow.files.length" flow-btn="">选择头像<input type="file" style="visibility: hidden; position: absolute;"></span>
               <span class="change-userpic ng-hide" ng-show="$flow.files.length" flow-btn="">更改头像<input type="file" style="visibility: hidden; position: absolute;"></span>
             </div>
             <p>
-              支持 PNG,GIF,JPG,JEPG 类型的图片.
+              后台不支持更新头像，请在药师端更新。
+              <!--支持 PNG,GIF,JPG,JEPG 类型的图片.-->
             </p>
           </div>
         </div>
@@ -50,11 +51,11 @@
           <div class="col-sm-9">
             <!--<input type="text" class="form-control" id="inputGender" placeholder="" ng-model="doctor.gender">-->
             <label class="radio-inline custom-radio nowrap">
-              <input type="radio" ng-model="doctor.gender" value="M">
+              <input type="radio" ng-model="doctor.gender" value="男">
               <span>男</span>
             </label>
             <label class="radio-inline custom-radio nowrap">
-              <input type="radio" ng-model="doctor.gender" value="F">
+              <input type="radio" ng-model="doctor.gender" value="女">
               <span>女</span>
             </label>
 
@@ -166,7 +167,7 @@
 
     <div class="row clearfix">
       <blockquote>
-        <textarea placeholder="擅长领域" class="form-control" ng-model="doctor.expertise"></textarea>
+        <textarea placeholder="擅长领域" class="form-control" ng-model="doctor.expertise" rows="5"></textarea>
       </blockquote>
     </div>
 
@@ -174,7 +175,7 @@
 
     <div class="row clearfix">
       <blockquote>
-        <textarea placeholder="工作范围" class="form-control" ng-model="doctor.bulletin"></textarea>
+        <textarea placeholder="工作范围" class="form-control" ng-model="doctor.bulletin" rows="5"></textarea>
       </blockquote>
     </div>
 
@@ -182,7 +183,7 @@
 
     <div class="row clearfix">
       <blockquote>
-        <textarea placeholder="获奖情况" class="form-control" ng-model="doctor.honor"></textarea>
+        <textarea placeholder="获奖情况" class="form-control" ng-model="doctor.honor" rows="5"></textarea>
       </blockquote>
     </div>
 
