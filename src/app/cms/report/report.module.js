@@ -20,7 +20,7 @@
                 title: '统计报表',
                 sidebarMeta: {
                     icon: 'ion-ios-pie',
-                    order: 900,
+                    order: 2000,
                 },
                 minRole: 1,
             });
