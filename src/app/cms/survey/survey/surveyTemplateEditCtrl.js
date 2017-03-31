@@ -108,6 +108,7 @@
             $scope.editQ.order = 0;
             $scope.editQ.weight = 0;
             $scope.editQ.required = false;
+            $scope.editQ.options = [];
         }
 
         $scope.editQuestion = function(question, index) {
@@ -128,48 +129,66 @@
         }
 
         $scope.changeEditAnswerType = function() {
+            var resetAnswers = false;
             switch($scope.editQ.answer_type) {
                 case '0':
                     $scope.editQ.optionNumber = 2;
+                    resetAnswers = true;
                     break;
+
                 case '1':
                 case '2':
-                    if (!$scope.editQ.optionNumber || $scope.editQ.optionNumber < 3)
+                    $scope.editQ.optionNumber = $scope.editQ.options.length || 3;
+                    if ($scope.editQ.optionNumber < 2)
                         $scope.editQ.optionNumber = 3;
                     break;
                 case '3':
-                    $scope.editQ.optionNumber = 1;
+                    $scope.editQ.optionNumber = $scope.editQ.options.length || 1; // default
                     break;
                 default:
                     $scope.editQ.optionNumber = 0;
                     break;
             }
-            $scope.changeEditOptionNumber();
+            $scope.changeEditOptionNumber(resetAnswers);
         }
 
-        $scope.changeEditOptionNumber = function() {
+        $scope.changeEditOptionNumber = function(resetAnswers) {
             var diff = $scope.editQ.optionNumber - $scope.editQ.options.length;
             if (diff > 0) {
                 if ($scope.editQ.answer_type == 0){ // 如果是是非题,预设答案
+                    $scope.editQ.options = [];
                     $scope.editQ.options.push({
                         answer: '是',
                         addition_text: false,
                         weight: 0
                     });
                     $scope.editQ.options.push({
-                        answer: '不是',
+                        answer: '否',
                         addition_text: false,
                         weight: 0
                     });
                 }
                 else {
-                    for (var i=0; i<diff; i++) {
-                        $scope.editQ.options.push({
-                            answer: '',
-                            addition_text: false,
-                            weight: 0
-                        });
+                    if (resetAnswers) {
+                        $scope.editQ.options = [];
+                        for (var i=0; i<$scope.editQ.optionNumber; i++) {
+                            $scope.editQ.options.push({
+                                answer: '',
+                                addition_text: false,
+                                weight: 0
+                            });
+                        }
                     }
+                    else {
+                        for (var i=0; i<diff; i++) {
+                            $scope.editQ.options.push({
+                                answer: '',
+                                addition_text: false,
+                                weight: 0
+                            });
+                        }
+                    }
+
                 }
 
             }

@@ -175,17 +175,22 @@
                         // remove
                         $scope.surveyTemplates.splice($scope.surveyTemplates.length - 1, 1);
 
-                        $scope.inserted = response;
-
-                        $scope.surveyTemplates.push($scope.inserted);
+                        // add again
+                        data._id = response._id;
+                        $scope.surveyTemplates.push(data);
                         toastr.success('成功创建');
 
-                        data._id = response._id;
+                        //删除 $scope.surveyTemplates 中暂时存放的item
+                        // $scope.surveyTemplates.filter(function(item) {
+                        //     return !!item.id;
+                        // });
+
+
                     });
             }
             else{ // update
                 data.apply = data.apply || false; // fix the xeditable issue
-                $http.patch(util.baseApiUrl + 'surveytemplate/' + id, data)
+                $http.patch(util.baseApiUrl + 'surveytemplate/' + data.id, data)
                     .success(function (response) {
                         //console.log(JSON.stringify(response))
                         if (!response) {
