@@ -150,7 +150,7 @@
             $http.delete(util.baseApiUrl + 'medicine/' + id)
                 .success(function (response) {
                     $scope.medicines = $filter('filter')($scope.medicines, {_id: '!'+id});
-
+                    $scope.medicines = angular.copy($scope.medicines);
                     toastr.success('成功删除');
                 });
         }
@@ -186,15 +186,10 @@
                             return toastr.error(util.getErrorMessage(response));
                         };
 
-                        $scope.inserted = response;
-
-                        $scope.medicines.push($scope.inserted);
-                        toastr.success('成功创建' + JSON.stringify($scope.inserted));
-
-                        // remove
-                        $scope.medicines.splice($scope.medicines.length - 2, 1);
-
                         data._id = response._id;
+                        $scope.medicines[$scope.medicines.length-1]._id = data._id;
+                        toastr.success('成功创建');
+
                     });
             }
             else{ // update
@@ -227,11 +222,19 @@
                 //         return item;
                 //     }
                 // }
-            });
+            }).result.then(
+                function(updatedItem) {
+                    $scope.medicines[index] = updatedItem
+
+                    $scope.medicines = angular.copy($scope.medicines);
+                    //copy the references (you could clone ie angular.copy but then have to go through a dirty checking for the matches)
+                    //$scope.displayedItems = [].concat($scope.medicines);
+                },
+                function(err) {
+
+                }
+            );
         };
-        
-        $scope.updateParent = function(updatedItem) {
-            $scope.medicines[$scope.editIndex] = updatedItem;
-        }
+
     }
 })();

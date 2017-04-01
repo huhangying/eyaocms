@@ -8,7 +8,7 @@
         .controller('medicineEditCtrl', medicineEditCtrl);
 
     /** @ngInject */
-    function medicineEditCtrl($scope, $rootScope, $filter, $http, util, toastr) {
+    function medicineEditCtrl($scope, $rootScope, $http, util, toastr) {
         $scope.item = angular.copy($scope.editItem);
         $scope.editN = {notices: []};
         $scope.editStatus = 0; // Status: 0:init; 1: create; 2: edit;
@@ -62,8 +62,7 @@
                     else{
                         toastr.success('成功更新');
                         $scope.editItem = response;
-                        $scope.updateParent($scope.editItem);
-                        $scope.closeMe();
+                        $scope.$close($scope.editItem);
                     }
                 });
         }
