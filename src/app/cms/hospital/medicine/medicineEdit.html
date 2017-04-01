@@ -34,9 +34,8 @@
             <div class="col-sm-3">
                 <div class="form-group">
                     <label for="inputCapacity" class="control-label"> </label>
-                    <select class="form-control" ng-model="item.unit" required>
-                        <option value="粒" selected>粒</option>
-                        <option value="毫升">毫升</option>
+                    <select class="form-control" ng-model="item.unit" id="inputCapacity" required
+                            ng-options="unit for unit in units">
                     </select>
                 </div>
             </div>
