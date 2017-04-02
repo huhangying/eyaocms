@@ -186,9 +186,11 @@
                             return toastr.error(util.getErrorMessage(response));
                         };
 
-                        data._id = response._id;
-                        $scope.medicines[$scope.medicines.length-1]._id = data._id;
+                        data = response;
+                        $scope.medicines[index] = data;
                         toastr.success('成功创建');
+
+                        $scope.medicines = angular.copy($scope.medicines);
 
                     });
             }
@@ -224,7 +226,7 @@
                 // }
             }).result.then(
                 function(updatedItem) {
-                    $scope.medicines[index] = updatedItem
+                    $scope.medicines[index] = updatedItem;
 
                     $scope.medicines = angular.copy($scope.medicines);
                     //copy the references (you could clone ie angular.copy but then have to go through a dirty checking for the matches)

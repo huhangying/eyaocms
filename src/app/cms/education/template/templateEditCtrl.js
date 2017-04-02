@@ -26,9 +26,7 @@
                     }
                     else{
                         toastr.success('成功更新');
-                        $scope.template = response;
-                        $scope.updateParent($scope.template);
-                        $scope.closeMe();
+                        $scope.$close(response);
                     }
                 });
         }

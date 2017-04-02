@@ -119,15 +119,14 @@
                             return toastr.error(util.getErrorMessage(response));
                         };
 
-                        $scope.inserted = response;
-
-                        $scope.cats.unshift($scope.inserted);
+                        data = response;
+                        $scope.cats.unshift(data);
                         toastr.success('成功创建');
 
                         // remove
                         $scope.cats.splice(1, 1);
 
-                        data._id = response._id;
+
                     });
             }
             else{ // update
