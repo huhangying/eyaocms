@@ -91,6 +91,7 @@
                     $scope.groups = $filter('filter')($scope.groups, {_id: '!'+id});
 
                     toastr.success('成功删除');
+                    $scope.groups = angular.copy($scope.groups);
                 })
 
                 .error(function(err){
@@ -130,13 +131,17 @@
                             return toastr.error(util.getErrorMessage(response));
                         };
 
-                        $scope.inserted = response;
-
-                        $scope.groups.push($scope.inserted);
+                        data._id = response._id;
+                        var _index = -1;
+                        // find the to-be-created item
+                        for (var i=0; i<$scope.groups.length; i++) {
+                            if ($scope.groups[i].doctor === data.doctor && !$scope.groups[i]._id) {
+                                _index = i;
+                                break;
+                            }
+                        }
+                        $scope.groups[_index]._id = data._id;
                         toastr.success('成功创建');
-
-                        // remove
-                        $scope.groups.splice($scope.groups.length - 1, 1);
 
                     });
             }

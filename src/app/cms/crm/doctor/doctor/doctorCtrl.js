@@ -120,6 +120,7 @@
                                 $scope.doctors = $filter('filter')($scope.doctors, {_id: '!'+id});
 
                                 toastr.success('成功删除');
+                                $scope.doctors = angular.copy($scope.doctors);
                             })
 
                     }
@@ -166,16 +167,17 @@
                             return toastr.error(util.getErrorMessage(response));
                         };
 
-                        $scope.inserted = response;
-
-                        $scope.doctors.push($scope.inserted);
-                        toastr.success('成功创建');
-
-                        // remove
-                        $scope.doctors.splice($scope.doctors.length - 1, 1);
                         data._id = response._id;
-                        //$scope.$apply();
-
+                        var _index = -1;
+                        // find the to-be-created item
+                        for (var i=0; i<$scope.doctors.length; i++) {
+                            if ($scope.doctors[i].department === data.department && !$scope.doctors[i]._id) {
+                                _index = i;
+                                break;
+                            }
+                        }
+                        $scope.doctors[_index]._id = data._id;
+                        toastr.success('成功创建');
                     });
             }
             else{ // update
