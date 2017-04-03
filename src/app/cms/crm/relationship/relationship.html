@@ -3,7 +3,7 @@
 
     <div class="row add-row-editable-table">
         <div class="col-sm-2 text-right"><span>选择药师:</span></div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <span>
                 <select
                         class="form-control" ng-model="search.doctor"
@@ -13,7 +13,7 @@
             </span>
         </div>
         <div class="col-sm-2 text-right"><span>药师用户组:</span></div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <span>
                 <select
                         class="form-control" ng-model="search.group"
@@ -22,24 +22,24 @@
                 </select>
             </span>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 col-sm-offset-2">
             <button class="btn btn-primary pull-right" ng-click="addRelationship()">
                 <i class="ion-android-add-circle"></i> 创建</button>
         </div>
 
     </div>
-    <table st-table="displayedItems" st-safe-src="relationships" class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
+    <table class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
         <thead class="bg-info">
         <tr>
             <th style="width:15%">药师</th>
             <th style="width:15%">药师组</th>
             <th style="width:15%">用户</th>
-            <th st-sort="apply" style="width:5%">有效</th>
+            <th style="width:5%">有效</th>
             <th style="width:20%">操作</th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in displayedItems | filter: search" class="editable-row">
+        <tr ng-repeat="item in relationships | filter: search" class="editable-row">
             <td ng-show="false">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
@@ -59,7 +59,7 @@
             </td>
             <td class="select-td">
                 <span editable-select="item.user" e-name="user" e-form="rowform" e-required
-                      e-ng-options="u._id as u.name for u in users">
+                      e-ng-options="u._id as u.name for u in getUsersByDoctor(item.doctor)">
                   {{ showUser(item)}}
                 </span>
             </td>
@@ -88,12 +88,5 @@
             </td>
         </tr>
         </tbody>
-        <tfoot class="pbs">
-        <tr>
-            <td colspan="5" class="text-center">
-                <div st-pagination="" st-items-by-page="20" st-displayed-pages="8"></div>
-            </td>
-        </tr>
-        </tfoot>
     </table>
 </div>

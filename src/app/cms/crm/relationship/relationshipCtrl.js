@@ -89,6 +89,21 @@
         }
         $scope.loadUsers();
 
+        $scope.getUsersByDoctor = function(doctorId) {
+            var usrList = [];
+            $scope.relationships.map(function(relationship) {
+                if (relationship.doctor === doctorId) {
+                    usrList.push(relationship.user);
+                }
+            });
+
+            usrList = _.uniq(usrList);
+
+            return $scope.users.filter(function(user) {
+                return _.indexOf(usrList, user._id) >= 0;
+            });
+        };
+
         $scope.showUser = function(item) {
             if(item.user && $scope.users.length) {
                 var selected = $filter('filter')($scope.users, {_id: item.user});
@@ -143,8 +158,6 @@
                 apply: true
             };
 
-            //toastr.info(JSON.stringify($scope.inserted));
-
             $scope.relationships.push($scope.inserted);
         }
 
@@ -155,6 +168,8 @@
                     $scope.relationships = $filter('filter')($scope.relationships, {_id: '!'+id});
 
                     toastr.success('成功删除');
+
+                    $scope.relationships = angular.copy($scope.relationships);
                 })
 
                 .error(function(err){
@@ -193,14 +208,17 @@
                             return toastr.error(util.getErrorMessage(response));
                         };
 
-                        $scope.inserted = response;
-
-                        $scope.relationships.push($scope.inserted);
+                        data._id = response._id;
+                        var _index = -1;
+                        // find the to-be-created item
+                        for (var i=0; i<$scope.relationships.length; i++) {
+                            if ($scope.relationships[i].doctor === data.doctor && $scope.relationships[i].group === data.group && !$scope.relationships[i]._id) {
+                                _index = i;
+                                break;
+                            }
+                        }
+                        $scope.relationships[_index]._id = data._id;
                         toastr.success('成功创建');
-
-                        // remove
-                        $scope.relationships.splice($scope.relationships.length - 1, 1);
-
                     });
             }
             else{ // update
