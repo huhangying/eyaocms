@@ -1,20 +1,22 @@
 <div ba-panel  ba-panel-class="with-scroll">
     <div cg-busy="myPromise"></div>
 
-    <table st-table="displayedItems" st-safe-src="users" class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
+    <table st-table="displayedItems" st-safe-src="filteredUsers" class="table table-bordered table-hover table-condensed" ba-panel-title="Modals">
         <thead>
             <tr>
                 <th class="no-border" colspan="2">
                     <label class="left">搜索by 姓名:</label>
                     <span>
-                        <input ng-model="search.name" placeholder="搜索姓名" class="input-sm form-control search-input pull-right" type="search"/>
+                        <input ng-model="search.name" placeholder="搜索姓名" class="input-sm form-control search-input pull-right" type="search"
+                            ng-change="getFilteredUsers(search)"/>
                     </span>
                 </th>
                 <th class="no-border" colspan="4">
                     <label class="pull-left">手机:</label>
-                    <input ng-model="search.cell" placeholder="搜索手机号" class="input-sm form-control search-input pull-right" type="search"/>
+                    <input ng-model="search.cell" placeholder="搜索手机号" class="input-sm form-control search-input pull-right" type="search"
+                           ng-change="getFilteredUsers(search)"/>
                 </th>
-                <th class="no-border" colspan="1">
+                <th class="no-border" colspan="1" ng-if="false">
                     <button class="btn btn-primary pull-right" ng-click="addUser()">
                         <i class="ion-android-add-circle"></i> 创建</button>
                 </th>
@@ -29,7 +31,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in displayedItems | filter: search" class="editable-row">
+            <tr ng-repeat="item in displayedItems" class="editable-row">
                 <td style="display:none;">
                     <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                         {{item._id}}

@@ -40,8 +40,6 @@
         };
 
 
-
-
         $scope.users = [];
         $scope.getUsers = function() {
             $scope.myPromise = $http.get(util.baseApiUrl + 'users/1000', {})
@@ -53,7 +51,8 @@
                     else {
                         $scope.users = response;
                     }
-
+                    // get filtered users
+                    $scope.getFilteredUsers();
                 })
                 .error(function(error){
                     toastr.error(error.messageFormatted);
@@ -62,6 +61,20 @@
 
         $scope.getUsers();
 
+        $scope.filteredUsers = [];
+        $scope.getFilteredUsers = function(search) {
+            $scope.filteredUsers =
+                $scope.users.filter(function(user) {
+                    if (!search || (!search.cell && !search.name)) {
+                        return true;
+                    }
+                    if ((search.cell && user.cell && user.cell.includes(search.cell) ) ||
+                        (search.name && user.name && user.name.includes(search.name) ) ) {
+                        return true;
+                    }
+                });
+            //console.log($scope.filteredUsers);
+        };
 
         $scope.addUser = function() {
             $scope.inserted = {
