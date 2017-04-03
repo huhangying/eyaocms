@@ -42,6 +42,7 @@
                     }
                     else {
                         $scope.doctors = response;
+                        populateDepartmentDoctorSchedule();// tricky
                     }
 
                 })
@@ -134,18 +135,45 @@
                 .error(function(error){
                     toastr.error(error.messageFormatted);
                 });
-        }
-
+        };
         $scope.getBookings();
 
-        $scope.$on('$viewContentLoaded', function(){
+        var populateDepartmentDoctorSchedule = function() {
             //Here your view content is fully loaded !!
             if ($state.params.schedule) {
                 // toastr.info($state.params.schedule);
 
-                $scope.search.schedule = $state.params.schedule;
+                $scope.search = {
+                    schedule: $state.params.schedule
+                };
+
+                $scope.myPromise = $http.get(util.baseApiUrl + 'schedule/' + $state.params.schedule).then(
+                    function(response) {
+                        // check if return null
+                        if (response.return && response.return == 'null'){
+                        }
+                        else {
+                            $scope.search.doctor = response.data.doctor;
+
+                            // get department id by doctor
+                            $scope.doctors.some(function(doctor) {
+                                if (doctor._id == $scope.search.doctor) {
+                                    $scope.pre = {
+                                        department: doctor.department
+                                    };
+                                    return true;
+                                }
+                            });
+
+                        }
+                    },
+                    function(err) {
+                        toastr.error(err.messageFormatted);
+                    }
+                );
+
             }
-        });
+        }
 
         //===========================================================
 
