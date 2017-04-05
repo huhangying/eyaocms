@@ -164,14 +164,7 @@
 
 
                         data._id = response._id;
-                        var _index = -1;
-                        // find the to-be-created item
-                        for (var i=0; i<$scope.templates.length; i++) {
-                            if ($scope.templates[i].department === data.department && $scope.templates[i].cat === data.cat && !$scope.templates[i]._id) {
-                                _index = i;
-                                break;
-                            }
-                        }
+                        var _index = getIndexByData(data);
                         $scope.templates[_index]._id = data._id;
 
                         // $scope.templates[index] = angular.copy(response);
@@ -193,6 +186,18 @@
                     });
             }
 
+        }
+
+        var getIndexByData = function(data) {
+            var _index = -1;
+            // find the to-be-created item
+            for (var i=0; i<$scope.templates.length; i++) {
+                if ($scope.templates[i].department === data.department && $scope.templates[i].cat === data.cat && !$scope.templates[i]._id) {
+                    _index = i;
+                    break;
+                }
+            }
+            return _index;
         }
 
         $scope.cancelTemplate = function() {
@@ -222,6 +227,7 @@
                 // }
             }).result.then(
                 function(updatedItem) {
+                    var index = getIndexByData(updatedItem);
                     $scope.templates[index] = updatedItem;
 
                     $scope.templates = angular.copy($scope.templates);
