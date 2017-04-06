@@ -152,6 +152,7 @@
                     $scope.medicines = $filter('filter')($scope.medicines, {_id: '!'+id});
                     $scope.medicines = angular.copy($scope.medicines);
                     toastr.success('成功删除');
+                    $scope.medicines = angular.copy($scope.medicines);
                 });
         }
 
@@ -187,7 +188,8 @@
                         };
 
                         data = response;
-                        $scope.medicines[index] = data;
+                        var _index = getIndexByData(data);
+                        $scope.medicines[_index] = data;
                         toastr.success('成功创建');
 
                         $scope.medicines = angular.copy($scope.medicines);
@@ -208,7 +210,23 @@
                     });
             }
 
-        }
+        };
+
+        var getIndexByData = function(data, isUpdate) {
+            var _index = -1;
+            // find the to-be-created item
+            for (var i=0; i<$scope.medicines.length; i++) {
+                if (!isUpdate && !$scope.medicines[i]._id) { // create
+                    _index = i;
+                    break;
+                }
+                else if (isUpdate && $scope.medicines[i]._id === data._id) { // update
+                    _index = i;
+                    break;
+                }
+            }
+            return _index;
+        };
 
         $scope.open = function (page, size, item, index) {
             $scope.editItem = item; // pass item into the edit page
@@ -226,6 +244,7 @@
                 // }
             }).result.then(
                 function(updatedItem) {
+                    var index = getIndexByData(updatedItem, true);
                     $scope.medicines[index] = updatedItem;
 
                     $scope.medicines = angular.copy($scope.medicines);

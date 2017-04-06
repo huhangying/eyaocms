@@ -182,23 +182,29 @@
                         }
                         else{
                             toastr.success('成功更新');
+
+                            $scope.templates = angular.copy($scope.templates);
                         }
                     });
             }
 
-        }
+        };
 
-        var getIndexByData = function(data) {
+        var getIndexByData = function(data, isUpdate) {
             var _index = -1;
             // find the to-be-created item
             for (var i=0; i<$scope.templates.length; i++) {
-                if ($scope.templates[i].department === data.department && $scope.templates[i].cat === data.cat && !$scope.templates[i]._id) {
+                if (!isUpdate && $scope.templates[i].department === data.department && $scope.templates[i].cat === data.cat && !$scope.templates[i]._id) {
+                    _index = i;
+                    break;
+                }
+                else if (isUpdate && $scope.templates[i].department === data.department && $scope.templates[i].cat === data.cat && $scope.templates[i]._id === data._id) {
                     _index = i;
                     break;
                 }
             }
             return _index;
-        }
+        };
 
         $scope.cancelTemplate = function() {
             // remove items without _id
@@ -227,7 +233,7 @@
                 // }
             }).result.then(
                 function(updatedItem) {
-                    var index = getIndexByData(updatedItem);
+                    var index = getIndexByData(updatedItem, true);
                     $scope.templates[index] = updatedItem;
 
                     $scope.templates = angular.copy($scope.templates);

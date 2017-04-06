@@ -12,7 +12,7 @@
         var baseImagePath;
         $scope.obj = {};
 
-        $scope.saveTemplate = function() {
+        $scope.saveTemplateEdit = function() {
 
             // update
             $scope.myPromise = $http.patch(util.baseApiUrl + 'template/' + $scope.template._id, $scope.template)

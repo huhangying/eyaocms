@@ -63,8 +63,7 @@
                         else{
                             toastr.success('成功更新');
                             $scope.editItem = response;
-                            $scope.updateParent($scope.editItem);
-                            $scope.closeMe();
+                            $scope.$close(response);
                         }
                     });
             }
@@ -82,8 +81,7 @@
                         else{
                             toastr.success('成功更新');
                             $scope.editItem = response;
-                            $scope.updateParent($scope.editItem);
-                            $scope.closeMe();
+                            $scope.$close(response);
                         }
                     });
             }

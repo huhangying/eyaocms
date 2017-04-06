@@ -172,12 +172,9 @@
                             return toastr.error(util.getErrorMessage(response));
                         };
 
-                        // remove
-                        $scope.surveyTemplates.splice($scope.surveyTemplates.length - 1, 1);
-
-                        // add again
                         data._id = response._id;
-                        $scope.surveyTemplates.push(data);
+                        var _index = getIndexByData(data);
+                        $scope.surveyTemplates[_index]._id = data._id;
                         toastr.success('成功创建');
 
                         //删除 $scope.surveyTemplates 中暂时存放的item
@@ -204,6 +201,22 @@
 
         };
 
+        var getIndexByData = function(data, isUpdate) {
+            var _index = -1;
+            // find the to-be-created item
+            for (var i=0; i<$scope.surveyTemplates.length; i++) {
+                if (!isUpdate && $scope.surveyTemplates[i].department === data.department && $scope.surveyTemplates[i].type === data.type && !$scope.surveyTemplates[i]._id) {
+                    _index = i;
+                    break;
+                }
+                else if (isUpdate && $scope.surveyTemplates[i].department === data.department && $scope.surveyTemplates[i].type === data.type && $scope.surveyTemplates[i]._id === data._id) {
+                    _index = i;
+                    break;
+                }
+            }
+            return _index;
+        };
+
         //todo: not working!!!
         $scope.cancelSurveyTemplate = function() {
             if ($scope.surveyTemplates && $scope.surveyTemplates.length > 0) {
@@ -227,12 +240,18 @@
                 //         return item;
                 //     }
                 // }
-            });
+            }).result.then(
+                function(updatedItem) {
+                    var index = getIndexByData(updatedItem, true);
+                    $scope.surveyTemplates[index] = updatedItem;
+
+                    $scope.surveyTemplates = angular.copy($scope.surveyTemplates);
+                },
+                function(err) {
+
+                }
+            );
         };
-        
-        $scope.updateParent = function (updatedItem) {
-            $scope.surveyTemplates[$scope.editIndex] = updatedItem;
-        }
 
         //================================
 
