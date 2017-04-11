@@ -1,0 +1,100 @@
+<div ba-panel ba-panel-class="with-scroll">
+    <div class="text-muted ptms">
+        <button class="btn btn-default pull-right m-r-md" ng-click="addFaq()">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            新增常见问题
+        </button>
+    </div>
+    <hr>
+
+    <div cg-busy="myPromise"></div>
+    <div class="modal-body" id="modal-body">
+        <form novalidate name="editForm" ng-if="editResult">
+            <div class="row clearfix">
+                <div class="col-sm-1">
+                    <div class="form-group">
+                        <label for="inputOrder" class="control-label">顺序</label>
+                        <input type="number" class="form-control" id="inputOrder" placeholder="" ng-model="editResult.order" required />
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <label for="inputQuestion" class="control-label">问题</label>
+                        <input type="text" class="form-control" id="inputQuestion" placeholder="" ng-model="editResult.question" />
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="form-group">
+                        <label for="inputApply" class="control-label">有效？</label>
+                        <input type="checkbox" class="form-control" id="inputApply" placeholder="" ng-model="editResult.apply" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="inputAnswer" class="control-label">答案</label>
+                        <input type="text" class="form-control" id="inputAnswer" placeholder="" ng-model="editResult.answer" />
+                    </div>
+                </div>
+            </div>
+            <div class="row pull-right">
+                <div class="col-sm-12">
+                    <a type="button" class="btn btn-primary" ng-click="updateContent()"><i class="ion-android-checkmark-circle"></i>更新</a>
+                    <a type="button" class="btn btn-warning" ng-click="resetEditItem()">取消</a>
+                </div>
+            </div>
+        </form>
+
+
+        <div>
+            <h4 class="modal-title pull-left">常见问题列表</h4>
+
+            <table class="table table-bordered table-hover table-condensed">
+                <thead class="bg-info">
+                <tr>
+                    <td style="width:10%">顺序</td>
+                    <td style="width:30%">问题</td>
+                    <td style="width:40%">答案</td>
+                    <td style="width:10%">有效？</td>
+                    <td style="width:10%"></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="result in faqs track by $index" class="editable-row">
+                    <td>
+                        {{ result.order || 0 }}
+                        <span ng-show="false">{{result._id}}</span>
+                    </td>
+                    </td>
+                    <td>
+                        {{ result.question || '空' }}
+                    </td>
+                    <td>
+                        {{ result.answer }}
+                    </td>
+                    <td>
+                        {{ result.apply }}
+                    </td>
+                    <td style="white-space: nowrap" class="pull-right">
+                        <span class="btn btn-default btn-sm" ng-click="editFaq(result)">
+                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </span>
+                        <span class="btn btn-danger btn-sm" ng-click="removeFaq($index, result._id)">
+                          <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div ng-if="!faqs || faqs.length<1"> 
+                无常用问题。
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer clearfix">
+    </div>
+
+</div>
