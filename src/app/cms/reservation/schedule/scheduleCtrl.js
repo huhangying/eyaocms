@@ -243,7 +243,18 @@
                 //         return doctor;
                 //     }
                 // }
-            });
+            }).result.then(
+                function(schedule) {
+                    $scope.getSchedules();
+
+                    $scope.schedules = angular.copy($scope.schedules);
+                    //copy the references (you could clone ie angular.copy but then have to go through a dirty checking for the matches)
+                    //$scope.displayedItems = [].concat($scope.medicines);
+                },
+                function(err) {
+
+                }
+            );
         };
     }
 })();

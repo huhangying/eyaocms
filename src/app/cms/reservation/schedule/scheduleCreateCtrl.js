@@ -170,7 +170,7 @@
             });
 
 
-
+            $scope.$close($scope.schedule);
 
 
             //validate
