@@ -16,7 +16,7 @@
                 url: '/schedule',
                 templateUrl: 'app/cms/reservation/schedule/schedule.html',
                 controller: 'scheduleCtrl',
-                title: '门诊',
+                title: '门诊开通',
                 sidebarMeta: {
                     icon: 'ion-ios-person',
                     order: 10,

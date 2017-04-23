@@ -22,7 +22,8 @@
         </div>
         <div class="col-sm-2">
             <button class="btn btn-primary pull-right"
-                    ng-click="open('app/cms/reservation/schedule/scheduleCreate.html', 'lg', search.doctor)">
+                    ng-click="open('app/cms/reservation/schedule/scheduleCreate.html', 'lg', search.doctor)"
+                    ng-disabled="!search.doctor">
                 <i class="ion-android-add-circle"></i> 创建</button>
         </div>
 

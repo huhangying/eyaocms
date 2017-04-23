@@ -9,7 +9,7 @@
         .controller('scheduleCreateCtrl', scheduleCreateCtrl);
 
     /** @ngInject */
-    function scheduleCreateCtrl($scope, $filter, $http, util, toastr) {
+    function scheduleCreateCtrl($scope, $filter, $http, util, toastr, $q) {
         $scope.schedule = {};
 
         // 没有这个多选 not working
@@ -96,7 +96,8 @@
             var dates = [];
 
             for(var i=0; i < $scope.schedule.dayRange; i++){
-                dates.push(new Date(new Date($scope.schedule.startDate.date).getTime() + i*24*60*60*1000));
+                var startDate = new Date($scope.schedule.startDate.date).setHours(12,0,0,0);
+                dates.push(new Date(startDate + i*24*60*60*1000));
             }
 
             return dates.filter(function(date){
@@ -123,6 +124,7 @@
         }
 
         $scope.createSchedule = function(date, period){
+            var deferred = $q.defer();
             var data = {
                 doctor: $scope.doctor._id,
                 period: period._id,
@@ -130,25 +132,32 @@
                 limit: $scope.schedule.limit
 
             };
-            $http.post(util.baseApiUrl + 'schedule', data)
-                .success(function (response) {
-                    toastr.success('创建门诊成功');
-                    // check if return null
-                    // if (response.return && response.return == 'null'){
-                    //     $scope.doctor = null;
-                    // }
-                    // else {
-                    //     $scope.doctor = response;
-                    //
-                    // }
 
-                })
-                .error(function(err){
-                    toastr.error(JSON.stringify(err));
-                });
+            $http.post(util.baseApiUrl + 'schedule', data).then(
+
+                function (response) {
+
+                    // check if return null
+                    if (response.data.return && response.data.return == 'null'){
+                        toastr.info('门诊经存在');
+                        deferred.resolve();
+                    }
+                    else {
+                        toastr.success('创建门诊成功');
+                        deferred.resolve(response.data);
+                    }
+
+                },
+                function(err){
+                    deferred.reject();
+                }
+            );
+
+            return deferred.promise;
         }
 
         $scope.saveMe = function(item) {
+            var promises = [];
 
             // validation first
             if (!$scope.schedule.periods || $scope.schedule.periods.length < 1){
@@ -164,13 +173,26 @@
             var dates = $scope.getAvailableDates();
             //toastr.info(JSON.stringify(dates));
             dates.map(function(date){
+
                 $scope.schedule.periods.map(function(period){
-                    $scope.createSchedule(date, period);
+                    // search by
+                    promises.push($scope.createSchedule(date, period));
                 })
             });
 
 
-            $scope.$close($scope.schedule);
+            $q.all(promises).then(
+                function(results) {
+                    results = results.filter(function(result) {
+                        return result;
+                    });
+                    //console.log(results);
+                    $scope.$close(results);
+                },
+                function(err) {
+                    $scope.dismiss();
+                }
+            );
 
 
             //validate

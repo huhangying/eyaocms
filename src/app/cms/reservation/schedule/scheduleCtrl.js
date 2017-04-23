@@ -26,7 +26,7 @@
 
                 })
                 .error(function(error){
-                    toastr.error(error.messageFormatted);
+                    toastr.error('获取专科数据失败');
                 });
         }
         $scope.loadDepartments();
@@ -45,7 +45,7 @@
 
                 })
                 .error(function(error){
-                    toastr.error(error.messageFormatted);
+                    toastr.error('获取药师数据失败');
                 });
         }
         $scope.loadDoctors();
@@ -73,7 +73,7 @@
 
                 })
                 .error(function(error){
-                    toastr.error(error.messageFormatted);
+                    toastr.error('获取时间片数据失败');
                 });
         }
         $scope.loadPeriods();
@@ -102,7 +102,7 @@
 
                 })
                 .error(function(error){
-                    toastr.error(error.messageFormatted);
+                    toastr.error('获取门诊数据失败');
                 });
         }
 
@@ -157,7 +157,7 @@
                     }
                 })
                 .error(function(err){
-                    toastr.error(err.messageFormatted)
+                    toastr.error('删除门诊失败')
                 });
 
         }
@@ -207,6 +207,7 @@
             }
             else{ // update
                 //angular.extend(data, {_id: id});
+                data.apply = data.apply || false;
                 $http.patch(util.baseApiUrl + 'schedule/' + data._id, data)
                     .success(function (response) {
                         //console.log(JSON.stringify(response))
@@ -244,7 +245,7 @@
                 //     }
                 // }
             }).result.then(
-                function(schedule) {
+                function(schedules) {
                     $scope.getSchedules();
 
                     $scope.schedules = angular.copy($scope.schedules);
