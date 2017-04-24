@@ -89,8 +89,8 @@
 
         // data
         $scope.schedules = [];
-        $scope.getSchedules = function() {
-            $scope.myPromise = $http.get(util.baseApiUrl + 'schedules', {})
+        $scope.getSchedules = function(doctorId) {
+            $scope.myPromise = $http.get(util.baseApiUrl + 'schedules/' + doctorId, {})
                 .success(function (response) {
                     // check if return null
                     if (response.return && response.return == 'null'){
@@ -102,11 +102,9 @@
 
                 })
                 .error(function(error){
-                    toastr.error('获取门诊数据失败');
+                    toastr.error('获取药师门诊数据失败');
                 });
-        }
-
-        $scope.getSchedules();
+        };
 
         $scope.opened = {};
 

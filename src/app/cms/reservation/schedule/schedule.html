@@ -3,7 +3,7 @@
 
     <div class="row add-row-editable-table">
         <div class="col-sm-2 text-right"><span>选择医院科室:</span></div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <span>
                 <select class="form-control" ng-model="pre.department"
                         ng-options="department._id as department.name for department in departments">
@@ -12,7 +12,7 @@
             </span>
         </div>
         <div class="col-sm-2 text-right"><span>选择药师:</span></div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <span>
                 <select class="form-control" ng-model="search.doctor"
                         ng-options="d._id as d.name for d in doctors | filter: pre.department">
@@ -21,10 +21,14 @@
             </span>
         </div>
         <div class="col-sm-2">
+            <button class="btn btn-primary pull-right" ng-click="getSchedules(search.doctor)" ng-disabled="!search.doctor">
+                <i class="ion-android-search"></i> 搜索</button>
+        </div>
+        <div class="col-sm-2">
             <button class="btn btn-primary pull-right"
                     ng-click="open('app/cms/reservation/schedule/scheduleCreate.html', 'lg', search.doctor)"
                     ng-disabled="!search.doctor">
-                <i class="ion-android-add-circle"></i> 创建</button>
+                <i class="ion-android-add-circle"></i> 批量创建</button>
         </div>
 
     </div>
@@ -40,7 +44,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in displayedItems | filter: search" class="editable-row">
+        <tr ng-repeat="item in displayedItems" class="editable-row">
             <td style="display:none;">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
