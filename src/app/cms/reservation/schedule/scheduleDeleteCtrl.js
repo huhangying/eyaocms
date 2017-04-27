@@ -21,6 +21,7 @@
         $scope.schedule.startDate = {
             date: new Date(),
             datepickerOptions: {
+                minDate: new Date(),
                 maxDate: null
             },
             open: false
