@@ -1,0 +1,65 @@
+<div class="modal-content" ng-controller="scheduleDeleteCtrl">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+            <em class="ion-ios-close-empty sn-link-close"></em>
+        </button>
+        <h4 class="modal-title">批量删除药师门诊</h4>
+    </div>
+    <div class="modal-body">
+        <h3 class="with-line-no-padding">药师: {{doctor.name}}</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row clearfix">
+                    <label class="col-sm-3 control-label">门诊时间片</label>
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <select id="selectPeriods" class="form-control" title="支持多选" multiple selectpicker
+                                    ng-model="schedule.periods"
+                                    ng-options="p.name for p in periods track by p._id">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+            </div>
+        </div>
+
+        <h3 class="with-line-no-padding">删除日期范围: </h3>
+        <div class="row" style="padding: 5px 40px 0 20px;">
+            <div class="col-md-2">
+                <label class="control-label">开始日期</label>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group row clearfix">
+                    <div class="input-group date">
+                        <input type="text" class="form-control" datetime-picker="yyyy-MM-dd" ng-model="schedule.startDate.date"  is-open="schedule.startDate.open"
+                               enable-time="false" datepicker-options="schedule.startDate.datepickerOptions"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openCalendar($event, 'startDate')"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label class="control-label">结束日期</label>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group row clearfix">
+                    <div class="input-group date">
+                        <input type="text" class="form-control" datetime-picker="yyyy-MM-dd" ng-model="schedule.endDate.date"  is-open="schedule.endDate.open"
+                               enable-time="false" datepicker-options="schedule.endDate.datepickerOptions"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openCalendar($event, 'endDate')"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="closeMe()">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="DeleteSchedules()">
+            <i class="ion-close-circled text-danger"></i>批量删除</button>
+    </div>
+</div>

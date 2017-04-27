@@ -20,15 +20,20 @@
                 </select>
             </span>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-1">
             <button class="btn btn-primary pull-right" ng-click="getSchedules(search.doctor)" ng-disabled="!search.doctor">
                 <i class="ion-android-search"></i> 搜索</button>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
+
             <button class="btn btn-primary pull-right"
-                    ng-click="open('app/cms/reservation/schedule/scheduleCreate.html', 'lg', search.doctor)"
+                    ng-click="open('app/cms/reservation/schedule/scheduleCreate.html', 'lg', search.doctor, true)"
                     ng-disabled="!search.doctor">
                 <i class="ion-android-add-circle"></i> 批量创建</button>
+            <button class="btn btn-primary pull-right" style="margin-right: .5em;"
+                    ng-click="open('app/cms/reservation/schedule/scheduleDelete.html', 'lg', search.doctor, false)"
+                    ng-disabled="!search.doctor">
+                <i class="ion-close-circled text-danger"></i> 批量删除</button>
         </div>
 
     </div>

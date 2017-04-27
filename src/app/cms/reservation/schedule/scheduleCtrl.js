@@ -225,7 +225,7 @@
             $state.go('reservation.booking', {schedule: id});
         }
 
-        $scope.open = function (page, size, doctor) {
+        $scope.open = function (page, size, doctor, isCreate) {
             if (!doctor) {
                 return toastr.warning('请先选择一个药师');
             }
@@ -234,7 +234,7 @@
             $uibModal.open({
                 animation: true,
                 templateUrl: page,
-                controller: 'scheduleCreateCtrl',
+                controller: isCreate ? 'scheduleCreateCtrl' : 'scheduleDeleteCtrl',
                 scope: $scope,
                 size: size,
                 // resolve: {
@@ -244,7 +244,7 @@
                 // }
             }).result.then(
                 function(schedules) {
-                    $scope.getSchedules();
+                    $scope.getSchedules($scope.search.doctor);
 
                     $scope.schedules = angular.copy($scope.schedules);
                     //copy the references (you could clone ie angular.copy but then have to go through a dirty checking for the matches)
