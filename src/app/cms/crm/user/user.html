@@ -11,7 +11,7 @@
                             ng-change="getFilteredUsers(search)"/>
                     </span>
                 </th>
-                <th class="no-border" colspan="4">
+                <th class="no-border" colspan="5">
                     <label class="pull-left">手机:</label>
                     <input ng-model="search.cell" placeholder="搜索手机号" class="input-sm form-control search-input pull-right" type="search"
                            ng-change="getFilteredUsers(search)"/>
@@ -22,24 +22,25 @@
                 </th>
             </tr>
             <tr class="bg-info">
-                <th style="width:20%">关联ID</th>
+                <th style="width:11%">ID</th>
+                <th style="width:11%">关联ID</th>
                 <th st-sort="name" style="width:15%">姓名</th>
                 <th st-sort="cell" style="width:15%">手机</th>
                 <th st-sort="create" style="width:15%">创建时间</th>
-                <th st-sort="apply" style="width:10%">有效</th>
+                <th st-sort="apply" style="width:8%">有效</th>
                 <th style="width:20%">操作</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="item in displayedItems" class="editable-row">
-                <td style="display:none;">
+                <td  class="select-td">
                     <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                         {{item._id}}
                     </span>
                 </td>
                 <td class="select-td">
                     <span editable-text="item.link_id" e-name="link_id" e-form="rowform" e-required>
-                    {{ item.link_id || '空' }}
+                        {{ item.link_id || '空' }}
                     </span>
                 </td>
                 <td>
@@ -84,8 +85,8 @@
         </tbody>
         <tfoot>
         <tr>
-            <td colspan="6" class="text-center">
-                <div st-pagination="text-center" st-items-by-page="20" st-displayed-pages="8"></div>
+            <td colspan="7" class="text-center">
+                <div st-pagination="text-center" st-items-by-page="25" st-displayed-pages="20"></div>
             </td>
         </tr>
         </tfoot>
