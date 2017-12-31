@@ -98,9 +98,9 @@
             </div>
         </div>
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer" >
         <button type="button" class="btn btn-default" ng-click="closeMe()">取消</button>
-        <button type="button" class="btn btn-primary" ng-click="saveMe(data)">
+        <button type="button" class="btn btn-primary" ng-click="saveMe(data)" ng-disabled="processingCount>0">
             <i class="ion-android-checkmark-circle"></i>批量创建</button>
     </div>
 </div>

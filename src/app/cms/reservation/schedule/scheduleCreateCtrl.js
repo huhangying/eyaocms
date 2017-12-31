@@ -6,11 +6,14 @@
     'use strict';
 
     angular.module('BlurAdmin.cms.reservation.schedule')
+
+
         .controller('scheduleCreateCtrl', scheduleCreateCtrl);
 
     /** @ngInject */
-    function scheduleCreateCtrl($scope, $filter, $http, util, toastr, $q) {
+    function scheduleCreateCtrl($scope, $http, util, toastr, $q) {
         $scope.schedule = {};
+        $scope.processingCount = 0;
 
         // 没有这个多选 not working
         $scope.$watch('schedule.periods', function() {
@@ -112,7 +115,7 @@
                     case 3:
                         return $scope.schedule.days.wednesday;
                     case 4:
-                        return $scope.schedule.days.monday;
+                        return $scope.schedule.days.thursday;
                     case 5:
                         return $scope.schedule.days.friday;
                     case 6:
@@ -124,20 +127,20 @@
 
         }
 
-        $scope.createSchedule = function(date, period){
+        var createSchedule = function(date, period){
             var deferred = $q.defer();
             var data = {
                 doctor: $scope.doctor._id,
                 period: period._id,
                 date: date,
                 limit: $scope.schedule.limit
-
             };
 
+            console.log('> ' + date.getDate() + ' ' + (new Date).toISOString());
             $http.post(util.baseApiUrl + 'schedule', data).then(
 
                 function (response) {
-
+                    $scope.processingCount--;
                     // check if return null
                     if (response.data.return && response.data.return == 'null'){
                         toastr.info('门诊经存在');
@@ -147,18 +150,20 @@
                         toastr.success('创建门诊成功');
                         deferred.resolve(response.data);
                     }
-
                 },
                 function(err){
+                    $scope.processingCount--;
+                    toastr.error('创建门诊失败');
                     deferred.reject();
                 }
             );
-
             return deferred.promise;
         }
 
+
         $scope.saveMe = function(item) {
             var promises = [];
+            $scope.processingCount = 0;
 
             // validation first
             if (!$scope.schedule.periods || $scope.schedule.periods.length < 1){
@@ -170,30 +175,68 @@
                 return;
             }
 
-
+            var url = util.baseApiUrl + 'schedule';
             var dates = $scope.getAvailableDates();
+            var dateLength = dates.length;
+            var periodLength = $scope.schedule.periods.length;
             //toastr.info(JSON.stringify(dates));
-            dates.map(function(date){
+            dates.forEach(function(date, index){
 
-                $scope.schedule.periods.map(function(period){
-                    // search by
-                    promises.push($scope.createSchedule(date, period));
+                $scope.schedule.periods.forEach(function(period, _index){
+
+                    // var data = {
+                    //     doctor: $scope.doctor._id,
+                    //     period: period._id,
+                    //     date: date,
+                    //     limit: $scope.schedule.limit
+                    // };
+
+                    window.setTimeout(function() {
+                        createSchedule(date, period).then(function(item) {
+                            // $scope.$apply();
+                        });
+                        $scope.processingCount++;
+                    }, (index * periodLength + _index) * 800 );
+
+
+                    // window.setTimeout(function(){
+                    //     console.log(interval);
+                    //     createSchedule(date, period);
+                    // }, Math.floor(Math.random() * 500 * dateLength));
+
                 })
             });
+            // dates.map(function(date){
+            //
+            //     $scope.schedule.periods.map(function(period){
+            //         // search by
+            //         var data = {
+            //             doctor: $scope.doctor._id,
+            //             period: period._id,
+            //             date: date,
+            //             limit: $scope.schedule.limit
+            //
+            //         };
+            //         //promises.push(createSchedule(url, data));
+            //         $timeout(function(){createSchedule(url, data).then(function(result) {
+            //             console.log(result);
+            //         });}, 500);
+            //     })
+            // });
 
 
-            $q.all(promises).then(
-                function(results) {
-                    results = results.filter(function(result) {
-                        return result;
-                    });
-                    //console.log(results);
-                    $scope.$close(results);
-                },
-                function(err) {
-                    $scope.dismiss();
-                }
-            );
+            // $q.all(promises).then(
+            //     function(results) {
+            //         results = results.filter(function(result) {
+            //             return result;
+            //         });
+            //         //console.log(results);
+            //         $scope.$close(results);
+            //     },
+            //     function(err) {
+            //         $scope.dismiss();
+            //     }
+            // );
 
 
             //validate
